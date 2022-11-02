@@ -32,6 +32,8 @@ const AppContainer = () => {
     }
   }, [lat, long]);
 
+  console.log('andrews change');
+
   return <App />;
 };
 
