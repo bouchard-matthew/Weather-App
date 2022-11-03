@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useStore } from "../../Context/useAppStore";
 import App from "./App";
 const { REACT_APP_API_KEY } = process.env;
@@ -31,8 +31,6 @@ const AppContainer = () => {
       );
     }
   }, [lat, long, units]);
-
-  console.log("andrew my change");
 
   return <App />;
 };
