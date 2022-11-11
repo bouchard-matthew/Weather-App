@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
 require("./Header.css");
 
 const Header = () => {
@@ -10,7 +11,7 @@ const Header = () => {
           <p>Weather</p>
         </div>
         <div>
-          Search Icon <input />
+          <SearchIcon /> <input />
         </div>
         <div>
           <p>Option menu</p>

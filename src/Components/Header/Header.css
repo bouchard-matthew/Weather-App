@@ -44,6 +44,10 @@
   padding: 15px;
 }
 
+.main > div > * {
+  vertical-align: middle;
+}
+
 .main > div:not(:first-child) > p {
   text-align: center;
 }
