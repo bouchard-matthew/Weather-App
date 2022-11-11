@@ -1,32 +1,49 @@
 .navigation {
-    height: 10%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding: 0.5rem 0rem;
-    background-color: rgba(11, 104, 167, 0.527);
-    color: black;
-    box-shadow: 0 2px 2px 2px rgba(9, 9, 9, 0.23);
+  height: 10%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0.5rem 0rem;
+  background-color: rgba(11, 104, 167, 0.527);
+  color: black;
+  box-shadow: 0 2px 2px 2px rgba(9, 9, 9, 0.23);
 }
 
 .listItems {
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
-    list-style: none;
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  list-style: none;
 }
 
 .listItems > li > a {
-    text-decoration: none;
-    color: black;
-    font-size: 20px;
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
 }
 
 .weather {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    background-color: rgba(207, 115, 9, 0.527);
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: rgba(207, 115, 9, 0.527);
 }
 
+.weather > div > * {
+  vertical-align: middle;
+}
+
+.main {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.main > div {
+  width: 100%;
+  padding: 15px;
+}
+
+.main > div:not(:first-child) > p {
+  text-align: center;
+}
