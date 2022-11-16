@@ -27,7 +27,7 @@ const AppContainer = () => {
 
   useEffect(() => {
     if (lat !== undefined && long !== undefined) {
-      fetchWeatherData();
+      // fetchWeatherData();
     } else {
       navigator.geolocation.getCurrentPosition(
         function (position) {
