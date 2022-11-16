@@ -50,4 +50,5 @@
 
 .main > div:not(:first-child) > p {
   text-align: center;
+  margin: auto;
 }
