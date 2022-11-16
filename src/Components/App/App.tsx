@@ -8,6 +8,7 @@ import { Current } from "../Current";
 import { Hourly } from "../Hourly";
 import { Weekly } from "../Weekly";
 import { Footer } from "../Footer";
+import { Units } from "../../Types/types";
 
 const { REACT_APP_API_KEY } = process.env;
 
@@ -16,7 +17,9 @@ const AppContainer = () => {
 
   const fetchWeatherData = async () => {
     let weather = await axios.get(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=minutely&appid=${REACT_APP_API_KEY}&units=${units}`
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=minutely&appid=${REACT_APP_API_KEY}&units=${
+        Units[`${units}`]
+      }`
     );
 
     console.dir(weather.data);
