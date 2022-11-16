@@ -1,7 +1,38 @@
 import React from "react";
-import { LineChart, XAxis, Line, Tooltip, YAxis, Legend } from "recharts";
+import { LineChart, XAxis, Line, Tooltip, YAxis, Legend, ResponsiveContainer } from "recharts";
 
-let hourlyData: any = [
+export type NestedWeatherObject = {
+  id: number,
+  main: string,
+  description: string,
+  icon: string,
+}
+
+export type HourlyObject = {
+  dt: number,
+  temp: number,
+  feels_like: number,
+  pressure: number,
+  humidity: number,
+  dew_point: number,
+  uvi: number,
+  clouds: number,
+  visibility: number,
+  wind_speed: number,
+  wind_deg: number,
+  wind_gust: number,
+  weather: NestedWeatherObject[],
+  pop: number,
+}
+
+export type NewHourlyObject = Omit<HourlyObject, "feels_like"| "humidity"| "clouds"| "temp"> & {
+  "Feels Like": number,
+  "Temperature": number,
+  "Humidity": number,
+  "Clouds": number,
+}
+
+let hourlyData: HourlyObject[] = [
   {
     dt: 1668556800,
     temp: 44.44,
@@ -1108,48 +1139,33 @@ let hourlyData: any = [
   },
 ];
 
-let array: any = [];
-let keys = Object.keys(hourlyData[0]);
-for (let i = 0; i < hourlyData.length / 2; i++) {
-  let temp: any = {};
-  for (let j = 0; j < keys.length; j++) {
-    let str;
-    if (keys[j].indexOf("_") > -1) {
-      str =
-        keys[j].charAt(0).toUpperCase() +
-        keys[j].substring(1, keys[j].indexOf("_")) +
-        " " +
-        keys[j].charAt(keys[j].indexOf("_") + 1).toUpperCase() +
-        keys[j].substring(keys[j].indexOf("_") + 2);
-    } else {
-      str = keys[j].charAt(0).toUpperCase() + keys[j].substring(1);
-    }
-    console.log(str);
-    temp[str] = hourlyData[i][keys[j]];
+let array: NewHourlyObject[] = [];
+hourlyData.map((item, index) => {
+  if (index <= hourlyData.length / 4) {
+    let obj: NewHourlyObject = Object.assign({}, item, {"Humidity": Math.round(item.humidity), "Feels Like": Math.round(item.feels_like), "Clouds": Math.round(item.clouds), "Temperature": Math.round(item.temp)});
+    array.push(obj);
   }
-  array.push(temp);
-}
+})
 
 const Hourly = () => {
   return (
     <>
-      <LineChart
-        width={1000}
-        height={400}
+     <ResponsiveContainer width="95%" height={300}>
+     <LineChart
         data={array}
         margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
       >
         <XAxis
           dataKey={(dt) =>
-            new Date(dt["Dt"] * 1000).toLocaleString("en-us", {
+            new Date(dt["dt"] * 1000).toLocaleString("en-us", {
               hour: "2-digit",
               minute: "2-digit",
             })
           }
         />
-        <Tooltip />
+        <Tooltip  />
         <YAxis type="number" />
-        <Line type="monotone" dataKey="Temp" stroke="red" yAxisId={0} />
+        <Line type="monotone" dataKey="Temperature" stroke="red" yAxisId={0} />
         <Line
           type="monotone"
           dataKey="Feels Like"
@@ -1160,8 +1176,28 @@ const Hourly = () => {
         <Line type="monotone" dataKey="Clouds" stroke="grey" yAxisId={0} />
         <Legend />
       </LineChart>
+     </ResponsiveContainer>
+
+      <hr />
+
+      {hourlyData && hourlyData.map((item, index) => {
+        return  (
+        <div key={index}>
+          <HourlyChild {...item} />
+        </div>
+      )})}
     </>
   );
 };
 
 export default Hourly;
+
+const HourlyChild = (item: HourlyObject) => {
+  return (
+    <><span style={{padding: '16px'}}>{new Date(item.dt * 1000).toLocaleString("en-us", {hour: "2-digit", minute: "2-digit"})}</span>
+    <span style={{padding: '16px'}}>{item.temp}° Unit </span>
+    <span style={{padding: '16px'}}>{item.weather[0].description}</span>
+    <span style={{padding: "16px"}}>{item.pop*100}% Chance of Precipitation</span>
+    <span style={{padding: "16px"}}>Wind {item.wind_speed} Unit Speed with gusts at {item.wind_gust} Unit Speed</span></>
+  )
+}
