@@ -9,6 +9,9 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
+import TodayTwoToneIcon from '@mui/icons-material/TodayTwoTone';
+import WatchLaterTwoToneIcon from '@mui/icons-material/WatchLaterTwoTone';
+import DateRangeTwoToneIcon from '@mui/icons-material/DateRangeTwoTone';
 
 require("./Header.css");
 
@@ -54,13 +57,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const responsivePaper = {
+  display: { xs: "none", sm: "none", md: 'inline', lg: "inline" }
+
+};
 
 const Header = () => {
   return (
     <>
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
+      <AppBar position="static" sx={{ bgcolor: "white" }}>
+        <Toolbar className={'main'}>
           <IconButton
             size="large"
             edge="start"
@@ -75,54 +82,93 @@ const Header = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }}}
           >
             Weather
           </Typography>
+
           <Search>
+
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
+
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+        </Toolbar>
 
+        <Toolbar  className={"weather"}>
+          <div>
+            <img alt="img1" src="http://openweathermap.org/img/wn/10d.png" />
+            <Typography
+              noWrap
+              component="span"
+            >
+              Rainy
+            </Typography>
+          </div>
+          
+          <div>
+            <img alt="img2" src="http://openweathermap.org/img/wn/02d.png" />
+            <Typography
+              noWrap
+              component="span"
+            >
+              Partly Cloudy
+            </Typography>
+          </div>
+          
+          <div>
+            <img alt="img3" src="http://openweathermap.org/img/wn/01d.png" />
+            <Typography
+              noWrap
+              component="span"
+            >
+              Sunny
+            </Typography>
+        </div>    
+        </Toolbar>
 
+        <Toolbar className={'navigation'} disableGutters={true} variant="dense">
+            <div>
+                  <NavLink to="/">
+                    <Typography
+                      variant="h6"
+                      noWrap
+                      component="span"
+                    > 
+                      Today
+                    </Typography>
+                  </NavLink>
+            </div>
+            <div>
+                  <NavLink to="weekly">
+                    <Typography
+                      variant="h6"
+                      noWrap
+                      component="span"
+                    > 
+                      Weekly
+                    </Typography>
+                  </NavLink>
+            </div>
+            <div>
+                  <NavLink to="hourly">
+                    <Typography
+                      variant="h6"
+                      noWrap
+                      component="span"
+                    > 
+                      Hourly
+                    </Typography>
+                  </NavLink>
+            </div>
         </Toolbar>
       </AppBar>
     </Box>
-    <div className={"weather"}>
-        <div>
-          <img alt="img1" src="http://openweathermap.org/img/wn/10d.png" />
-          <span>Rainy</span>
-        </div>
-        
-        <div>
-          <img alt="img2" src="http://openweathermap.org/img/wn/02d.png" />
-          <span>Partly Cloudy</span>
-        </div>
-        
-        <div>
-          <img alt="img3" src="http://openweathermap.org/img/wn/01d.png" />
-          <span>Sunny</span>
-        </div>
-    </div>
-
-    <nav className={"navigation"}>
-        <ul className={"listItems"}>
-            <li>
-                <NavLink to="/">Today</NavLink>
-            </li>
-            <li>
-                <NavLink to="weekly">Weekly</NavLink>
-            </li>
-            <li>
-                <NavLink to="hourly">Hourly</NavLink>
-            </li>
-        </ul>
-    </nav>
     </>
   );
 }
