@@ -2,8 +2,7 @@ import * as React from 'react';
 import { NavLink } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from '@mui/material/styles';
-import { AppBar, Box, Toolbar, IconButton, Typography, InputBase, Grid }from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import { AppBar, Box, Toolbar, Typography, InputBase, Grid }from '@mui/material';
 import { Container } from '@mui/system';
 
 require("./Header.css");
@@ -57,15 +56,6 @@ const Header = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ bgcolor: "white" }}>
         <Toolbar sx={{ backgroundColor: "#FF7F50" }}>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
 
           <Typography
             variant="h6"
@@ -91,12 +81,13 @@ const Header = () => {
         
         <Toolbar sx={{ backgroundColor: '#6495ED' }}>
           <Container maxWidth="md">
-          <Grid container className={'weather'}>
+          <Grid container className={'weather'} sx={{textAlign: 'center'}}>
             <Grid item xs={4}>
               <img alt="img1" src="http://openweathermap.org/img/wn/10d.png" />
               <Typography
                 noWrap
                 component="span"
+                sx={{display:{xs: 'none'}}}
               >
                 Rainy
               </Typography>
@@ -107,6 +98,7 @@ const Header = () => {
               <Typography
                 noWrap
                 component="span"
+                sx={{display:{xs: 'none'}}}
               >
                 Partly Cloudy
               </Typography>
@@ -117,6 +109,7 @@ const Header = () => {
               <Typography
                 noWrap
                 component="span"
+                sx={{display:{xs: 'none'}}}
               >
                 Sunny
               </Typography>  
@@ -128,7 +121,7 @@ const Header = () => {
 
         <Toolbar disableGutters={true} variant="dense" sx={{ bgcolor: "#B0C4DE" }}>
           <Container maxWidth='md'>
-            <Grid container className={'navigation'}>
+            <Grid container className={'navigation'} sx={{textAlign: 'center'}}>
               <Grid item  xs={4}>
               <NavLink to="/">
                     <Typography
