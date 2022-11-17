@@ -11,7 +11,7 @@ const HourlyListContainer = () => {
       {hourly &&
         hourly.map((item, index) => {
           return (
-            <Container key={index}>
+            <Container sx={{marginBottom: '20px'}} key={index}>
               <HourlyList {...item} />
             </Container>
           );
