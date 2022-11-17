@@ -2,16 +2,9 @@ import * as React from 'react';
 import { NavLink } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
+import { AppBar, Box, Toolbar, IconButton, Typography, InputBase, Grid }from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import TodayTwoToneIcon from '@mui/icons-material/TodayTwoTone';
-import WatchLaterTwoToneIcon from '@mui/icons-material/WatchLaterTwoTone';
-import DateRangeTwoToneIcon from '@mui/icons-material/DateRangeTwoTone';
+import { Container } from '@mui/system';
 
 require("./Header.css");
 
@@ -57,17 +50,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const responsivePaper = {
-  display: { xs: "none", sm: "none", md: 'inline', lg: "inline" }
-
-};
 
 const Header = () => {
   return (
     <>
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ bgcolor: "white" }}>
-        <Toolbar className={'main'}>
+        <Toolbar sx={{ backgroundColor: "#FF7F50" }}>
           <IconButton
             size="large"
             edge="start"
@@ -99,42 +88,49 @@ const Header = () => {
             />
           </Search>
         </Toolbar>
+        
+        <Toolbar sx={{ backgroundColor: '#6495ED' }}>
+          <Container maxWidth="md">
+          <Grid container className={'weather'}>
+            <Grid item xs={4}>
+              <img alt="img1" src="http://openweathermap.org/img/wn/10d.png" />
+              <Typography
+                noWrap
+                component="span"
+              >
+                Rainy
+              </Typography>
+            </Grid>
 
-        <Toolbar  className={"weather"}>
-          <div>
-            <img alt="img1" src="http://openweathermap.org/img/wn/10d.png" />
-            <Typography
-              noWrap
-              component="span"
-            >
-              Rainy
-            </Typography>
-          </div>
-          
-          <div>
-            <img alt="img2" src="http://openweathermap.org/img/wn/02d.png" />
-            <Typography
-              noWrap
-              component="span"
-            >
-              Partly Cloudy
-            </Typography>
-          </div>
-          
-          <div>
-            <img alt="img3" src="http://openweathermap.org/img/wn/01d.png" />
-            <Typography
-              noWrap
-              component="span"
-            >
-              Sunny
-            </Typography>
-        </div>    
+            <Grid item xs={4}>
+              <img alt="img2" src="http://openweathermap.org/img/wn/02d.png" />
+              <Typography
+                noWrap
+                component="span"
+              >
+                Partly Cloudy
+              </Typography>
+            </Grid>
+
+            <Grid item xs={4}>
+              <img alt="img3" src="http://openweathermap.org/img/wn/01d.png" />
+              <Typography
+                noWrap
+                component="span"
+              >
+                Sunny
+              </Typography>  
+            </Grid>
+          </Grid>
+          </Container>
         </Toolbar>
 
-        <Toolbar className={'navigation'} disableGutters={true} variant="dense">
-            <div>
-                  <NavLink to="/">
+
+        <Toolbar disableGutters={true} variant="dense" sx={{ bgcolor: "#B0C4DE" }}>
+          <Container maxWidth='md'>
+            <Grid container className={'navigation'}>
+              <Grid item  xs={4}>
+              <NavLink to="/">
                     <Typography
                       variant="h6"
                       noWrap
@@ -143,8 +139,8 @@ const Header = () => {
                       Today
                     </Typography>
                   </NavLink>
-            </div>
-            <div>
+              </Grid>
+              <Grid item  xs={4}>
                   <NavLink to="weekly">
                     <Typography
                       variant="h6"
@@ -154,8 +150,8 @@ const Header = () => {
                       Weekly
                     </Typography>
                   </NavLink>
-            </div>
-            <div>
+              </Grid>
+              <Grid item  xs={4}>
                   <NavLink to="hourly">
                     <Typography
                       variant="h6"
@@ -165,7 +161,9 @@ const Header = () => {
                       Hourly
                     </Typography>
                   </NavLink>
-            </div>
+              </Grid>
+            </Grid>
+            </Container>
         </Toolbar>
       </AppBar>
     </Box>
