@@ -5,10 +5,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header } from "../Header";
 import { Alert } from "../Alert";
 import { Current } from "../Current";
-import { Hourly } from "../Hourly";
+import { HourlyChart } from "../HourlyChart";
 import { Weekly } from "../Weekly";
 import { Footer } from "../Footer";
 import { Units } from "../../Types/types";
+import { HourlyList } from "../HourlyList";
 
 const { REACT_APP_API_KEY } = process.env;
 
@@ -17,9 +18,7 @@ const AppContainer = () => {
 
   const fetchWeatherData = async () => {
     let weather = await axios.get(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=minutely&appid=${REACT_APP_API_KEY}&units=${
-        Units[`${units}`]
-      }`
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=minutely&appid=${REACT_APP_API_KEY}&units=${Units[`${units}`]}`
     );
 
     console.dir(weather.data);
@@ -55,7 +54,15 @@ const AppContainer = () => {
         <Routes>
           <Route path="/" element={<Current />} />
           <Route path="/weekly" element={<Weekly />} />
-          <Route path="/hourly" element={<Hourly />} />
+          <Route
+            path="/hourly"
+            element={
+              <>
+                <HourlyChart />
+                <HourlyList />
+              </>
+            }
+          />
         </Routes>
         <Footer />
       </BrowserRouter>
