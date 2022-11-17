@@ -2,7 +2,7 @@ import * as React from 'react';
 import { NavLink } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from '@mui/material/styles';
-import { AppBar, Box, Toolbar, Typography, InputBase, Grid }from '@mui/material';
+import { AppBar, Box, Toolbar, Typography, InputBase, Grid, Button }from '@mui/material';
 import { Container } from '@mui/system';
 
 require("./Header.css");
@@ -16,6 +16,7 @@ const Search = styled('div')(({ theme }) => ({
   },
   marginLeft: 0,
   width: '100%',
+  marginRight: theme.spacing(1),
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(1),
     width: 'auto',
@@ -50,7 +51,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-const Header = () => {
+const Header = ({handler, handleState}: any) => {
   return (
     <>
     <Box sx={{ flexGrow: 1 }}>
@@ -73,10 +74,12 @@ const Header = () => {
             </SearchIconWrapper>
 
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Search… zip"
               inputProps={{ 'aria-label': 'search' }}
+              onChange={(e) => handler(e)}
             />
           </Search>
+          <Button variant="outlined" onClick={(e) => handleState(e)}>GO</Button>
         </Toolbar>
         
         <Toolbar sx={{ backgroundColor: '#6495ED' }}>
