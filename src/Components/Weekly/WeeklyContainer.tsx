@@ -1,4 +1,3 @@
-import React from "react";
 import Weekly from "./Weekly";
 
 const WeeklyContainer = () => {
