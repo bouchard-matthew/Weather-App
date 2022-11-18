@@ -5,10 +5,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header } from "../Header";
 import { Alert } from "../Alert";
 import { Current } from "../Current";
-import { Hourly } from "../Hourly";
+import { HourlyChart } from "../HourlyChart";
 import { Weekly } from "../Weekly";
 import { Footer } from "../Footer";
-import CssBaseline from '@mui/material/CssBaseline';
+import { HourlyList } from "../HourlyList";
+import { CssBaseline } from "@mui/material";
 
 const { REACT_APP_API_KEY } = process.env;
 
@@ -25,7 +26,7 @@ const AppContainer = () => {
 
   useEffect(() => {
     if (lat !== undefined && long !== undefined) {
-      fetchWeatherData();
+      // fetchWeatherData();
     } else {
       navigator.geolocation.getCurrentPosition(
         function (position) {
@@ -48,13 +49,22 @@ const AppContainer = () => {
     <>
       <CssBaseline />
       <BrowserRouter>
+        <CssBaseline />
         <Header />
         {/* To Do: Alerts needs to be conditionally rendered. Path from weather object => weather.data.alerts */}
         {/* <Alert /> */}
         <Routes>
           <Route path="/" element={<Current />} />
           <Route path="/weekly" element={<Weekly />} />
-          <Route path="/hourly" element={<Hourly />} />
+          <Route
+            path="/hourly"
+            element={
+              <>
+                <HourlyChart />
+                <HourlyList />
+              </>
+            }
+          />
         </Routes>
         <Footer />
       </BrowserRouter>
