@@ -1,7 +1,7 @@
 export enum Units {
-  "imperial",
-  "metric",
-  "standard",
+  imperial = "imperial",
+  metric = "metric",
+  standard = "standard",
 }
 
 export type NestedWeatherObject = {
@@ -28,10 +28,7 @@ export type HourlyObject = {
   pop: number;
 };
 
-export type NewHourlyObject = Omit<
-  HourlyObject,
-  "feels_like" | "humidity" | "clouds" | "temp"
-> & {
+export type NewHourlyObject = Omit<HourlyObject, "feels_like" | "humidity" | "clouds" | "temp"> & {
   "Feels Like": number;
   Temperature: number;
   Humidity: number;

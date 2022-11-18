@@ -1,1 +1,1 @@
-export { default as HourlyChart } from "./HourlyChart";
+export { default as HourlyChart } from "./HourlyChartContainer";
