@@ -1,4 +1,3 @@
-import React from "react";
 import { useStore } from "Context/useAppStore";
 import HourlyChart from "./HourlyChart";
 

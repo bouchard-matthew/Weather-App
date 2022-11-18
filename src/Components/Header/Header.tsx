@@ -1,6 +1,5 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
+import { NavLink } from "react-router-dom";
 require("./Header.css");
 
 const Header = () => {

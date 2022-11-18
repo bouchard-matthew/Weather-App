@@ -1,6 +1,5 @@
 import create from "zustand";
-import { Units } from "../Types/types";
-import { HourlyObject, NewHourlyObject } from "../Types/types";
+import { Units, HourlyObject } from "Types/types";
 
 export type StoreState = {
   lat: Number | undefined;
