@@ -1,6 +1,5 @@
-import axios from "axios";
 import { useEffect } from "react";
-import { useStore } from "../../Context/useAppStore";
+import { useStore } from "Context/useAppStore";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header } from "../Header";
 import { Alert } from "../Alert";
@@ -11,18 +10,8 @@ import { Footer } from "../Footer";
 import { HourlyList } from "../HourlyList";
 import { CssBaseline } from "@mui/material";
 
-const { REACT_APP_API_KEY } = process.env;
-
 const AppContainer = () => {
   const { lat, long, setLat, setLong, units } = useStore();
-
-  const fetchWeatherData = async () => {
-    let weather = await axios.get(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=minutely&appid=${REACT_APP_API_KEY}&units=${units}`
-    );
-
-    console.dir(weather.data);
-  };
 
   useEffect(() => {
     if (lat !== undefined && long !== undefined) {
