@@ -1,4 +1,4 @@
-import { HourlyObject, NewHourlyObject } from "../../Types/types";
+import { HourlyObject, NewHourlyObject } from "../Types/types";
 
 export const prepareHourlyForRendering = (hourlyData: HourlyObject[]): NewHourlyObject[] => {
   let array: NewHourlyObject[] = [];

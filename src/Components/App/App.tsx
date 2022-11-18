@@ -10,6 +10,7 @@ import { Weekly } from "../Weekly";
 import { Footer } from "../Footer";
 import { Units } from "../../Types/types";
 import { HourlyList } from "../HourlyList";
+import { CssBaseline } from "@mui/material";
 
 const { REACT_APP_API_KEY } = process.env;
 
@@ -18,7 +19,7 @@ const AppContainer = () => {
 
   const fetchWeatherData = async () => {
     let weather = await axios.get(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=minutely&appid=${REACT_APP_API_KEY}&units=${Units[`${units}`]}`
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=minutely&appid=${REACT_APP_API_KEY}&units=${units}`
     );
 
     console.dir(weather.data);
@@ -48,6 +49,7 @@ const AppContainer = () => {
   return (
     <>
       <BrowserRouter>
+        <CssBaseline />
         <Header />
         {/* To Do: Alerts needs to be conditionally rendered. Path from weather object => weather.data.alerts */}
         {/* <Alert /> */}

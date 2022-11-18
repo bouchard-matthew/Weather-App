@@ -1,12 +1,14 @@
 import React from "react";
-import { useStore } from "../../Context/useAppStore";
 import { LineChart, XAxis, Line, Tooltip, YAxis, Legend, ResponsiveContainer } from "recharts";
-import { prepareHourlyForRendering } from "../Utils/dataFunctions";
+import { prepareHourlyForRendering } from "Utils/dataFunctions";
 import { Box } from "@mui/material";
+import { HourlyObject } from "Types/types";
 
-const HourlyContainer = () => {
-  const { hourly } = useStore();
+interface Props {
+  hourly: HourlyObject[];
+}
 
+const HourlyChart = ({ hourly }: Props) => {
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
       <ResponsiveContainer width="90%" height={400}>
@@ -32,4 +34,4 @@ const HourlyContainer = () => {
   );
 };
 
-export default HourlyContainer;
+export default HourlyChart;
