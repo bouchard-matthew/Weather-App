@@ -8,6 +8,7 @@ import { Current } from "../Current";
 import { Hourly } from "../Hourly";
 import { Weekly } from "../Weekly";
 import { Footer } from "../Footer";
+import CssBaseline from '@mui/material/CssBaseline';
 
 const { REACT_APP_API_KEY } = process.env;
 
@@ -45,6 +46,7 @@ const AppContainer = () => {
 
   return (
     <>
+      <CssBaseline />
       <BrowserRouter>
         <Header />
         {/* To Do: Alerts needs to be conditionally rendered. Path from weather object => weather.data.alerts */}

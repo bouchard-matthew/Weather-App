@@ -2,7 +2,13 @@ import * as React from "react";
 import Header from "./Header";
 
 const HeaderContainer = () => {
-  return <Header />;
+const [zip, setZip] = React.useState('');
+
+const setValue = (e: any) => {
+  setZip(e.target.value);
+  console.log(zip);
+}
+  return <Header handleState={setValue} />;
 };
 
 export default HeaderContainer;
