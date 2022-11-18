@@ -47,6 +47,7 @@ const AppContainer = () => {
 
   return (
     <>
+      <CssBaseline />
       <BrowserRouter>
         <CssBaseline />
         <Header />
