@@ -8,7 +8,6 @@ import { Current } from "../Current";
 import { HourlyChart } from "../HourlyChart";
 import { Weekly } from "../Weekly";
 import { Footer } from "../Footer";
-import { Units } from "../../Types/types";
 import { HourlyList } from "../HourlyList";
 import { CssBaseline } from "@mui/material";
 

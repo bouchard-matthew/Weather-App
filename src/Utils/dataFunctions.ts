@@ -1,4 +1,4 @@
-import { HourlyObject, NewHourlyObject } from "../Types/types";
+import { HourlyObject, NewHourlyObject, Units } from "Types/types";
 
 export const prepareHourlyForRendering = (hourlyData: HourlyObject[]): NewHourlyObject[] => {
   let array: NewHourlyObject[] = [];
@@ -14,4 +14,22 @@ export const prepareHourlyForRendering = (hourlyData: HourlyObject[]): NewHourly
   });
 
   return array;
+};
+
+export const returnUnitSpeed = (unit: Units): string => {
+  switch (unit) {
+    case Units.imperial:
+      return "mph";
+    default:
+      return "kph";
+  }
+};
+
+export const returnUnitTemperature = (unit: Units): string => {
+  switch (unit) {
+    case Units.imperial:
+      return "F";
+    default:
+      return "C";
+  }
 };

@@ -1,4 +1,3 @@
-import React from "react";
 import { LineChart, XAxis, Line, Tooltip, YAxis, Legend, ResponsiveContainer } from "recharts";
 import { prepareHourlyForRendering } from "Utils/dataFunctions";
 import { Box } from "@mui/material";

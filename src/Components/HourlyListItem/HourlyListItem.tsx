@@ -1,12 +1,15 @@
-import { Box, Typography } from "@mui/material";
-import { HourlyObject, Units } from "Types/types";
-import { styled } from "@mui/material/styles";
-import { capitalizeFirstLetter } from "Utils/stringFunctions";
-import moment from "moment";
+import dayjs from "dayjs";
 import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import OpacityIcon from "@mui/icons-material/Opacity";
 import AirIcon from "@mui/icons-material/Air";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Box, Typography } from "@mui/material";
+import { styled } from "@mui/material/styles";
+
+// Importing Functions
+import { returnUnitSpeed, returnUnitTemperature } from "Utils/dataFunctions";
+import { capitalizeFirstLetter } from "Utils/stringFunctions";
+import { HourlyListItemProps } from "./HourlyListItem.types";
 
 const StyledListItem = styled("div")(() => ({
   display: "flex",
@@ -15,22 +18,17 @@ const StyledListItem = styled("div")(() => ({
   },
 }));
 
-interface Props {
-  item: HourlyObject;
-  units: Units;
-}
-
-const HourlyListItem = ({ item, units }: Props) => {
+const HourlyListItem = ({ item, units }: HourlyListItemProps) => {
   return (
     <>
-      {moment(item.dt * 1000).format("hha") == "12am" && (
-        <Box sx={{ background: "lightgrey", padding: "15px 10px", textAlign: "center" }}>{moment(item.dt * 1000).format("dddd, MMMM Do")}</Box>
+      {dayjs(item.dt * 1000).format("hha") === "12am" && (
+        <Box sx={{ background: "lightgrey", padding: "15px 10px", textAlign: "center" }}>{dayjs(item.dt * 1000).format("dddd, MMMM D")}</Box>
       )}
       <Accordion sx={{ border: "1px solid black" }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
           <Box sx={{ width: "100%", display: "flex", justifyContent: "space-evenly" }}>
             <StyledListItem>
-              <Typography>{moment(item.dt * 1000).format("hh:MM A")}</Typography>
+              <Typography>{dayjs(item.dt * 1000).format("hh:MM A")}</Typography>
             </StyledListItem>
 
             <StyledListItem>
@@ -63,24 +61,6 @@ const HourlyListItem = ({ item, units }: Props) => {
       </Accordion>
     </>
   );
-};
-
-const returnUnitSpeed = (unit: Units): string => {
-  switch (unit) {
-    case Units.imperial:
-      return "mph";
-    default:
-      return "kph";
-  }
-};
-
-const returnUnitTemperature = (unit: Units): string => {
-  switch (unit) {
-    case Units.imperial:
-      return "F";
-    default:
-      return "C";
-  }
 };
 
 export default HourlyListItem;

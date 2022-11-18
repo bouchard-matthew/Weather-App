@@ -11,9 +11,7 @@ export const capitalizeFirstLetter = (string: string): string => {
   let result: string = "";
 
   capitalizedWords.map((word, index) => {
-    return index == capitalizedWords.length - 1
-      ? (result += word)
-      : (result += word + " ");
+    return index === capitalizedWords.length - 1 ? (result += word) : (result += word + " ");
   });
 
   return result;

@@ -1,4 +1,3 @@
-import React from "react";
 import { useStore } from "Context/useAppStore";
 import HourlyList from "./HourlyList";
 
