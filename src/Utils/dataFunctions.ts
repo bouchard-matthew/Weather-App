@@ -1,4 +1,8 @@
 import { HourlyObject, NewHourlyObject, Units } from "Types/types";
+import axios from "axios";
+import { useStore } from "Context/useAppStore";
+const { lat, long, setLat, setLong, units } = useStore();
+const { REACT_APP_API_KEY } = process.env;
 
 export const prepareHourlyForRendering = (hourlyData: HourlyObject[]): NewHourlyObject[] => {
   let array: NewHourlyObject[] = [];
@@ -32,4 +36,12 @@ export const returnUnitTemperature = (unit: Units): string => {
     default:
       return "C";
   }
+};
+
+export const fetchWeatherData = async () => {
+  let weather = await axios.get(
+    `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=minutely&appid=${REACT_APP_API_KEY}&units=${units}`
+  );
+
+  return weather;
 };
