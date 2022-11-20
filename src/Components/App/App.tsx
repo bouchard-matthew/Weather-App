@@ -11,6 +11,7 @@ import { HourlyList } from "../HourlyList";
 import { CssBaseline } from "@mui/material";
 import axios from "axios";
 import { setLatAndLong, userWeatherDataAvailable } from "Utils/dataFunctions";
+import { Weather } from "Types/types";
 
 const { REACT_APP_API_KEY } = process.env;
 
@@ -22,7 +23,12 @@ const AppContainer = () => {
       let weather = await axios.get(
         `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=minutely&appid=${REACT_APP_API_KEY}&units=${units}`
       );
+
+      let weatherArray: Weather[] = [];
+      weatherArray.push(weather.data);
+
       localStorage.setItem("weather", JSON.stringify(weather.data));
+      localStorage.setItem("weatherData", JSON.stringify(weatherArray));
       console.log("Weather fetched. Set in localStorage");
       setWeather(weather.data);
       return weather;
