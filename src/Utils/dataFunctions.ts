@@ -1,10 +1,6 @@
-import { HourlyObject, NewHourlyObject, Units } from "Types/types";
-import axios from "axios";
-import { useStore } from "Context/useAppStore";
-const { lat, long, setLat, setLong, units } = useStore();
-const { REACT_APP_API_KEY } = process.env;
+import { Current, NewHourlyObject, Units } from "Types/types";
 
-export const prepareHourlyForRendering = (hourlyData: HourlyObject[]): NewHourlyObject[] => {
+export const prepareHourlyForRendering = (hourlyData: Current[]): NewHourlyObject[] => {
   let array: NewHourlyObject[] = [];
 
   hourlyData.map((item) => {
@@ -38,10 +34,38 @@ export const returnUnitTemperature = (unit: Units): string => {
   }
 };
 
-export const fetchWeatherData = async () => {
-  let weather = await axios.get(
-    `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=minutely&appid=${REACT_APP_API_KEY}&units=${units}`
-  );
+export const userLocationAvailable = () => {
+  let userLocation = localStorage.getItem("location");
+  return userLocation !== null;
+};
 
-  return weather;
+export const setLatAndLong = (setLat: (latitude: Number) => void, setLong: (longitude: Number) => void) => {
+  if (!userLocationAvailable()) {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        setLat(position.coords.latitude);
+        setLong(position.coords.longitude);
+        localStorage.setItem("location", JSON.stringify({ latitude: position.coords.latitude, longitude: position.coords.longitude }));
+        return;
+      },
+      function (error) {
+        console.log(error);
+        return;
+      },
+      {
+        maximumAge: 60000,
+        timeout: 5000,
+        enableHighAccuracy: true,
+      }
+    );
+    return;
+  }
+  let userLocation = JSON.parse(localStorage.getItem("location") || "{}");
+  setLat(userLocation.latitude);
+  setLong(userLocation.longitude);
+};
+
+export const userWeatherDataAvailable = () => {
+  let userWeather = localStorage.getItem("weather");
+  return userWeather === null;
 };

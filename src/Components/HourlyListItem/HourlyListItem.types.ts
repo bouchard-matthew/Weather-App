@@ -1,7 +1,7 @@
-import { HourlyObject, Units } from "Types/types";
+import { Current, Units } from "Types/types";
 
 export interface HourlyListItemProps extends SharedProps {
-  item: HourlyObject;
+  item: Current;
 }
 
 export interface SharedProps {

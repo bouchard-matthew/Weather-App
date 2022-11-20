@@ -1,16 +1,25 @@
 import create from "zustand";
-import { Units, HourlyObject } from "Types/types";
+import { Units, Current, Weather } from "Types/types";
+
+type UserLocation = {
+  lat: Number | undefined;
+  long: Number | undefined;
+};
 
 export type StoreState = {
   lat: Number | undefined;
   long: Number | undefined;
+  location: UserLocation;
   setLat: (latitude: Number) => void;
   setLong: (longitude: Number) => void;
+  setLocation: (data: UserLocation) => void;
   units: Units;
-  hourly: HourlyObject[];
+  hourly: Current[];
+  weather: Weather | undefined;
+  setWeather: (data: Weather) => void;
 };
 
-let hourlyData: HourlyObject[] = [
+let hourlyData: Current[] = [
   {
     dt: 1668556800,
     temp: 44.44,
@@ -1122,7 +1131,12 @@ export const useStore = create<StoreState>((set) => ({
   lat: undefined,
   long: undefined,
   units: Units.imperial,
-  hourly: hourlyData,
+  hourly: [],
+  location: {
+    lat: undefined,
+    long: undefined,
+  },
+  weather: undefined,
   // methods for manipulating state
   setLat: (latitude: Number) => {
     set(() => ({ lat: latitude }));
@@ -1132,5 +1146,16 @@ export const useStore = create<StoreState>((set) => ({
   },
   setUnits: (unit: Units) => {
     set(() => ({ units: unit }));
+  },
+  setLocation: (data: UserLocation) => {
+    set(() => ({
+      location: {
+        lat: data.lat,
+        long: data.long,
+      },
+    }));
+  },
+  setWeather: (data: Weather) => {
+    set(() => ({ weather: data, hourly: data.hourly }));
   },
 }));
