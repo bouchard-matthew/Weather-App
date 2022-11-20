@@ -1,10 +1,10 @@
 import { LineChart, XAxis, Line, Tooltip, YAxis, Legend, ResponsiveContainer } from "recharts";
 import { prepareHourlyForRendering } from "Utils/dataFunctions";
 import { Box } from "@mui/material";
-import { HourlyObject } from "Types/types";
+import { Current } from "Types/types";
 
 interface Props {
-  hourly: HourlyObject[];
+  hourly: Current[];
 }
 
 const HourlyChart = ({ hourly }: Props) => {

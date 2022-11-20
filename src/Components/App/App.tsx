@@ -9,29 +9,34 @@ import { Weekly } from "../Weekly";
 import { Footer } from "../Footer";
 import { HourlyList } from "../HourlyList";
 import { CssBaseline } from "@mui/material";
+import axios from "axios";
+import { setLatAndLong, userWeatherDataAvailable } from "Utils/dataFunctions";
+
+const { REACT_APP_API_KEY } = process.env;
 
 const AppContainer = () => {
-  const { lat, long, setLat, setLong, units } = useStore();
+  const { lat, long, setLat, setLong, units, weather, setWeather } = useStore();
+
+  const fetchWeatherData = async (run: Boolean) => {
+    if (run) {
+      let weather = await axios.get(
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=minutely&appid=${REACT_APP_API_KEY}&units=${units}`
+      );
+      localStorage.setItem("weather", JSON.stringify(weather.data));
+      console.log("Weather fetched. Set in localStorage");
+      setWeather(weather.data);
+      return weather;
+    }
+    console.log("Weather previously fetched. Found in localStorage");
+    setWeather(JSON.parse(localStorage.getItem("weather") || "{}"));
+  };
 
   useEffect(() => {
-    if (lat !== undefined && long !== undefined) {
-      // fetchWeatherData();
-    } else {
-      navigator.geolocation.getCurrentPosition(
-        function (position) {
-          setLat(position.coords.latitude);
-          setLong(position.coords.longitude);
-        },
-        function (error) {
-          console.log(error);
-        },
-        {
-          maximumAge: 60000,
-          timeout: 5000,
-          enableHighAccuracy: true,
-        }
-      );
+    setLatAndLong(setLat, setLong);
+    if (lat && long) {
+      fetchWeatherData(userWeatherDataAvailable());
     }
+    console.log(weather);
   }, [lat, long, units]);
 
   return (
