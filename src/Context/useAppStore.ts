@@ -8,6 +8,7 @@ export type StoreState = {
   setLat: (latitude: Number) => void;
   setLong: (longitude: Number) => void;
   units: Units;
+  setUnits: (unit: Units) => void;
   hourly: Current[];
   weather: Weather | undefined;
   setWeather: (data: Weather) => void;

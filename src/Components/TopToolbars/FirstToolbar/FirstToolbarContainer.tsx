@@ -1,22 +1,22 @@
 import FirstToolbar from "./FirstToolbar";
 import { useState } from "react";
+import { useStore } from "Context/useAppStore";
 
 let defaultVal: string = "";
 
 const FirstToolbarContainer = () => {
-    const [ zip, setZip ] = useState<string>(defaultVal);
+  const { units, setUnits } = useStore();
+  const [zip, setZip] = useState<string>(defaultVal);
 
-    const setValue = () => {
-        setZip(defaultVal);
-    };
+  const setValue = () => {
+    setZip(defaultVal);
+  };
 
-    const setElementValue = (e: any) => {
-        defaultVal = e.target.value;
-    }
+  const setElementValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    defaultVal = e.target.value;
+  };
 
-    return (
-        <FirstToolbar handleState={setValue} handler={setElementValue} />
-    )
-}
+  return <FirstToolbar handleState={setValue} handler={setElementValue} units={units} setUnits={setUnits} />;
+};
 
 export default FirstToolbarContainer;
