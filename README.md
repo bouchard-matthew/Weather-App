@@ -1,4 +1,4 @@
-Weather app that requests user geolocation data using Navigator to fetch weather data from OpenWeatherMap's publicly available API. 
+Weather app that requests user geolocation data to fetch weather data from OpenWeatherMap's publicly available API. 
 
 # Features
 Users can view weather data in the following formats:
