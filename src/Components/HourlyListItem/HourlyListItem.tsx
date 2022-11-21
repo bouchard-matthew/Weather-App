@@ -1,13 +1,17 @@
 import dayjs from "dayjs";
-import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
+import { Accordion, AccordionSummary, AccordionDetails, Container } from "@mui/material";
+import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import OpacityIcon from "@mui/icons-material/Opacity";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import ShowerIcon from "@mui/icons-material/Shower";
+import CloudIcon from "@mui/icons-material/Cloud";
 import AirIcon from "@mui/icons-material/Air";
 import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 // Importing Functions
-import { returnUnitSpeed, returnUnitTemperature } from "Utils/dataFunctions";
+import { degToCard, returnUnitSpeed, returnUnitTemperature } from "Utils/dataFunctions";
 import { capitalizeFirstLetter } from "Utils/stringFunctions";
 import { HourlyListItemProps } from "./HourlyListItem.types";
 
@@ -15,6 +19,19 @@ const StyledListItem = styled("div")(() => ({
   display: "flex",
   "& p, & svg": {
     margin: "auto 0",
+  },
+  "& p": {
+    paddingLeft: "5px",
+    paddingRight: "5px",
+  },
+}));
+
+const AccordionListItem = styled("div")(() => ({
+  display: "flex",
+  "& p": {
+    paddingLeft: "5px",
+    paddingRight: "5px",
+    verticalAlign: "center",
   },
 }));
 
@@ -50,13 +67,57 @@ const HourlyListItem = ({ item, units }: HourlyListItemProps) => {
             <StyledListItem>
               <AirIcon style={{ color: "blue" }} />
               <Typography>
-                {Math.round(item.wind_speed)} {returnUnitSpeed(units)}
+                {degToCard(item.wind_deg)} {Math.round(item.wind_speed)} {returnUnitSpeed(units)}
               </Typography>
             </StyledListItem>
           </Box>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.</Typography>
+          <Container sx={{ marginBottom: "15px", display: "flex", justifyContent: "space-evenly" }}>
+            <AccordionListItem>
+              <DeviceThermostatIcon style={{ color: "blue" }} />
+              <Typography>
+                Feels like <br />
+                {Math.round(item.feels_like)}°
+              </Typography>
+            </AccordionListItem>
+            <AccordionListItem>
+              <AirIcon style={{ color: "blue" }} />
+              <Typography>
+                Wind <br />
+                {degToCard(item.wind_deg)} {Math.round(item.wind_speed)} {returnUnitSpeed(units)}
+              </Typography>
+            </AccordionListItem>
+            <AccordionListItem>
+              <OpacityIcon style={{ color: "blue" }} />
+              <Typography>
+                Humidity <br /> {Math.round(item.humidity)}%
+              </Typography>
+            </AccordionListItem>
+          </Container>
+          <hr />
+          <Container sx={{ marginBottom: "15px", marginTop: "15px", display: "flex", justifyContent: "space-evenly" }}>
+            <AccordionListItem>
+              <WbSunnyIcon style={{ color: "blue" }} />
+              <Typography>
+                UV Index <br />
+                {Math.round(item.uvi)} of 10
+              </Typography>
+            </AccordionListItem>
+            <AccordionListItem>
+              <CloudIcon style={{ color: "blue" }} />
+              <Typography>
+                Cloud Cover <br /> {Math.round(item.clouds)}%
+              </Typography>
+            </AccordionListItem>
+            <AccordionListItem>
+              <ShowerIcon style={{ color: "blue" }} />
+              <Typography>
+                Precip Amount <br />
+                {Math.round(item.pop)}%
+              </Typography>
+            </AccordionListItem>
+          </Container>
         </AccordionDetails>
       </Accordion>
     </>
