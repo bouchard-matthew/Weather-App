@@ -19,15 +19,14 @@ const AppContainer = () => {
 
   const fetchWeatherData = async (run: Boolean) => {
     if (run) {
-      let weather = await axios.get(
+      let res = await axios.get(
         `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=minutely&appid=${REACT_APP_API_KEY}&units=${units}`
       );
 
-      localStorage.setItem("weather", JSON.stringify(weather.data));
-      localStorage.setItem("weatherData", JSON.stringify(weatherArray));
       console.log("Weather fetched. Set in localStorage");
-      setWeather(weather.data);
-      return weather;
+      setWeather(res.data);
+      localStorage.setItem("weather", JSON.stringify(res.data));
+      return res.data;
     }
     console.log("Weather previously fetched. Found in localStorage");
     setWeather(JSON.parse(localStorage.getItem("weather") || "{}"));

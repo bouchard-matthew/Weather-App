@@ -120,13 +120,16 @@ export const prepDataForWeatherArray = (data: Weather, arr: Weather[]) => {
   if (idx > -1) {
     // If weather object is already in the weatherArray and updates the record
     temp[idx] = data;
+    localStorage.setItem("weatherData", JSON.stringify(temp));
     return temp;
   } else if ([...temp, data].length > 5) {
     // If adding the new weather object (data) ends up having length > 5, then it will remove last object and append data
     temp.pop();
+    localStorage.setItem("weatherData", JSON.stringify([...temp, data]));
     return [...temp, data];
   }
 
   // If no problem, the new weather object (data) will just be appended to the weather array
+  localStorage.setItem("weatherData", JSON.stringify([...temp, data]));
   return [...temp, data];
 };
