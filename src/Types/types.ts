@@ -69,6 +69,7 @@ export type Weather = {
   long: number;
   timezone: String;
   timezone_offset: number;
+  name?: string;
 };
 
 export type NestedWeatherObject = {

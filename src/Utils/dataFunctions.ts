@@ -9,7 +9,7 @@ export const prepareHourlyForRendering = (hourlyData: Current[]): NewHourlyObjec
       "Feels Like": Math.round(item.feels_like),
       Clouds: Math.round(item.clouds),
       Temperature: Math.round(item.temp),
-      Precipitation: Math.round(item.pop),
+      Precipitation: Math.round(item.pop * 100),
     });
     array.push(obj);
   });
@@ -110,28 +110,29 @@ export const degToCard = (deg: number) => {
   }
 };
 
-/* prepDataForWeatherArray accepts the following parameters:
-// - Data (new weather object)
-// - Arr (current weatherArray state variable) 
-// ... and returns the new weatherArray
-*/
 export const prepDataForWeatherArray = (data: Weather, arr: Weather[]) => {
-  let temp = [...arr];
-  let idx = temp.findIndex((item) => item.lat == data.lat && item.long == data.long);
+  let lsData = JSON.parse(localStorage.getItem("weatherData") || "[]");
+  let temp;
+  let idx;
+
+  if (lsData === null || lsData.length === 0) {
+    temp = [...arr];
+  } else {
+    temp = [...lsData];
+  }
+
+  idx = temp.findIndex((item) => item.lat === data.lat && item.long === data.long);
 
   if (idx > -1) {
-    // If weather object is already in the weatherArray and updates the record
     temp[idx] = data;
     localStorage.setItem("weatherData", JSON.stringify(temp));
     return temp;
-  } else if ([...temp, data].length > 5) {
-    // If adding the new weather object (data) ends up having length > 5, then it will remove last object and append data
+  } else if ([...temp, data].length > 3) {
     temp.pop();
     localStorage.setItem("weatherData", JSON.stringify([...temp, data]));
     return [...temp, data];
   }
 
-  // If no problem, the new weather object (data) will just be appended to the weather array
   localStorage.setItem("weatherData", JSON.stringify([...temp, data]));
   return [...temp, data];
 };
