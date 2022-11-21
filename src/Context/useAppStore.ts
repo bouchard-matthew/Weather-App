@@ -1,5 +1,6 @@
 import create from "zustand";
 import { Units, Current, Weather } from "Types/types";
+import { prepDataForWeatherArray } from "Utils/dataFunctions";
 
 type UserLocation = {
   lat: Number | undefined;
@@ -17,6 +18,7 @@ export type StoreState = {
   hourly: Current[];
   weather: Weather | undefined;
   setWeather: (data: Weather) => void;
+  weatherArray: Weather[];
 };
 
 export const useStore = create<StoreState>((set) => ({
@@ -30,6 +32,7 @@ export const useStore = create<StoreState>((set) => ({
     long: undefined,
   },
   weather: undefined,
+  weatherArray: [],
   // methods for manipulating state
   setLat: (latitude: Number) => {
     set(() => ({ lat: latitude }));
@@ -49,6 +52,7 @@ export const useStore = create<StoreState>((set) => ({
     }));
   },
   setWeather: (data: Weather) => {
-    set(() => ({ weather: data, hourly: data.hourly }));
+    // change state of weatherArray when weather is set (return of prepDataForWeatherArray function)
+    set((state) => ({ weather: data, hourly: data.hourly, weatherArray: prepDataForWeatherArray(data, state.weatherArray) }));
   },
 }));

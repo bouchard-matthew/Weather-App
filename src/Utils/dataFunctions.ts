@@ -1,4 +1,4 @@
-import { Current, NewHourlyObject, Units } from "Types/types";
+import { Current, NewHourlyObject, Units, Weather } from "Types/types";
 
 export const prepareHourlyForRendering = (hourlyData: Current[]): NewHourlyObject[] => {
   let array: NewHourlyObject[] = [];
@@ -68,4 +68,27 @@ export const setLatAndLong = (setLat: (latitude: Number) => void, setLong: (long
 export const userWeatherDataAvailable = () => {
   let userWeather = localStorage.getItem("weather");
   return userWeather === null;
+};
+
+/* prepDataForWeatherArray accepts the following parameters:
+// - Data (new weather object)
+// - Arr (current weatherArray state variable) 
+// ... and returns the new weatherArray
+*/
+export const prepDataForWeatherArray = (data: Weather, arr: Weather[]) => {
+  let temp = [...arr];
+  let idx = temp.findIndex((item) => item.lat == data.lat && item.long == data.long);
+
+  if (idx > -1) {
+    // If weather object is already in the weatherArray and updates the record
+    temp[idx] = data;
+    return temp;
+  } else if ([...temp, data].length > 5) {
+    // If adding the new weather object (data) ends up having length > 5, then it will remove last object and append data
+    temp.pop();
+    return [...temp, data];
+  }
+
+  // If no problem, the new weather object (data) will just be appended to the weather array
+  return [...temp, data];
 };
