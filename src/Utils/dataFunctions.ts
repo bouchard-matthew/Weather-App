@@ -30,8 +30,10 @@ export const returnUnitTemperature = (unit: Units): string => {
   switch (unit) {
     case Units.imperial:
       return "F";
-    default:
+    case Units.metric:
       return "C";
+    default:
+      return "K";
   }
 };
 

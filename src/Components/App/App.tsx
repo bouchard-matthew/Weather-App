@@ -39,11 +39,6 @@ const AppContainer = () => {
     }
   }, [lat, long, units]);
 
-  if (weather && weatherArray) {
-    console.log("Weather: ", weather);
-    console.log("Weather Array: ", weatherArray);
-  }
-
   return (
     <>
       <CssBaseline />
