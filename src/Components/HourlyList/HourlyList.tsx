@@ -1,9 +1,9 @@
 import { Container } from "@mui/material";
-import { HourlyObject, Units } from "Types/types";
+import { Current, Units } from "Types/types";
 import { HourlyListItem } from "Components/HourlyListItem";
 
 interface Props {
-  hourly: HourlyObject[];
+  hourly: Current[];
   units: Units;
 }
 
