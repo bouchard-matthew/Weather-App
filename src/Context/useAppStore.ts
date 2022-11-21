@@ -13,6 +13,7 @@ export type StoreState = {
   weather: Weather | undefined;
   setWeather: (data: Weather) => void;
   weatherArray: Weather[];
+  deleteAtIndex: (index: number) => void;
 };
 
 export const useStore = create<StoreState>((set) => ({
@@ -36,5 +37,8 @@ export const useStore = create<StoreState>((set) => ({
   setWeather: (data: Weather) => {
     // change state of weatherArray when weather is set (return of prepDataForWeatherArray function)
     set((state) => ({ weather: data, hourly: data.hourly, weatherArray: prepDataForWeatherArray(data, state.weatherArray) }));
+  },
+  deleteAtIndex: (index: number) => {
+    set((state) => ({ weatherArray: state.weatherArray.filter((_, idx) => idx !== index) }));
   },
 }));
