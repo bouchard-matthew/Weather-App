@@ -78,9 +78,10 @@ export type NestedWeatherObject = {
   icon: string;
 };
 
-export type NewHourlyObject = Omit<Current, "feels_like" | "humidity" | "clouds" | "temp"> & {
+export type NewHourlyObject = Omit<Current, "feels_like" | "humidity" | "clouds" | "temp" | "pop"> & {
   "Feels Like": number;
   Temperature: number;
   Humidity: number;
   Clouds: number;
+  Precipitation: number;
 };
