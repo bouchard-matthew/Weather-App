@@ -8,32 +8,14 @@ import ShowerIcon from "@mui/icons-material/Shower";
 import CloudIcon from "@mui/icons-material/Cloud";
 import AirIcon from "@mui/icons-material/Air";
 import { Box, Typography } from "@mui/material";
-import { styled } from "@mui/material/styles";
+
+// Imprting Styled Components
+import { StyledListItem, AccordionListItem } from "StyledComponents/Style";
 
 // Importing Functions
 import { degToCard, returnUnitSpeed, returnUnitTemperature } from "Utils/dataFunctions";
 import { capitalizeFirstLetter } from "Utils/stringFunctions";
 import { HourlyListItemProps } from "./HourlyListItem.types";
-
-const StyledListItem = styled("div")(() => ({
-  display: "flex",
-  "& p, & svg": {
-    margin: "auto 0",
-  },
-  "& p": {
-    paddingLeft: "5px",
-    paddingRight: "5px",
-  },
-}));
-
-const AccordionListItem = styled("div")(() => ({
-  display: "flex",
-  "& p": {
-    paddingLeft: "5px",
-    paddingRight: "5px",
-    verticalAlign: "center",
-  },
-}));
 
 const HourlyListItem = ({ item, units }: HourlyListItemProps) => {
   return (
@@ -55,13 +37,13 @@ const HourlyListItem = ({ item, units }: HourlyListItemProps) => {
             </StyledListItem>
 
             <StyledListItem>
-              <Typography sx={{ margin: "auto 0" }}>{capitalizeFirstLetter(item.weather[0].description)}</Typography>{" "}
+              <Typography sx={{ margin: "auto 0" }}>{capitalizeFirstLetter(item.weather[0].description)}</Typography>
               <img alt={item.weather[0].description} src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`} />
             </StyledListItem>
 
             <StyledListItem>
               <OpacityIcon style={{ color: "blue" }} />
-              <Typography>{item.pop * 100}%</Typography>
+              <Typography>{Math.round(item.pop * 100)}%</Typography>
             </StyledListItem>
 
             <StyledListItem>

@@ -136,3 +136,24 @@ export const prepDataForWeatherArray = (data: Weather, arr: Weather[]) => {
   localStorage.setItem("weatherData", JSON.stringify([...temp, data]));
   return [...temp, data];
 };
+
+export const returnMoonPhase = (phase: number) => {
+  switch (true) {
+    case phase >= 0 && phase < 0.25:
+      return "Waxing Crescent";
+    case phase == 0.25:
+      return "First Quarter Moon";
+    case phase > 0.25 && phase < 0.5:
+      return "Waxing Gibious";
+    case phase == 0.5:
+      return "Full Moon";
+    case phase > 0.5 && phase < 0.75:
+      return "Waning Gibious";
+    case phase == 0.75:
+      return "Last Quarter Moon";
+    case phase > 0.75 && phase < 1:
+      return "Waning Crescent";
+    default:
+      return "New Moon";
+  }
+};
