@@ -5,7 +5,7 @@ import { Header } from "../Header";
 import { Alert } from "../Alert";
 import { Current } from "../Current";
 import { HourlyChart } from "../HourlyChart";
-import { Weekly } from "../Weekly";
+import { DailyList } from "../DailyList";
 import { Footer } from "../Footer";
 import { HourlyList } from "../HourlyList";
 import { CssBaseline } from "@mui/material";
@@ -62,6 +62,8 @@ const AppContainer = () => {
       setLong(userLocation.longitude);
       fetchWeatherData(true, userLocation.latitude, userLocation.longitude);
     }
+
+    console.dir(weather);
   }, []);
 
   return (
@@ -74,7 +76,7 @@ const AppContainer = () => {
         {/* <Alert /> */}
         <Routes>
           <Route path="/" element={<Current />} />
-          <Route path="/weekly" element={<Weekly />} />
+          <Route path="/daily" element={<DailyList />} />
           <Route
             path="/hourly"
             element={
