@@ -43,22 +43,12 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export const StyledListItem = styled("div")(() => ({
-  display: "flex",
-  "& p, & svg": {
-    margin: "auto 0",
-  },
-  "& p": {
-    paddingLeft: "5px",
-    paddingRight: "5px",
-  },
-}));
-
 export const AccordionListItem = styled("div")(() => ({
   display: "flex",
-  "& p": {
-    paddingLeft: "5px",
-    paddingRight: "5px",
-    verticalAlign: "center",
+  width: "100%",
+  justifyContent: "center",
+  textAlign: "center",
+  "& svg": {
+    height: "100%",
   },
 }));
