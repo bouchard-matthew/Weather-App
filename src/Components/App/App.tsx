@@ -10,7 +10,6 @@ import { Footer } from "../Footer";
 import { HourlyList } from "../HourlyList";
 import { CssBaseline } from "@mui/material";
 import axios from "axios";
-import { setLatAndLong, userWeatherDataAvailable } from "Utils/dataFunctions";
 
 const { REACT_APP_API_KEY } = process.env;
 
@@ -24,9 +23,10 @@ const AppContainer = () => {
       );
 
       console.log("Weather fetched. Set in localStorage");
-      setWeather(Object.assign({}, res.data, { name: "Home" }));
-      localStorage.setItem("weather", JSON.stringify(Object.assign({}, res.data, { name: "Home" })));
-      return Object.assign({}, res.data, { name: "Home" });
+      let data = Object.assign({}, res.data, { name: "Home" });
+      setWeather(data);
+      localStorage.setItem("weather", JSON.stringify(data));
+      return data;
     }
 
     console.log("Weather previously fetched. Found in localStorage");

@@ -1,5 +1,4 @@
 import React from "react";
-import { Box } from "@mui/material";
 import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import OpacityIcon from "@mui/icons-material/Opacity";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
@@ -9,7 +8,7 @@ import AirIcon from "@mui/icons-material/Air";
 
 // Imprting Styled Components
 import { AccordionListItem } from "StyledComponents/Style";
-import { Paragraph } from "Design";
+import { Paragraph, Flex } from "Design";
 
 import { degToCard, returnUnitSpeed } from "Utils/dataFunctions";
 import { Props } from "./HourlyListItemDetails.types";
@@ -17,7 +16,7 @@ import { Props } from "./HourlyListItemDetails.types";
 const HourlyListItemDetails = ({ item, units }: Props) => {
   return (
     <>
-      <Box sx={{ marginBottom: "15px", display: "flex", justifyContent: "space-evenly" }}>
+      <Flex sx={{ marginBottom: "15px", justifyContent: "space-evenly" }}>
         <AccordionListItem>
           <DeviceThermostatIcon style={{ color: "blue" }} />
           <Paragraph>
@@ -38,9 +37,9 @@ const HourlyListItemDetails = ({ item, units }: Props) => {
             Humidity <br /> {Math.round(item.humidity)}%
           </Paragraph>
         </AccordionListItem>
-      </Box>
+      </Flex>
       <hr />
-      <Box sx={{ marginBottom: "15px", marginTop: "15px", display: "flex", justifyContent: "space-evenly" }}>
+      <Flex sx={{ marginBottom: "15px", marginTop: "15px", justifyContent: "space-evenly" }}>
         <AccordionListItem>
           <WbSunnyIcon style={{ color: "blue" }} />
           <Paragraph>
@@ -61,7 +60,7 @@ const HourlyListItemDetails = ({ item, units }: Props) => {
             {Math.round(item.pop)}%
           </Paragraph>
         </AccordionListItem>
-      </Box>
+      </Flex>
     </>
   );
 };
