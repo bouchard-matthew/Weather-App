@@ -1,14 +1,13 @@
 import { useStore } from "Context/useAppStore";
-import { useState, useEffect } from "react";
+import { useHourlyWeather } from "Hooks/useHourlyWeather";
+import { useState } from "react";
 import HourlyChart from "./HourlyChart";
 
 const HourlyChartContainer = () => {
-  const { hourly } = useStore();
+  const { units } = useStore();
   const [toggle, setToggle] = useState<Boolean>(false);
 
-  useEffect(() => {}, [hourly]);
-
-  return <HourlyChart hourly={hourly} toggle={toggle} handleClick={setToggle} />;
+  return <HourlyChart hourly={useHourlyWeather() || []} toggle={toggle} handleClick={setToggle} units={units} />;
 };
 
 export default HourlyChartContainer;
