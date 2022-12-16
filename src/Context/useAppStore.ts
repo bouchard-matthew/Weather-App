@@ -1,48 +1,55 @@
 import create from "zustand";
 import { Units, Weather } from "Types/types";
-import { prepDataForWeatherArray } from "Utils/dataFunctions";
+import { persist } from "zustand/middleware";
+import { handleWeatherAppend } from "Utils/dataFunctions";
 
-export type StoreState = {
+export interface StoreState {
   lat: Number | undefined;
-  long: Number | undefined;
+  lon: Number | undefined;
   setLat: (latitude: Number) => void;
-  setLong: (longitude: Number) => void;
+  setLon: (longitude: Number) => void;
   units: Units;
   setUnits: (unit: Units) => void;
-  weather: Weather | undefined;
+  weather: Weather[];
   setWeather: (data: Weather) => void;
-  weatherArray: Weather[];
   deleteAtIndex: (index: number) => void;
-};
+  expiresAt: Number | undefined;
+}
 
-export const useStore = create<StoreState>((set) => ({
-  // initial state
-  lat: undefined,
-  long: undefined,
-  units: Units.imperial,
-  weather: undefined,
-  weatherArray: [],
-  // methods for manipulating state
-  setLat: (latitude: Number) => {
-    set(() => ({ lat: latitude }));
-  },
-  setLong: (longitude: Number) => {
-    set(() => ({ long: longitude }));
-  },
-  setUnits: (unit: Units) => {
-    set(() => ({ units: unit }));
-  },
-  setWeather: (data: Weather) => {
-    // change state of weatherArray when weather is set (return of prepDataForWeatherArray function)
-    set((state) => ({
-      weather: data,
-      weatherArray: prepDataForWeatherArray(data, state.weatherArray),
-    }));
-  },
-  deleteAtIndex: (index: number) => {
-    set((state) => ({ weatherArray: state.weatherArray.filter((_, idx) => idx !== index) }));
-  },
-}));
+export const useStore = create<StoreState>()(
+  persist(
+    (set) => ({
+      // initial state
+      lat: undefined,
+      lon: undefined,
+      units: Units.imperial,
+      weather: [],
+      expiresAt: undefined,
+      // methods for manipulating state
+      setLat: (latitude: Number) => {
+        set(() => ({ lat: latitude }));
+      },
+      setLon: (longitude: Number) => {
+        set(() => ({ lon: longitude }));
+      },
+      setUnits: (unit: Units) => {
+        set(() => ({ units: unit }));
+      },
+      setWeather: (data: Weather) => {
+        set((state) => ({
+          weather: handleWeatherAppend(state.weather, data),
+        }));
+      },
+      deleteAtIndex: (index: number) => {
+        set((state) => ({ weather: state.weather.filter((_, idx) => idx !== index) }));
+      },
+    }),
+    {
+      name: "Weather",
+      getStorage: () => localStorage,
+    }
+  )
+);
 
 // interface Data {
 //   lat: Number | undefined;

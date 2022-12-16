@@ -4,7 +4,7 @@ export enum Units {
   standard = "standard",
 }
 
-export type Current = {
+export interface Current {
   dt: number;
   sunrise?: number;
   sunset?: number;
@@ -21,9 +21,9 @@ export type Current = {
   wind_gust: number;
   weather: NestedWeatherObject[];
   pop: number;
-};
+}
 
-export type Daily = {
+export interface Daily {
   dt: number;
   sunrise: number;
   sunset: number;
@@ -43,7 +43,7 @@ export type Daily = {
   pop: number;
   uvi: number;
   rain?: number;
-};
+}
 
 export interface FeelsLike {
   day: number;
@@ -61,23 +61,23 @@ export interface Temp {
   morn: number;
 }
 
-export type Weather = {
+export interface Weather {
   current: Current;
   daily: Daily[];
   hourly: Current[];
   lat: number;
-  long: number;
+  lon: number;
   timezone: String;
   timezone_offset: number;
   name?: string;
-};
+}
 
-export type NestedWeatherObject = {
+export interface NestedWeatherObject {
   id: number;
   main: string;
   description: string;
   icon: string;
-};
+}
 
 export type NewHourlyObject = Omit<Current, "feels_like" | "humidity" | "clouds" | "temp" | "pop"> & {
   "Feels Like": number;

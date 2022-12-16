@@ -8,7 +8,7 @@ import { Props } from "./DailyListItem.types";
 const DailyListItem = ({ item, units, index }: Props) => {
   return (
     <>
-      <Accordion defaultExpanded={index === 0}>
+      <Accordion defaultExpanded={index === 0} sx={{ border: "1px solid black" }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
           <DailyListItemSummary item={item} index={index} units={units} />
         </AccordionSummary>
