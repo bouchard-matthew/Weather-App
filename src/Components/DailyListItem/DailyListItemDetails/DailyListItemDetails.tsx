@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 const DailyListItemDetails = ({ item, units }: Props) => {
   return (
     <>
-      <Flex sx={{ width: "100%", display: "flex", justifyContent: "space-evenly" }}>
+      <Flex sx={{ width: "100%", justifyContent: "space-evenly", flexDirection: { xs: "column" } }}>
         <Box
           sx={{
             "& p": {
