@@ -1,4 +1,4 @@
-Weather app that requests user geolocation data to fetch weather data from OpenWeatherMap's publicly available API. 
+Weather app that requests user geolocation data to fetch weather data from OpenWeatherMap's publicly available API.  
 
 # Features
 Users can view weather data in the following formats:
@@ -6,7 +6,7 @@ Users can view weather data in the following formats:
 2. Daily (Forecast for the next week / 7 days)
 3. Hourly (Forecast for the next 48 hours displayed using Recharts and top-down hour-by-hour breakdown)
 
-... utilizing mobile-first responsive UI thanks to MUI (Material UI).
+... utilizing mobile-first responsive UI thanks to MUI (Material UI), Typescript components, and Zustands light-weight / barebones state management system.
 
 
 
