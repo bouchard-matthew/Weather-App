@@ -1,14 +1,25 @@
 import { Current, NewHourlyObject, Units, Weather } from "Types/types";
 
-export const prepareHourlyForRendering = (hourlyData: Current[]): NewHourlyObject[] => {
+const convertTemperature = (temp: number, units: Units) => {
+  switch (units) {
+    case Units.imperial:
+      return Math.round(((temp - 273.15) * 9) / 5 + 32);
+    case Units.metric:
+      return Math.round(temp - 273.15);
+    default:
+      return Math.round(temp);
+  }
+};
+
+export const prepHourlyForRendering = (hourlyData: Current[], units: Units): NewHourlyObject[] => {
   let array: NewHourlyObject[] = [];
 
   hourlyData.map((item) => {
     let obj: NewHourlyObject = Object.assign({}, item, {
       Humidity: Math.round(item.humidity),
-      "Feels Like": Math.round(item.feels_like),
+      "Feels Like": convertTemperature(item.feels_like, units),
       Clouds: Math.round(item.clouds),
-      Temperature: Math.round(item.temp),
+      Temperature: convertTemperature(item.temp, units),
       Precipitation: Math.round(item.pop * 100),
     });
     array.push(obj);
@@ -17,33 +28,35 @@ export const prepareHourlyForRendering = (hourlyData: Current[]): NewHourlyObjec
   return array;
 };
 
-export const returnUnitSpeed = (unit: Units): string => {
-  switch (unit) {
-    case Units.imperial:
-      return "mph";
-    default:
-      return "kph";
-  }
-};
+export const prepDataForWeatherArray = (data: Weather, arr: Weather[]) => {
+  let lsData = JSON.parse(localStorage.getItem("weatherData") || "[]");
+  let temp;
+  let idx;
 
-export const returnUnitTemperature = (unit: Units): string => {
-  switch (unit) {
-    case Units.imperial:
-      return "F";
-    case Units.metric:
-      return "C";
-    default:
-      return "K";
+  if (lsData === null || lsData.length === 0) {
+    temp = [...arr];
+  } else {
+    temp = [...lsData];
   }
-};
 
-export const userLocationAvailable = () => {
-  let userLocation = localStorage.getItem("location");
-  return userLocation !== null;
+  idx = temp.findIndex((item) => item.lat === data.lat && item.long === data.long);
+
+  if (idx > -1) {
+    temp[idx] = data;
+    localStorage.setItem("weatherData", JSON.stringify(temp));
+    return temp;
+  } else if ([...temp, data].length > 3) {
+    temp.pop();
+    localStorage.setItem("weatherData", JSON.stringify([...temp, data]));
+    return [...temp, data];
+  }
+
+  localStorage.setItem("weatherData", JSON.stringify([...temp, data]));
+  return [...temp, data];
 };
 
 export const setLatAndLong = (setLat: (latitude: Number) => void, setLong: (longitude: Number) => void) => {
-  if (!userLocationAvailable()) {
+  if (localStorage.getItem("location") !== null) {
     navigator.geolocation.getCurrentPosition(
       function (position) {
         setLat(position.coords.latitude);
@@ -68,12 +81,7 @@ export const setLatAndLong = (setLat: (latitude: Number) => void, setLong: (long
   setLong(userLocation.longitude);
 };
 
-export const userWeatherDataAvailable = () => {
-  let userWeather = localStorage.getItem("weather");
-  return userWeather === null;
-};
-
-export const degToCard = (deg: number) => {
+export const returnCardinality = (deg: number) => {
   switch (true) {
     case deg > 11.25 && deg <= 33.75:
       return "NNE";
@@ -110,50 +118,43 @@ export const degToCard = (deg: number) => {
   }
 };
 
-export const prepDataForWeatherArray = (data: Weather, arr: Weather[]) => {
-  let lsData = JSON.parse(localStorage.getItem("weatherData") || "[]");
-  let temp;
-  let idx;
-
-  if (lsData === null || lsData.length === 0) {
-    temp = [...arr];
-  } else {
-    temp = [...lsData];
-  }
-
-  idx = temp.findIndex((item) => item.lat === data.lat && item.long === data.long);
-
-  if (idx > -1) {
-    temp[idx] = data;
-    localStorage.setItem("weatherData", JSON.stringify(temp));
-    return temp;
-  } else if ([...temp, data].length > 3) {
-    temp.pop();
-    localStorage.setItem("weatherData", JSON.stringify([...temp, data]));
-    return [...temp, data];
-  }
-
-  localStorage.setItem("weatherData", JSON.stringify([...temp, data]));
-  return [...temp, data];
-};
-
 export const returnMoonPhase = (phase: number) => {
   switch (true) {
     case phase >= 0 && phase < 0.25:
       return "Waxing Crescent";
-    case phase == 0.25:
+    case phase === 0.25:
       return "First Quarter Moon";
     case phase > 0.25 && phase < 0.5:
       return "Waxing Gibious";
-    case phase == 0.5:
+    case phase === 0.5:
       return "Full Moon";
     case phase > 0.5 && phase < 0.75:
       return "Waning Gibious";
-    case phase == 0.75:
+    case phase === 0.75:
       return "Last Quarter Moon";
     case phase > 0.75 && phase < 1:
       return "Waning Crescent";
     default:
       return "New Moon";
+  }
+};
+
+export const returnUnitSpeed = (speed: number, unit: Units): string => {
+  switch (unit) {
+    case Units.imperial:
+      return `${Math.round(speed * 2.2369)} mph`;
+    default:
+      return `${Math.round((speed * 18) / 5)} kph`;
+  }
+};
+
+export const returnUnitTemperature = (temp: number, units: Units): string => {
+  switch (units) {
+    case Units.imperial:
+      return `${Math.round(((temp - 273.15) * 9) / 5 + 32)}° F`;
+    case Units.metric:
+      return `${Math.round(temp - 273.15)}° C`;
+    default:
+      return `${Math.round(temp)}° K`;
   }
 };

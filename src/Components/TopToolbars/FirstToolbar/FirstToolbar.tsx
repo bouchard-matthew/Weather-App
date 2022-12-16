@@ -1,6 +1,5 @@
 import { Toolbar, Typography, Button, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
 import { Search, SearchIconWrapper, StyledInputBase } from "StyledComponents/Style";
-import { returnUnitTemperature } from "Utils/dataFunctions";
 import SearchIcon from "@mui/icons-material/Search";
 import { Props } from "./FirstToolbar.types";
 import { Units } from "Types/types";
@@ -25,9 +24,9 @@ const FirstToolbar = ({ handleState, handler, units, setUnits }: Props) => {
             setUnits(e.target.value);
           }}
         >
-          <MenuItem value={Units.imperial}>{`US | °${returnUnitTemperature(Units.imperial)}`}</MenuItem>
-          <MenuItem value={Units.metric}>{`UK | °${returnUnitTemperature(Units.metric)}`}</MenuItem>
-          <MenuItem value={Units.standard}>{`STND | °${returnUnitTemperature(Units.standard)}`}</MenuItem>
+          <MenuItem value={Units.imperial}>{`US | °F`}</MenuItem>
+          <MenuItem value={Units.metric}>{`UK | °C`}</MenuItem>
+          <MenuItem value={Units.standard}>{`STND | °K`}</MenuItem>
         </Select>
       </FormControl>
 
