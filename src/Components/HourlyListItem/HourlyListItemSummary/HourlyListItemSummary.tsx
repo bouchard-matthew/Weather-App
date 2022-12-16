@@ -13,7 +13,7 @@ const HourlyListItemSummary = ({ item, units }: Props) => {
     <>
       <Flex sx={{ width: "100%", justifyContent: "space-evenly" }}>
         <ListItem>
-          <Paragraph>{dayjs(item.dt * 1000).format("hh:MM A")}</Paragraph>
+          <Paragraph>{dayjs(item.dt * 1000).format("h:MM A")}</Paragraph>
         </ListItem>
 
         <ListItem>
