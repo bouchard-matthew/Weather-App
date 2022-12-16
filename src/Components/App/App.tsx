@@ -5,28 +5,26 @@ import { Header } from "../Header";
 import { Alert } from "../Alert";
 import { Current } from "../Current";
 import { HourlyChart } from "../HourlyChart";
-import { Weekly } from "../Weekly";
+import { DailyList } from "../DailyList";
 import { Footer } from "../Footer";
 import { HourlyList } from "../HourlyList";
 import { CssBaseline } from "@mui/material";
 import axios from "axios";
-import { setLatAndLong, userWeatherDataAvailable } from "Utils/dataFunctions";
 
 const { REACT_APP_API_KEY } = process.env;
 
 const AppContainer = () => {
-  const { lat, long, setLat, setLong, units, weather, setWeather, weatherArray } = useStore();
+  const { setLat, setLong, weather, setWeather } = useStore();
 
   const fetchWeatherData = async (run: Boolean, latitude: number, longitude: number) => {
     if (run) {
-      let res = await axios.get(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely&appid=${REACT_APP_API_KEY}&units=${units}`
-      );
+      let res = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely&appid=${REACT_APP_API_KEY}`);
 
       console.log("Weather fetched. Set in localStorage");
-      setWeather(Object.assign({}, res.data, { name: "Home" }));
-      localStorage.setItem("weather", JSON.stringify(Object.assign({}, res.data, { name: "Home" })));
-      return Object.assign({}, res.data, { name: "Home" });
+      let data = Object.assign({}, res.data, { name: "Home" });
+      setWeather(data);
+      localStorage.setItem("weather", JSON.stringify(data));
+      return data;
     }
 
     console.log("Weather previously fetched. Found in localStorage");
@@ -62,6 +60,8 @@ const AppContainer = () => {
       setLong(userLocation.longitude);
       fetchWeatherData(true, userLocation.latitude, userLocation.longitude);
     }
+
+    console.dir(weather);
   }, []);
 
   return (
@@ -74,7 +74,7 @@ const AppContainer = () => {
         {/* <Alert /> */}
         <Routes>
           <Route path="/" element={<Current />} />
-          <Route path="/weekly" element={<Weekly />} />
+          <Route path="/daily" element={<DailyList />} />
           <Route
             path="/hourly"
             element={
