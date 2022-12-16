@@ -14,13 +14,11 @@ import axios from "axios";
 const { REACT_APP_API_KEY } = process.env;
 
 const AppContainer = () => {
-  const { lat, long, setLat, setLong, units, weather, setWeather, weatherArray } = useStore();
+  const { setLat, setLong, weather, setWeather } = useStore();
 
   const fetchWeatherData = async (run: Boolean, latitude: number, longitude: number) => {
     if (run) {
-      let res = await axios.get(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely&appid=${REACT_APP_API_KEY}&units=${units}`
-      );
+      let res = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely&appid=${REACT_APP_API_KEY}`);
 
       console.log("Weather fetched. Set in localStorage");
       let data = Object.assign({}, res.data, { name: "Home" });

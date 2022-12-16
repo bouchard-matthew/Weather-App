@@ -1,6 +1,6 @@
 import { Flex, ListItem, Paragraph } from "Design";
 import { capitalizeFirstLetter } from "Utils/stringFunctions";
-import { returnUnitSpeed, degToCard } from "Utils/dataFunctions";
+import { returnUnitSpeed, returnCardinality, returnUnitTemperature } from "Utils/dataFunctions";
 import { Props } from "./DailyListItemSummary.types";
 
 import OpacityIcon from "@mui/icons-material/Opacity";
@@ -17,7 +17,7 @@ const DailyListItemSummary = ({ item, units, index }: Props) => {
 
         <ListItem>
           <Paragraph>
-            {Math.round(item.temp.day)}° / {Math.round(item.temp.night)}°
+            {returnUnitTemperature(item.temp.day, units)}° / {returnUnitTemperature(item.temp.night, units)}
           </Paragraph>
         </ListItem>
 
@@ -34,7 +34,7 @@ const DailyListItemSummary = ({ item, units, index }: Props) => {
         <ListItem>
           <AirIcon style={{ color: "blue" }} />
           <Paragraph>
-            {degToCard(item.wind_deg)} {Math.round(item.wind_speed)} {returnUnitSpeed(units)}
+            {returnCardinality(item.wind_deg)} {returnUnitSpeed(item.wind_speed, units)}
           </Paragraph>
         </ListItem>
       </Flex>

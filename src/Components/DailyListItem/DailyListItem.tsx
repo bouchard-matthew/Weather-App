@@ -13,7 +13,7 @@ const DailyListItem = ({ item, units, index }: Props) => {
           <DailyListItemSummary item={item} index={index} units={units} />
         </AccordionSummary>
         <AccordionDetails>
-          <DailyListItemsDetails item={item} />
+          <DailyListItemsDetails item={item} units={units} />
         </AccordionDetails>
       </Accordion>
     </>

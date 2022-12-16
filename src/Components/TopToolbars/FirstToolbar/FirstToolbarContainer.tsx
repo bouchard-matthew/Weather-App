@@ -8,7 +8,7 @@ const { REACT_APP_API_KEY } = process.env;
 let defaultVal: string = "";
 
 const FirstToolbarContainer = () => {
-  const { lat, long, setLong, setLat, setUnits, units, setWeather } = useStore();
+  const { setLong, setLat, setUnits, units, setWeather } = useStore();
   const [zip, setZip] = useState<string>(defaultVal);
 
   const setValue = () => {
@@ -25,15 +25,11 @@ const FirstToolbarContainer = () => {
     setLat(res.data.coord.lat);
     setLong(res.data.coord.lon);
 
-    fetchOneCall(res.data.name, res.data.coord.lat, res.data.coord.lon);
-  };
-
-  const fetchOneCall = async (name: string, latitude: number, longitude: number) => {
-    let res = await axios.get(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely&appid=${REACT_APP_API_KEY}&units=${units}`
+    let res2 = await axios.get(
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${res.data.coord.lat}&lon=${res.data.coord.lon}&exclude=minutely&appid=${REACT_APP_API_KEY}`
     );
 
-    setWeather(Object.assign({}, res.data, { name }));
+    setWeather(Object.assign({}, res2.data, { name: res.data.name }));
   };
 
   useEffect(() => {

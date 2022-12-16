@@ -10,7 +10,7 @@ import AirIcon from "@mui/icons-material/Air";
 import { AccordionListItem } from "StyledComponents/Style";
 import { Paragraph, Flex } from "Design";
 
-import { degToCard, returnUnitSpeed } from "Utils/dataFunctions";
+import { returnCardinality, returnUnitSpeed, returnUnitTemperature } from "Utils/dataFunctions";
 import { Props } from "./HourlyListItemDetails.types";
 
 const HourlyListItemDetails = ({ item, units }: Props) => {
@@ -21,14 +21,14 @@ const HourlyListItemDetails = ({ item, units }: Props) => {
           <DeviceThermostatIcon style={{ color: "blue" }} />
           <Paragraph>
             Feels like <br />
-            {Math.round(item.feels_like)}°
+            {returnUnitTemperature(item.feels_like, units)}
           </Paragraph>
         </AccordionListItem>
         <AccordionListItem>
           <AirIcon style={{ color: "blue" }} />
           <Paragraph>
             Wind <br />
-            {degToCard(item.wind_deg)} {Math.round(item.wind_speed)} {returnUnitSpeed(units)}
+            {returnCardinality(item.wind_deg)} {returnUnitSpeed(item.wind_speed, units)}
           </Paragraph>
         </AccordionListItem>
         <AccordionListItem>

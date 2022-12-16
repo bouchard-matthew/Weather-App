@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 
 import { Flex, ListItem, Paragraph } from "Design";
 import { capitalizeFirstLetter } from "Utils/stringFunctions";
-import { degToCard, returnUnitSpeed, returnUnitTemperature } from "Utils/dataFunctions";
+import { returnCardinality, returnUnitSpeed, returnUnitTemperature } from "Utils/dataFunctions";
 import AirIcon from "@mui/icons-material/Air";
 import OpacityIcon from "@mui/icons-material/Opacity";
 import { Props } from "./HourlyListItemSummary.types";
@@ -17,9 +17,7 @@ const HourlyListItemSummary = ({ item, units }: Props) => {
         </ListItem>
 
         <ListItem>
-          <Paragraph>
-            {Math.round(item.temp)}° {returnUnitTemperature(units)}
-          </Paragraph>
+          <Paragraph>{returnUnitTemperature(item.temp, units)}</Paragraph>
         </ListItem>
 
         <ListItem>
@@ -35,7 +33,7 @@ const HourlyListItemSummary = ({ item, units }: Props) => {
         <ListItem>
           <AirIcon style={{ color: "blue" }} />
           <Paragraph>
-            {degToCard(item.wind_deg)} {Math.round(item.wind_speed)} {returnUnitSpeed(units)}
+            {returnCardinality(item.wind_deg)} {returnUnitSpeed(item.wind_speed, units)}
           </Paragraph>
         </ListItem>
       </Flex>
