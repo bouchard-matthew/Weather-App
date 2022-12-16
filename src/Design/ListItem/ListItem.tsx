@@ -1,6 +1,6 @@
 import { styled } from "@mui/material";
 
-const ListItem = styled("div")(() => ({
+const ListItem = styled("div")(({ theme }) => ({
   display: "flex",
   width: "100%",
   justifyContent: "center",
@@ -8,6 +8,8 @@ const ListItem = styled("div")(() => ({
   "& svg": {
     height: "100%",
   },
+  "&:last-child": { display: "none" },
+  "&:nth-child(3) p": { display: "none" },
 }));
 
 export default ListItem;

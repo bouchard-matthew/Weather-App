@@ -3,9 +3,9 @@ import { useHourlyWeather } from "Hooks/useHourlyWeather";
 import HourlyList from "./HourlyList";
 
 const HourlyListContainer = () => {
-  const { units } = useStore();
+  const { units, loading } = useStore();
 
-  return <HourlyList hourly={useHourlyWeather()} units={units} />;
+  return <HourlyList hourly={useHourlyWeather()} units={units} loading={loading} />;
 };
 
 export default HourlyListContainer;
