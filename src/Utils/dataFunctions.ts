@@ -30,7 +30,12 @@ export const returnHourlyChartData = (hourlyData: Current[], units: Units): NewH
 
 export const handleWeatherAppend = (list: Weather[], data: Weather) => {
   let temp = [...list];
-  if (list.length == 3) {
+  let match = list.findIndex((item) => item.lat == data.lat && item.lon == item.lon);
+
+  if (match > -1) {
+    temp[match] = data;
+    return temp;
+  } else if (list.length == 3) {
     temp[2] = data;
     return temp;
   }

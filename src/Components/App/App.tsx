@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useStore } from "Context/useAppStore";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Header } from "../Header";
-import { Alert } from "../Alert";
-import { Current } from "../Current";
-import { HourlyChart } from "../HourlyChart";
-import { DailyList } from "../DailyList";
-import { Footer } from "../Footer";
-import { HourlyList } from "../HourlyList";
+import { Header } from "Components/Header";
+import { Alert } from "Components/Alert";
+import { Current } from "Components/Current";
+import { HourlyChart } from "Components/HourlyChart";
+import { DailyList } from "Components/DailyList";
+import { Footer } from "Components/Footer";
+import { HourlyList } from "Components/HourlyList";
 import { CssBaseline } from "@mui/material";
 import axios from "axios";
 import { setLatAndLong } from "Utils/dataFunctions";
@@ -32,6 +32,8 @@ const AppContainer = () => {
     if (weather.length === 0) {
       fetchWeather();
     }
+
+    console.log("re-rendered");
   }, [lat, lon]);
 
   return (

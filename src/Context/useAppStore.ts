@@ -6,8 +6,8 @@ import { handleWeatherAppend } from "Utils/dataFunctions";
 export interface StoreState {
   lat: Number | undefined;
   lon: Number | undefined;
-  setLat: (latitude: Number) => void;
-  setLon: (longitude: Number) => void;
+  setLat: (latitude: Number | undefined) => void;
+  setLon: (longitude: Number | undefined) => void;
   units: Units;
   setUnits: (unit: Units) => void;
   weather: Weather[];
@@ -26,10 +26,10 @@ export const useStore = create<StoreState>()(
       weather: [],
       expiresAt: undefined,
       // methods for manipulating state
-      setLat: (latitude: Number) => {
+      setLat: (latitude: Number | undefined) => {
         set(() => ({ lat: latitude }));
       },
-      setLon: (longitude: Number) => {
+      setLon: (longitude: Number | undefined) => {
         set(() => ({ lon: longitude }));
       },
       setUnits: (unit: Units) => {
