@@ -36,10 +36,14 @@ const SecondToolbar = ({ weatherArray, handleClick, deleteAtIndex }: Props) => {
                 key={idx}
                 item
                 xs={4}
-                onClick={() => handleClick(item.lat, item.lon)}
               >
-                <img style={{ verticalAlign: "middle" }} alt="img1" src={`http://openweathermap.org/img/wn/${item.current.weather[0].icon}.png`} />
-                <Typography noWrap component="span" sx={{ display: { xs: "none", md: "inline" } }}>
+                <img
+                  style={{ verticalAlign: "middle" }}
+                  alt="img1"
+                  src={`http://openweathermap.org/img/wn/${item.current.weather[0].icon}.png`}
+                  onClick={() => handleClick(item.lat, item.lon)}
+                />
+                <Typography noWrap component="span" sx={{ display: { xs: "none", md: "inline" } }} onClick={() => handleClick(item.lat, item.lon)}>
                   {item.name}
                 </Typography>
                 <ClearIcon onClick={() => deleteAtIndex(idx)} />

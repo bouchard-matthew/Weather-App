@@ -6,8 +6,9 @@ const SecondToolbarContainer = () => {
   const { weather, deleteAtIndex, setLat, setLon } = useStore();
 
   const updateWeatherLS = (index: number) => {
+    setLat(undefined);
+    setLon(undefined);
     deleteAtIndex(index);
-    console.log(weather);
   };
 
   const setLocationData = (latitude: number, longitude: number) => {

@@ -5,7 +5,7 @@ import HourlyList from "./HourlyList";
 const HourlyListContainer = () => {
   const { units } = useStore();
 
-  return <HourlyList hourly={useHourlyWeather() || []} units={units} />;
+  return <HourlyList hourly={useHourlyWeather()} units={units} />;
 };
 
 export default HourlyListContainer;
