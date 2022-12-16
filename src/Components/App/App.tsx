@@ -10,59 +10,29 @@ import { Footer } from "../Footer";
 import { HourlyList } from "../HourlyList";
 import { CssBaseline } from "@mui/material";
 import axios from "axios";
+import { setLatAndLong } from "Utils/dataFunctions";
 
 const { REACT_APP_API_KEY } = process.env;
 
 const AppContainer = () => {
-  const { setLat, setLong, weather, setWeather } = useStore();
+  const { lat, lon, setLat, setLon, weather, setWeather } = useStore();
 
-  const fetchWeatherData = async (run: Boolean, latitude: number, longitude: number) => {
-    if (run) {
-      let res = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely&appid=${REACT_APP_API_KEY}`);
-
-      console.log("Weather fetched. Set in localStorage");
-      let data = Object.assign({}, res.data, { name: "Home" });
-      setWeather(data);
-      localStorage.setItem("weather", JSON.stringify(data));
-      return data;
-    }
-
-    console.log("Weather previously fetched. Found in localStorage");
-    setWeather(JSON.parse(localStorage.getItem("weather") || "{}"));
+  const fetchWeather = async () => {
+    let res = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${REACT_APP_API_KEY}`);
+    let data = Object.assign({}, res.data, { name: "Home" });
+    setWeather(data);
   };
 
   useEffect(() => {
-    if (localStorage.getItem("location") === null) {
-      navigator.geolocation.getCurrentPosition(
-        function (position) {
-          setLat(position.coords.latitude);
-          setLong(position.coords.longitude);
-          localStorage.setItem("location", JSON.stringify({ latitude: position.coords.latitude, longitude: position.coords.longitude }));
-          fetchWeatherData(true, position.coords.latitude, position.coords.longitude);
-        },
-        function (error) {
-          console.log(error);
-        },
-        {
-          maximumAge: 60000,
-          timeout: 5000,
-          enableHighAccuracy: true,
-        }
-      );
-    } else if (localStorage.getItem("weather") !== null) {
-      let userLocation = JSON.parse(localStorage.getItem("location") || "{}");
-      setLat(userLocation.latitude);
-      setLong(userLocation.longitude);
-      fetchWeatherData(false, userLocation.latitude, userLocation.longitude);
-    } else {
-      let userLocation = JSON.parse(localStorage.getItem("location") || "{}");
-      setLat(userLocation.latitude);
-      setLong(userLocation.longitude);
-      fetchWeatherData(true, userLocation.latitude, userLocation.longitude);
+    // Refactored Code =>
+    if (!lat && !lon) {
+      setLatAndLong(setLat, setLon);
     }
 
-    console.dir(weather);
-  }, []);
+    if (weather.length === 0) {
+      fetchWeather();
+    }
+  }, [lat, lon]);
 
   return (
     <>

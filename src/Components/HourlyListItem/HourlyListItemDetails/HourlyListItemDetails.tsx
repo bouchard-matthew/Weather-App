@@ -7,59 +7,60 @@ import CloudIcon from "@mui/icons-material/Cloud";
 import AirIcon from "@mui/icons-material/Air";
 
 // Imprting Styled Components
-import { AccordionListItem } from "StyledComponents/Style";
-import { Paragraph, Flex } from "Design";
+import { Paragraph, Flex, ListItem } from "Design";
 
+// Import Utils Functions
 import { returnCardinality, returnUnitSpeed, returnUnitTemperature } from "Utils/dataFunctions";
+
 import { Props } from "./HourlyListItemDetails.types";
 
 const HourlyListItemDetails = ({ item, units }: Props) => {
   return (
     <>
       <Flex sx={{ marginBottom: "15px", justifyContent: "space-evenly" }}>
-        <AccordionListItem>
+        <ListItem>
           <DeviceThermostatIcon style={{ color: "blue" }} />
           <Paragraph>
             Feels like <br />
             {returnUnitTemperature(item.feels_like, units)}
           </Paragraph>
-        </AccordionListItem>
-        <AccordionListItem>
+        </ListItem>
+        <ListItem>
           <AirIcon style={{ color: "blue" }} />
           <Paragraph>
             Wind <br />
             {returnCardinality(item.wind_deg)} {returnUnitSpeed(item.wind_speed, units)}
           </Paragraph>
-        </AccordionListItem>
-        <AccordionListItem>
+        </ListItem>
+        <ListItem>
           <OpacityIcon style={{ color: "blue" }} />
           <Paragraph>
             Humidity <br /> {Math.round(item.humidity)}%
           </Paragraph>
-        </AccordionListItem>
+        </ListItem>
       </Flex>
       <hr />
       <Flex sx={{ marginBottom: "15px", marginTop: "15px", justifyContent: "space-evenly" }}>
-        <AccordionListItem>
+        <ListItem>
           <WbSunnyIcon style={{ color: "blue" }} />
           <Paragraph>
             UV Index <br />
             {Math.round(item.uvi)} of 10
           </Paragraph>
-        </AccordionListItem>
-        <AccordionListItem>
+        </ListItem>
+        <ListItem>
           <CloudIcon style={{ color: "blue" }} />
           <Paragraph>
             Cloud Cover <br /> {Math.round(item.clouds)}%
           </Paragraph>
-        </AccordionListItem>
-        <AccordionListItem>
+        </ListItem>
+        <ListItem>
           <ShowerIcon style={{ color: "blue" }} />
           <Paragraph>
             Precip Amount <br />
             {Math.round(item.pop)}%
           </Paragraph>
-        </AccordionListItem>
+        </ListItem>
       </Flex>
     </>
   );

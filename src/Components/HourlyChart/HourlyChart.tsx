@@ -1,5 +1,5 @@
 import { LineChart, XAxis, Line, Tooltip, YAxis, Legend, ResponsiveContainer } from "recharts";
-import { prepHourlyForRendering } from "Utils/dataFunctions";
+import { returnHourlyChartData } from "Utils/dataFunctions";
 import { Box, Button } from "@mui/material";
 import { Current, Units } from "Types/types";
 
@@ -15,7 +15,7 @@ const HourlyChart = ({ hourly, toggle, handleClick, units }: Props) => {
     <>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <ResponsiveContainer width="90%" height={400}>
-          <LineChart data={prepHourlyForRendering(hourly, units)} margin={{ top: 35, right: 60, left: 0, bottom: 35 }}>
+          <LineChart data={returnHourlyChartData(hourly, units)} margin={{ top: 35, right: 60, left: 0, bottom: 35 }}>
             <XAxis
               dataKey={(dt) =>
                 new Date(dt.dt * 1000).toLocaleString("en-us", {

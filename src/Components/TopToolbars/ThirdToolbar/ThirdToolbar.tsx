@@ -1,13 +1,12 @@
 import { NavLink } from "react-router-dom";
 import { Toolbar, Typography, Grid } from "@mui/material";
 import { Container } from "@mui/system";
-require("../Header.css");
 
 const ThirdToolbar = () => {
   return (
     <Toolbar disableGutters={true} variant="dense" sx={{ bgcolor: "#B0C4DE" }}>
       <Container maxWidth="md">
-        <Grid container className={"navigation"} sx={{ textAlign: "center" }}>
+        <Grid container sx={{ textAlign: "center", "& div a": { textDecoration: "none" } }}>
           <Grid item xs={4}>
             <NavLink to="/">
               <Typography variant="h6" noWrap component="span">
