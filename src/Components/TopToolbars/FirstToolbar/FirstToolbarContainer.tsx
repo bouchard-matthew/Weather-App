@@ -8,7 +8,7 @@ const { REACT_APP_API_KEY } = process.env;
 let defaultVal: string = "";
 
 const FirstToolbarContainer = () => {
-  const { setLong, setLat, setUnits, units, setWeather } = useStore();
+  const { setLon, setLat, setUnits, units, setWeather } = useStore();
   const [zip, setZip] = useState<string>(defaultVal);
 
   const setValue = () => {
@@ -23,7 +23,7 @@ const FirstToolbarContainer = () => {
     let res = await axios.get(`https://api.openweathermap.org/data/2.5/weather?zip=${zip},us&appid=${REACT_APP_API_KEY}`);
 
     setLat(res.data.coord.lat);
-    setLong(res.data.coord.lon);
+    setLon(res.data.coord.lon);
 
     let res2 = await axios.get(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${res.data.coord.lat}&lon=${res.data.coord.lon}&exclude=minutely&appid=${REACT_APP_API_KEY}`

@@ -11,7 +11,7 @@ const convertTemperature = (temp: number, units: Units) => {
   }
 };
 
-export const prepHourlyForRendering = (hourlyData: Current[], units: Units): NewHourlyObject[] => {
+export const returnHourlyChartData = (hourlyData: Current[], units: Units): NewHourlyObject[] => {
   let array: NewHourlyObject[] = [];
 
   hourlyData.map((item) => {
@@ -28,57 +28,34 @@ export const prepHourlyForRendering = (hourlyData: Current[], units: Units): New
   return array;
 };
 
-export const prepDataForWeatherArray = (data: Weather, arr: Weather[]) => {
-  let lsData = JSON.parse(localStorage.getItem("weatherData") || "[]");
-  let temp;
-  let idx;
-
-  if (lsData === null || lsData.length === 0) {
-    temp = [...arr];
-  } else {
-    temp = [...lsData];
-  }
-
-  idx = temp.findIndex((item) => item.lat === data.lat && item.long === data.long);
-
-  if (idx > -1) {
-    temp[idx] = data;
-    localStorage.setItem("weatherData", JSON.stringify(temp));
+export const handleWeatherAppend = (list: Weather[], data: Weather) => {
+  let temp = [...list];
+  if (list.length == 3) {
+    temp[2] = data;
     return temp;
-  } else if ([...temp, data].length > 3) {
-    temp.pop();
-    localStorage.setItem("weatherData", JSON.stringify([...temp, data]));
-    return [...temp, data];
   }
 
-  localStorage.setItem("weatherData", JSON.stringify([...temp, data]));
   return [...temp, data];
 };
 
 export const setLatAndLong = (setLat: (latitude: Number) => void, setLong: (longitude: Number) => void) => {
-  if (localStorage.getItem("location") !== null) {
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        setLat(position.coords.latitude);
-        setLong(position.coords.longitude);
-        localStorage.setItem("location", JSON.stringify({ latitude: position.coords.latitude, longitude: position.coords.longitude }));
-        return;
-      },
-      function (error) {
-        console.log(error);
-        return;
-      },
-      {
-        maximumAge: 60000,
-        timeout: 5000,
-        enableHighAccuracy: true,
-      }
-    );
-    return;
-  }
-  let userLocation = JSON.parse(localStorage.getItem("location") || "{}");
-  setLat(userLocation.latitude);
-  setLong(userLocation.longitude);
+  navigator.geolocation.getCurrentPosition(
+    function (position) {
+      setLat(position.coords.latitude);
+      setLong(position.coords.longitude);
+      return;
+    },
+    function (error) {
+      console.log(error);
+      return;
+    },
+    {
+      maximumAge: 60000,
+      timeout: 5000,
+      enableHighAccuracy: true,
+    }
+  );
+  return;
 };
 
 export const returnCardinality = (deg: number) => {

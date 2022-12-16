@@ -3,16 +3,20 @@ import { useEffect } from "react";
 import { useStore } from "Context/useAppStore";
 
 const SecondToolbarContainer = () => {
-  const { weatherArray, setWeather, deleteAtIndex } = useStore();
+  const { weather, deleteAtIndex, setLat, setLon } = useStore();
 
   const updateWeatherLS = (index: number) => {
-    let weather = [...weatherArray].filter((_, idx) => idx !== index);
     deleteAtIndex(index);
-    localStorage.setItem("weatherData", JSON.stringify(weather));
+    console.log(weather);
   };
 
-  useEffect(() => {}, [weatherArray]);
-  return <SecondToolbar weatherArray={weatherArray} setWeather={setWeather} deleteAtIndex={updateWeatherLS} />;
+  const setLocationData = (latitude: number, longitude: number) => {
+    setLat(latitude);
+    setLon(longitude);
+  };
+
+  useEffect(() => {}, [weather]);
+  return <SecondToolbar weatherArray={weather} handleClick={setLocationData} deleteAtIndex={updateWeatherLS} />;
 };
 
 export default SecondToolbarContainer;

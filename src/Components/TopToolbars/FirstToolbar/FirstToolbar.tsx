@@ -1,10 +1,8 @@
 import { Toolbar, Typography, Button, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
-import { Search, SearchIconWrapper, StyledInputBase } from "StyledComponents/Style";
 import SearchIcon from "@mui/icons-material/Search";
 import { Props } from "./FirstToolbar.types";
 import { Units } from "Types/types";
-
-require("../Header.css");
+import { Search, SearchIconWrapper, StyledInputBase } from "Design";
 
 const FirstToolbar = ({ handleState, handler, units, setUnits }: Props) => {
   return (
