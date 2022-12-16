@@ -16,6 +16,8 @@ const DailyListItemDetails = ({ item, units }: Props) => {
             "& img": {
               margin: "auto",
             },
+            width: "50%",
+            textAlign: "center",
           }}
         >
           <img alt={item.weather[0].description} src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} />
@@ -37,6 +39,8 @@ const DailyListItemDetails = ({ item, units }: Props) => {
             "& img": {
               margin: "auto",
             },
+            width: "50%",
+            textAlign: "center",
           }}
         >
           <img alt="" src="http://openweathermap.org/img/wn/01n@2x.png" />
