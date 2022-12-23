@@ -46,7 +46,7 @@ const SecondToolbar = ({ weatherArray, handleClick, deleteAtIndex }: Props) => {
                 <Typography noWrap component="span" sx={{ display: { xs: "none", md: "inline" } }} onClick={() => handleClick(item.lat, item.lon)}>
                   {item.name}
                 </Typography>
-                <ClearIcon onClick={() => deleteAtIndex(idx)} />
+                {idx !== 0 && <ClearIcon onClick={() => deleteAtIndex(idx)} />}
               </Grid>
             );
           })}

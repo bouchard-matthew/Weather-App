@@ -61,13 +61,23 @@ export interface Temp {
   morn: number;
 }
 
+export interface AlertInterface {
+  sender_name: string;
+  event: string;
+  start: number;
+  end: number;
+  description: string;
+  tags: string[];
+}
+
 export interface Weather {
+  alerts?: AlertInterface[];
   current: Current;
   daily: Daily[];
   hourly: Current[];
   lat: number;
   lon: number;
-  timezone: String;
+  timezone: string;
   timezone_offset: number;
   name?: string;
 }
