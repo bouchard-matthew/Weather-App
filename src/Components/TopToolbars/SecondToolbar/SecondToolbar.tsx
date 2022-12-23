@@ -6,10 +6,10 @@ import { Weather } from "Types/types";
 type Props = {
   weatherArray: Weather[];
   handleClick: (latitude: number, longitude: number) => void;
-  deleteWeather: (index: number) => void;
+  deleteAtIndex: (index: number) => void;
 };
 
-const SecondToolbar = ({ weatherArray, handleClick, deleteWeather }: Props) => {
+const SecondToolbar = ({ weatherArray, handleClick, deleteAtIndex }: Props) => {
   return (
     <Toolbar sx={{ backgroundColor: "#6495ED" }}>
       <Container maxWidth="md">
@@ -46,7 +46,7 @@ const SecondToolbar = ({ weatherArray, handleClick, deleteWeather }: Props) => {
                 <Typography noWrap component="span" sx={{ display: { xs: "none", md: "inline" } }} onClick={() => handleClick(item.lat, item.lon)}>
                   {item.name}
                 </Typography>
-                {idx !== 0 && <ClearIcon onClick={() => deleteWeather(idx)} />}
+                {idx !== 0 && <ClearIcon onClick={() => deleteAtIndex(idx)} />}
               </Grid>
             );
           })}

@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useStore } from "Context/useAppStore";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header } from "Components/Header";
-import { Alert } from "Components/Alert";
 import { Current } from "Components/Current";
 import { HourlyChart } from "Components/HourlyChart";
 import { DailyList } from "Components/DailyList";
@@ -11,6 +10,8 @@ import { HourlyList } from "Components/HourlyList";
 import { CssBaseline } from "@mui/material";
 import axios from "axios";
 import { setLatAndLong } from "Utils/dataFunctions";
+import { AlertPage } from "Components/AlertPage";
+import { Alert } from "Components/AlertNotifications";
 
 const { REACT_APP_API_KEY } = process.env;
 
@@ -32,8 +33,6 @@ const AppContainer = () => {
     if (weather.length === 0) {
       fetchWeather();
     }
-
-    console.log("re-rendered");
   }, [lat, lon]);
 
   return (
@@ -42,22 +41,38 @@ const AppContainer = () => {
       <BrowserRouter>
         <CssBaseline />
         <Header />
-        {/* To Do: Alerts needs to be conditionally rendered. Path from weather object => weather.data.alerts */}
-        {/* <Alert /> */}
         <Routes>
-          <Route path="/" element={<Current />} />
-          <Route path="/daily" element={<DailyList />} />
+          <Route
+            path="/"
+            element={
+              <>
+                <Alert />
+                <Current />
+              </>
+            }
+          />
+          <Route path={"/alerts"} element={<AlertPage />} />
+          <Route
+            path="/daily"
+            element={
+              <>
+                <Alert />
+                <DailyList />
+              </>
+            }
+          />
           <Route
             path="/hourly"
             element={
               <>
+                <Alert />
                 <HourlyChart />
                 <HourlyList />
               </>
             }
           />
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
     </>
   );

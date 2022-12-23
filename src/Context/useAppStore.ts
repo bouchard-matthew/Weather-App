@@ -4,16 +4,16 @@ import { persist } from "zustand/middleware";
 import { handleWeatherAppend } from "Utils/dataFunctions";
 
 export interface StoreState {
-  lat: Number | undefined;
-  lon: Number | undefined;
-  setLat: (latitude: Number | undefined) => void;
-  setLon: (longitude: Number | undefined) => void;
+  lat: number | undefined;
+  lon: number | undefined;
+  setLat: (latitude: number | undefined) => void;
+  setLon: (longitude: number | undefined) => void;
   units: Units;
   setUnits: (unit: Units) => void;
   weather: Weather[];
   setWeather: (data: Weather) => void;
   deleteAtIndex: (index: number) => void;
-  expiresAt: Number | undefined;
+  expiresAt: number | undefined;
   loading: Boolean;
   setLoading: (loading: Boolean) => void;
 }
@@ -29,10 +29,10 @@ export const useStore = create<StoreState>()(
       weather: [],
       expiresAt: undefined,
       // methods for manipulating state
-      setLat: (latitude: Number | undefined) => {
+      setLat: (latitude: number | undefined) => {
         set(() => ({ lat: latitude }));
       },
-      setLon: (longitude: Number | undefined) => {
+      setLon: (longitude: number | undefined) => {
         set(() => ({ lon: longitude }));
       },
       setUnits: (unit: Units) => {
@@ -58,8 +58,8 @@ export const useStore = create<StoreState>()(
 );
 
 // interface Data {
-//   lat: Number | undefined;
-//   long: Number | undefined;
+//   lat: number | undefined;
+//   long: number | undefined;
 //   weather: Weather | undefined;
-//   expiresAt: String;
+//   expiresAt: string;
 // }
