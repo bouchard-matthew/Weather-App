@@ -5,9 +5,9 @@ import { useStore } from "Context/useAppStore";
 const SecondToolbarContainer = () => {
   const { weather, deleteAtIndex, setLat, setLon } = useStore();
 
-  const updateWeatherLS = (index: number) => {
-    setLat(undefined);
-    setLon(undefined);
+  const handleDelete = (index: number) => {
+    setLat(weather[index - 1].lat);
+    setLon(weather[index - 1].lon);
     deleteAtIndex(index);
   };
 
@@ -17,7 +17,7 @@ const SecondToolbarContainer = () => {
   };
 
   useEffect(() => {}, [weather]);
-  return <SecondToolbar weatherArray={weather} handleClick={setLocationData} deleteAtIndex={updateWeatherLS} />;
+  return <SecondToolbar weatherArray={weather} handleClick={setLocationData} deleteAtIndex={handleDelete} />;
 };
 
 export default SecondToolbarContainer;

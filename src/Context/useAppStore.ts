@@ -14,6 +14,8 @@ export interface StoreState {
   setWeather: (data: Weather) => void;
   deleteAtIndex: (index: number) => void;
   expiresAt: number | undefined;
+  loading: Boolean;
+  setLoading: (loading: Boolean) => void;
 }
 
 export const useStore = create<StoreState>()(
@@ -22,6 +24,7 @@ export const useStore = create<StoreState>()(
       // initial state
       lat: undefined,
       lon: undefined,
+      loading: false,
       units: Units.imperial,
       weather: [],
       expiresAt: undefined,
@@ -42,6 +45,9 @@ export const useStore = create<StoreState>()(
       },
       deleteAtIndex: (index: number) => {
         set((state) => ({ weather: state.weather.filter((_, idx) => idx !== index) }));
+      },
+      setLoading: (loading: Boolean) => {
+        set(() => ({ loading }));
       },
     }),
     {

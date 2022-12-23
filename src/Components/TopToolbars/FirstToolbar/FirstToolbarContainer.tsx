@@ -8,11 +8,14 @@ const { REACT_APP_API_KEY } = process.env;
 let defaultVal: string = "";
 
 const FirstToolbarContainer = () => {
-  const { setLon, setLat, setUnits, units, setWeather } = useStore();
+  const { setLon, setLat, setUnits, units, setWeather, setLoading } = useStore();
   const [zip, setZip] = useState<string>(defaultVal);
 
   const setValue = () => {
     setZip(defaultVal);
+    if (zip !== "") {
+      fetchWeatherDataZip();
+    }
   };
 
   const setElementValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,6 +23,7 @@ const FirstToolbarContainer = () => {
   };
 
   const fetchWeatherDataZip = async () => {
+    setLoading(true);
     let res = await axios.get(`https://api.openweathermap.org/data/2.5/weather?zip=${zip},us&appid=${REACT_APP_API_KEY}`);
 
     setLat(res.data.coord.lat);
@@ -30,13 +34,8 @@ const FirstToolbarContainer = () => {
     );
 
     setWeather(Object.assign({}, res2.data, { name: res.data.name }));
+    setLoading(false);
   };
-
-  useEffect(() => {
-    if (zip !== "") {
-      fetchWeatherDataZip();
-    }
-  }, [zip]);
 
   return <FirstToolbar handleState={setValue} handler={setElementValue} units={units} setUnits={setUnits} />;
 };
