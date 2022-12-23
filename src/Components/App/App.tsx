@@ -32,8 +32,6 @@ const AppContainer = () => {
     if (weather.length === 0) {
       fetchWeather();
     }
-
-    console.log("re-rendered");
   }, [lat, lon]);
 
   return (
@@ -43,7 +41,7 @@ const AppContainer = () => {
         <CssBaseline />
         <Header />
         {/* To Do: Alerts needs to be conditionally rendered. Path from weather object => weather.data.alerts */}
-        {/* <Alert /> */}
+        <Alert />
         <Routes>
           <Route path="/" element={<Current />} />
           <Route path="/daily" element={<DailyList />} />

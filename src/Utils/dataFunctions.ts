@@ -43,7 +43,7 @@ export const handleWeatherAppend = (list: Weather[], data: Weather) => {
   return [...temp, data];
 };
 
-export const setLatAndLong = (setLat: (latitude: Number) => void, setLong: (longitude: Number) => void) => {
+export const setLatAndLong = (setLat: (latitude: number) => void, setLong: (longitude: number) => void) => {
   navigator.geolocation.getCurrentPosition(
     function (position) {
       setLat(position.coords.latitude);
