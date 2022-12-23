@@ -5,18 +5,20 @@ import { HourlyListItem } from "Components/HourlyListItem";
 interface Props {
   hourly: Current[];
   units: Units;
+  loading: Boolean;
 }
 
-const HourlyList = ({ hourly, units }: Props) => {
+const HourlyList = ({ hourly, units, loading }: Props) => {
   return (
     <>
-      {hourly.map((item, index) => {
-        return (
-          <Container sx={{ marginBottom: "20px" }} key={index}>
-            <HourlyListItem item={item} units={units} />
-          </Container>
-        );
-      })}
+      {!loading &&
+        hourly.map((item, index) => {
+          return (
+            <Container sx={{ marginBottom: "20px" }} key={index}>
+              <HourlyListItem item={item} units={units} />
+            </Container>
+          );
+        })}
     </>
   );
 };
