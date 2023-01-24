@@ -5,18 +5,18 @@ import { Notification, Paragraph } from "Design";
 import React from "react";
 import { ChildProps } from "./AlertItemContainer";
 
-const AlertItem = ({ alert, open, setOpen }: ChildProps) => {
-  const replaceAsterisks = (str: string) => {
-    let arr = str.split(/[*...]/g);
-    let res = "";
-    arr.map((item) => {
-      if (item !== "") {
-        return (res += `${item} <br />`);
-      }
-    });
-    return res;
-  };
+const replaceAsterisks = (str: string) => {
+  let arr = str.split(/[*...]/g);
+  let res = "";
+  arr.map((item) => {
+    if (item !== "") {
+      return (res += `${item} <br />`);
+    }
+  });
+  return res;
+};
 
+const AlertItem = ({ alert, open, setOpen }: ChildProps) => {
   return (
     <Box>
       <Collapse in={open}>
