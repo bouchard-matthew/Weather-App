@@ -8,8 +8,6 @@ const ListItem = styled("div")(({ theme }) => ({
   "& svg": {
     height: "100%",
   },
-  "&:last-child": { display: "none" },
-  "&:nth-child(3) p": { display: "none" },
 }));
 
 export default ListItem;
