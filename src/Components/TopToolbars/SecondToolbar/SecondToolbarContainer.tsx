@@ -17,7 +17,7 @@ const SecondToolbarContainer = () => {
   };
 
   useEffect(() => {}, [weather]);
-  return <SecondToolbar weatherArray={weather} handleClick={setLocationData} deleteWeather={handleDelete} />;
+  return <SecondToolbar weatherArray={weather} handleClick={setLocationData} deleteAtIndex={handleDelete} />;
 };
 
 export default SecondToolbarContainer;
