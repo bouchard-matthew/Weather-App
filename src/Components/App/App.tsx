@@ -55,7 +55,7 @@ const AppContainer = () => {
             }
           />
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
     </>
   );
