@@ -12,8 +12,7 @@ const Current = ({ current, units, today, toggle, setToggle }: Props) => {
   let [first, second] = useHourlyWeather().filter(
     (item) => "12:00 AM" == dayjs(item.dt * 1000).format("hh:mm A") || "12:00 PM" == dayjs(item.dt * 1000).format("hh:mm A")
   );
-  console.log("First: ", first);
-  console.log("Second: ", second);
+
   return (
     <>
       {current && (

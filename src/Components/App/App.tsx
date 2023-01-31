@@ -11,7 +11,7 @@ import { CssBaseline } from "@mui/material";
 import axios from "axios";
 import { setLatAndLong } from "Utils/dataFunctions";
 import { AlertPage } from "Components/AlertPage";
-import { Alert } from "Components/AlertNotifications";
+import { AlertNotifications } from "Components/AlertNotifications";
 
 const { REACT_APP_API_KEY } = process.env;
 
@@ -46,7 +46,7 @@ const AppContainer = () => {
             path="/"
             element={
               <>
-                <Alert />
+                <AlertNotifications />
                 <Current />
               </>
             }
@@ -56,7 +56,7 @@ const AppContainer = () => {
             path="/daily"
             element={
               <>
-                <Alert />
+                <AlertNotifications />
                 <DailyList />
               </>
             }
@@ -65,7 +65,7 @@ const AppContainer = () => {
             path="/hourly"
             element={
               <>
-                <Alert />
+                <AlertNotifications />
                 <HourlyChart />
                 <HourlyList />
               </>
