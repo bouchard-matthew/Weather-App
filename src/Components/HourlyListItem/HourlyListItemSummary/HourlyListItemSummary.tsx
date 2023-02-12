@@ -3,37 +3,43 @@ import dayjs from "dayjs";
 
 import { Flex, ListItem, Paragraph } from "Design";
 import { capitalizeFirstLetter } from "Utils/stringFunctions";
-import { returnCardinality, returnUnitSpeed, returnUnitTemperature } from "Utils/dataFunctions";
 import AirIcon from "@mui/icons-material/Air";
 import OpacityIcon from "@mui/icons-material/Opacity";
 import { Props } from "./HourlyListItemSummary.types";
+import { useUnitTemperature } from "Hooks/useUnitTemperature";
+import { useCardinality } from "Hooks/useCardinality";
+import { useUnitSpeed } from "Hooks/useUnitSpeed";
 
-const HourlyListItemSummary = ({ item, units }: Props) => {
+const HourlyListItemSummary = ({ item }: Props) => {
+  const temperatureDisplayValue = useUnitTemperature(item);
+  const cardinalityDisplayValue = useCardinality(item);
+  const windSpeedDisplayValue = useUnitSpeed(item);
+
   return (
     <>
-      <Flex sx={{ width: "100%", justifyContent: "space-evenly" }}>
+      <Flex>
         <ListItem>
           <Paragraph>{dayjs(item.dt * 1000).format("h:MM A")}</Paragraph>
         </ListItem>
 
         <ListItem>
-          <Paragraph>{returnUnitTemperature(item.temp, units)}</Paragraph>
+          <Paragraph>{temperatureDisplayValue}</Paragraph>
         </ListItem>
 
         <ListItem>
-          <Paragraph sx={{ margin: "auto 0" }}>{capitalizeFirstLetter(item.weather[0].description)}</Paragraph>
+          <Paragraph>{capitalizeFirstLetter(item.weather[0].description)}</Paragraph>
           <img alt={item.weather[0].description} src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`} />
         </ListItem>
 
         <ListItem>
-          <OpacityIcon style={{ color: "blue" }} />
+          <OpacityIcon />
           <Paragraph>{Math.round(item.pop * 100)}%</Paragraph>
         </ListItem>
 
         <ListItem>
-          <AirIcon style={{ color: "blue" }} />
+          <AirIcon />
           <Paragraph>
-            {returnCardinality(item.wind_deg)} {returnUnitSpeed(item.wind_speed, units)}
+            {cardinalityDisplayValue} {windSpeedDisplayValue}
           </Paragraph>
         </ListItem>
       </Flex>

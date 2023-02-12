@@ -1,9 +1,7 @@
-import { Current, Units } from "Types/types";
+import { Current } from "Types/types";
 
-export interface HourlyListItemProps extends SharedProps {
+export interface Props extends SharedProps {
   item: Current;
 }
 
-export interface SharedProps {
-  units: Units;
-}
+export interface SharedProps {}

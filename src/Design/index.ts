@@ -6,3 +6,5 @@ export { SearchIconWrapper } from "./SearchIconWrapper";
 export { StyledInputBase } from "./StyledInputBase";
 export { Notification } from "./Notification";
 export { Loading } from "./Loading";
+export { HeaderSection } from "./HeaderSection";
+export { Toggle } from "./Toggle";

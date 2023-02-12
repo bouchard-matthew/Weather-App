@@ -1,21 +1,15 @@
 import { Container } from "@mui/material";
-import { Current, Units } from "Types/types";
 import { HourlyListItem } from "Components/HourlyListItem";
+import { Props } from "./HourlyList.types";
 
-interface Props {
-  hourly: Current[];
-  units: Units;
-  loading: Boolean;
-}
-
-const HourlyList = ({ hourly, units, loading }: Props) => {
+const HourlyList = ({ hourly, loading }: Props) => {
   return (
     <>
       {!loading &&
         hourly.map((item, index) => {
           return (
             <Container sx={{ marginBottom: "20px" }} key={index}>
-              <HourlyListItem item={item} units={units} />
+              <HourlyListItem item={item} />
             </Container>
           );
         })}
