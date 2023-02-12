@@ -1,26 +1,25 @@
 import dayjs from "dayjs";
-import { Accordion, AccordionSummary, AccordionDetails, Box } from "@mui/material";
+import { AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-// Importing Functions
-import { HourlyListItemProps } from "./HourlyListItem.types";
+// Importing Components
+import { Props } from "./HourlyListItem.types";
 import { HourlyListItemSummary } from "./HourlyListItemSummary";
 import { HourlyListItemDetails } from "./HourlyListItemDetails";
+import { HeaderSection, Toggle } from "Design";
 
-const HourlyListItem = ({ item, units }: HourlyListItemProps) => {
+const HourlyListItem = ({ item }: Props) => {
   return (
     <>
-      {dayjs(item.dt * 1000).format("hha") === "12am" && (
-        <Box sx={{ background: "lightgrey", padding: "15px 10px", textAlign: "center" }}>{dayjs(item.dt * 1000).format("dddd, MMMM D")}</Box>
-      )}
-      <Accordion sx={{ border: "1px solid black" }}>
+      {dayjs(item.dt * 1000).format("hha") === "12am" && <HeaderSection>{dayjs(item.dt * 1000).format("dddd, MMMM D")}</HeaderSection>}
+      <Toggle>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-          <HourlyListItemSummary item={item} units={units} />
+          <HourlyListItemSummary item={item} />
         </AccordionSummary>
         <AccordionDetails>
-          <HourlyListItemDetails item={item} units={units} />
+          <HourlyListItemDetails item={item} />
         </AccordionDetails>
-      </Accordion>
+      </Toggle>
     </>
   );
 };
