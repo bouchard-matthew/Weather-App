@@ -6,59 +6,65 @@ import ShowerIcon from "@mui/icons-material/Shower";
 import CloudIcon from "@mui/icons-material/Cloud";
 import AirIcon from "@mui/icons-material/Air";
 
-// Imprting Styled Components
 import { Paragraph, Flex, ListItem } from "Design";
-
-// Import Utils Functions
-import { returnCardinality, returnUnitSpeed, returnUnitTemperature } from "Utils/dataFunctions";
 
 import { Props } from "./HourlyListItemDetails.types";
 
-const HourlyListItemDetails = ({ item, units }: Props) => {
+import { useCardinality } from "Hooks/useCardinality";
+import { useUnitSpeed } from "Hooks/useUnitSpeed";
+import { useUnitTemperature } from "Hooks/useUnitTemperature";
+
+const HourlyListItemDetails = ({ item }: Props) => {
+  const cardinalityDisplayValue = useCardinality(item);
+  const windSpeedDisplayValue = useUnitSpeed(item);
+  const temperatureDisplayValue = useUnitTemperature(item);
+
   return (
     <>
-      <Flex sx={{ marginBottom: "15px", justifyContent: "space-evenly" }}>
+      <Flex sx={{ marginBottom: "15px" }}>
         <ListItem>
-          <DeviceThermostatIcon style={{ color: "blue" }} />
+          <DeviceThermostatIcon />
           <Paragraph>
-            Feels like <br />
-            {returnUnitTemperature(item.feels_like, units)}
+            Feels like <br /> {temperatureDisplayValue}
           </Paragraph>
         </ListItem>
+
         <ListItem>
-          <AirIcon style={{ color: "blue" }} />
+          <AirIcon />
           <Paragraph>
-            Wind <br />
-            {returnCardinality(item.wind_deg)} {returnUnitSpeed(item.wind_speed, units)}
+            Wind <br /> {cardinalityDisplayValue} {windSpeedDisplayValue}
           </Paragraph>
         </ListItem>
+
         <ListItem>
-          <OpacityIcon style={{ color: "blue" }} />
+          <OpacityIcon />
           <Paragraph>
             Humidity <br /> {Math.round(item.humidity)}%
           </Paragraph>
         </ListItem>
       </Flex>
+
       <hr />
-      <Flex sx={{ marginBottom: "15px", marginTop: "15px", justifyContent: "space-evenly" }}>
+
+      <Flex sx={{ marginBottom: "15px", marginTop: "15px" }}>
         <ListItem>
-          <WbSunnyIcon style={{ color: "blue" }} />
+          <WbSunnyIcon />
           <Paragraph>
-            UV Index <br />
-            {Math.round(item.uvi)} of 10
+            UV Index <br /> {Math.round(item.uvi)} of 10
           </Paragraph>
         </ListItem>
+
         <ListItem>
-          <CloudIcon style={{ color: "blue" }} />
+          <CloudIcon />
           <Paragraph>
             Cloud Cover <br /> {Math.round(item.clouds)}%
           </Paragraph>
         </ListItem>
+
         <ListItem>
-          <ShowerIcon style={{ color: "blue" }} />
+          <ShowerIcon />
           <Paragraph>
-            Precip Amount <br />
-            {Math.round(item.pop)}%
+            Precip Amount <br /> {Math.round(item.pop)}%
           </Paragraph>
         </ListItem>
       </Flex>

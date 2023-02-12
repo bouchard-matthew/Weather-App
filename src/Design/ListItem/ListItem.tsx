@@ -7,6 +7,7 @@ const ListItem = styled("div")(({ theme }) => ({
   textAlign: "center",
   "& svg": {
     height: "100%",
+    color: "blue",
   },
 }));
 
