@@ -1,12 +1,11 @@
-import { Container } from "@mui/material";
-import { DailyListItem } from "Components/DailyListItem";
-import React from "react";
+import { Box } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-
-import { Props } from "./DailyList.types";
+import { DailyListItem } from "Components/DailyListItem";
 import { Loading } from "Design";
 
-const DailyList = ({ daily, units, loading }: Props) => {
+import type { Props } from "./DailyList.types";
+
+const DailyList = ({ daily, loading }: Props) => {
   return (
     <>
       {loading ? (
@@ -16,9 +15,9 @@ const DailyList = ({ daily, units, loading }: Props) => {
       ) : (
         daily.map((item, idx) => {
           return (
-            <Container sx={{ marginBottom: "20px", marginTop: "20px" }} key={idx}>
-              <DailyListItem item={item} units={units} index={idx} />
-            </Container>
+            <Box sx={{ margin: "20px 0px" }} key={idx}>
+              <DailyListItem item={item} index={idx} />
+            </Box>
           );
         })
       )}

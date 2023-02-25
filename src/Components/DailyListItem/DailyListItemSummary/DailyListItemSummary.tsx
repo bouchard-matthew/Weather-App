@@ -1,29 +1,36 @@
-import { Flex, ListItem, Paragraph } from "Design";
-import { capitalizeFirstLetter } from "Utils/stringFunctions";
-import { returnUnitSpeed, returnCardinality, returnUnitTemperature } from "Utils/dataFunctions";
-import { Props } from "./DailyListItemSummary.types";
-
-import OpacityIcon from "@mui/icons-material/Opacity";
-import AirIcon from "@mui/icons-material/Air";
 import dayjs from "dayjs";
+import AirIcon from "@mui/icons-material/Air";
+import OpacityIcon from "@mui/icons-material/Opacity";
+import { Flex, ListItem, Paragraph } from "Design";
+import { useCardinality } from "Hooks/useCardinality";
+import { useUnitTemperature } from "Hooks/useUnitTemperature";
+import { useUnitSpeed } from "Hooks/useUnitSpeed";
+import { capitalizeFirstLetter } from "Utils/stringFunctions";
 
-const DailyListItemSummary = ({ item, units, index }: Props) => {
+import type { Props } from "./DailyListItemSummary.types";
+
+const DailyListItemSummary = ({ item, index }: Props) => {
+  const cardinalityDisplayValue = useCardinality(item);
+  const daytimeTemperatureDisplayValue = useUnitTemperature(item.temp.day);
+  const nightTemperatureDisplayValue = useUnitTemperature(item.temp.night);
+  const windSpeedDisplayValue = useUnitSpeed(item);
+
   return (
     <>
-      <Flex sx={{ width: "100%", justifyContent: "space-evenly" }}>
+      <Flex>
         <ListItem>
           <Paragraph>{index === 0 ? "Today" : dayjs(item.dt * 1000).format("ddd D")}</Paragraph>
         </ListItem>
 
         <ListItem>
           <Paragraph>
-            {returnUnitTemperature(item.temp.day, units)}° / {returnUnitTemperature(item.temp.night, units)}
+            {daytimeTemperatureDisplayValue}° / {nightTemperatureDisplayValue}
           </Paragraph>
         </ListItem>
 
         <ListItem>
           <img alt={item.weather[0].description} src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`} />
-          <Paragraph sx={{ margin: "auto 0" }}>{capitalizeFirstLetter(item.weather[0].description)}</Paragraph>
+          <Paragraph>{capitalizeFirstLetter(item.weather[0].description)}</Paragraph>
         </ListItem>
 
         <ListItem>
@@ -34,7 +41,7 @@ const DailyListItemSummary = ({ item, units, index }: Props) => {
         <ListItem>
           <AirIcon style={{ color: "blue" }} />
           <Paragraph>
-            {returnCardinality(item.wind_deg)} {returnUnitSpeed(item.wind_speed, units)}
+            {cardinalityDisplayValue} {windSpeedDisplayValue}
           </Paragraph>
         </ListItem>
       </Flex>
