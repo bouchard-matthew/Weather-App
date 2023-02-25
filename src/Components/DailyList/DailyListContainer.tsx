@@ -3,9 +3,9 @@ import { useDailyWeather } from "Hooks/useDailyWeather";
 import DailyList from "./DailyList";
 
 const DailyListContainer = () => {
-  const { units, loading } = useStore();
+  const { loading } = useStore();
 
-  return <DailyList daily={useDailyWeather()} units={units} loading={loading} />;
+  return <DailyList daily={useDailyWeather()} loading={loading} />;
 };
 
 export default DailyListContainer;

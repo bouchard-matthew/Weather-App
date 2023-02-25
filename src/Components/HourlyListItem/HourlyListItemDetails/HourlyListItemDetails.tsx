@@ -17,7 +17,7 @@ import { useUnitTemperature } from "Hooks/useUnitTemperature";
 const HourlyListItemDetails = ({ item }: Props) => {
   const cardinalityDisplayValue = useCardinality(item);
   const windSpeedDisplayValue = useUnitSpeed(item);
-  const temperatureDisplayValue = useUnitTemperature(item);
+  const temperatureDisplayValue = useUnitTemperature(item.feels_like);
 
   return (
     <>

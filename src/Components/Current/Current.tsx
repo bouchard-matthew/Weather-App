@@ -3,15 +3,18 @@ import { Box } from "@mui/material";
 import { Props } from "./Current.types";
 import dayjs from "dayjs";
 import { capitalizeFirstLetter } from "Utils/stringFunctions";
-import { returnCardinality, returnUnitSpeed, returnUnitTemperature } from "Utils/dataFunctions";
+import { returnUnitSpeed, returnUnitTemperature } from "Utils/dataFunctions";
 import { Flex, Paragraph } from "Design";
 import { useHourlyWeather } from "Hooks/useHourlyWeather";
 import Button from "@mui/material/Button";
+import { useCardinality } from "Hooks/useCardinality";
 
 const Current = ({ current, units, today, toggle, setToggle }: Props) => {
   let [first, second] = useHourlyWeather().filter(
     (item) => "12:00 AM" == dayjs(item.dt * 1000).format("hh:mm A") || "12:00 PM" == dayjs(item.dt * 1000).format("hh:mm A")
   );
+  const cardinalityDisplayValue = useCardinality(first);
+  const cardinalityDisplayValue1 = useCardinality(second);
 
   return (
     <>
@@ -53,7 +56,7 @@ const Current = ({ current, units, today, toggle, setToggle }: Props) => {
                       </Paragraph>
                       <Paragraph>
                         <b>Wind</b>
-                        {returnCardinality(first.wind_deg) + " " + returnUnitSpeed(first.wind_speed, units)}
+                        {cardinalityDisplayValue + " " + returnUnitSpeed(first.wind_speed, units)}
                       </Paragraph>
                       <Paragraph>
                         <b>Wind Gusts</b>
@@ -87,7 +90,7 @@ const Current = ({ current, units, today, toggle, setToggle }: Props) => {
                     </Paragraph>
                     <Paragraph>
                       <b>Wind</b>
-                      {returnCardinality(second.wind_deg) + " " + returnUnitSpeed(second.wind_speed, units)}
+                      {cardinalityDisplayValue1 + " " + returnUnitSpeed(second.wind_speed, units)}
                     </Paragraph>
                     <Paragraph>
                       <b>Wind Gusts</b>

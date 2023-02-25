@@ -1,28 +1,23 @@
-import { returnMoonPhase, returnUnitTemperature } from "Utils/dataFunctions";
-import { Props } from "./DailyListItemDetails.types";
 import { Flex, Paragraph } from "Design";
 import { Box } from "@mui/material";
 import dayjs from "dayjs";
+import { useMoonPhase } from "Hooks/useMoonPhase";
+import { useUnitTemperature } from "Hooks/useUnitTemperature";
 
-const DailyListItemDetails = ({ item, units }: Props) => {
+import type { Props } from "./DailyListItemDetails.types";
+
+const DailyListItemDetails = ({ item }: Props) => {
+  const moonPhaseDisplayValue = useMoonPhase(item);
+  const daytimeTemperatureDisplayValue = useUnitTemperature(item.temp.day);
+  const nightTemperatureDisplayValue = useUnitTemperature(item.temp.night);
+
   return (
     <>
-      <Flex sx={{ width: "100%", justifyContent: "space-evenly" }}>
-        <Box
-          sx={{
-            "& p": {
-              textAlign: "center",
-            },
-            "& img": {
-              margin: "auto",
-            },
-            width: "50%",
-            textAlign: "center",
-          }}
-        >
+      <Flex>
+        <Box textAlign="center">
           <img alt={item.weather[0].description} src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} />
           <Paragraph>{dayjs(item.dt * 1000).format("ddd D")} | Day</Paragraph>
-          <Paragraph>{returnUnitTemperature(item.temp.day, units)}</Paragraph>
+          <Paragraph>{daytimeTemperatureDisplayValue}</Paragraph>
           <br />
           <Paragraph>Sunrise at {dayjs(item.sunrise * 1000).format("h:mm A")}</Paragraph>
           <Paragraph>Sunset at {dayjs(item.sunset * 1000).format("h:mm A")}</Paragraph>
@@ -31,25 +26,14 @@ const DailyListItemDetails = ({ item, units }: Props) => {
           </Paragraph>
         </Box>
         <hr />
-        <Box
-          sx={{
-            "& p": {
-              textAlign: "center",
-            },
-            "& img": {
-              margin: "auto",
-            },
-            width: "50%",
-            textAlign: "center",
-          }}
-        >
-          <img alt="" src="http://openweathermap.org/img/wn/01n@2x.png" />
+        <Box textAlign="center">
+          <img alt={item.weather[0].description} src="http://openweathermap.org/img/wn/01n@2x.png" />
           <Paragraph>{dayjs(item.dt * 1000).format("ddd D")} | Night</Paragraph>
-          <Paragraph>{returnUnitTemperature(item.temp.night, units)}</Paragraph>
+          <Paragraph>{nightTemperatureDisplayValue}</Paragraph>
           <br />
           <Paragraph>Moonrise at {dayjs(item.moonrise * 1000).format("h:mm A")}</Paragraph>
           <Paragraph>Moonset at {dayjs(item.moonset * 1000).format("h:mm A")}</Paragraph>
-          <Paragraph>Moon Phase | {returnMoonPhase(item.moon_phase)}</Paragraph>
+          <Paragraph>Moon Phase | {moonPhaseDisplayValue}</Paragraph>
         </Box>
       </Flex>
     </>
