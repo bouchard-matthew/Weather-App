@@ -1,19 +1,19 @@
-import React from "react";
-import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { DailyListItemSummary } from "./DailyListItemSummary";
+import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import { DailyListItemsDetails } from "./DailyListItemDetails";
-import { Props } from "./DailyListItem.types";
+import { DailyListItemSummary } from "./DailyListItemSummary";
 
-const DailyListItem = ({ item, units, index }: Props) => {
+import type { Props } from "./DailyListItem.types";
+
+const DailyListItem = ({ item, index }: Props) => {
   return (
     <>
       <Accordion defaultExpanded={index === 0} sx={{ border: "1px solid black" }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-          <DailyListItemSummary item={item} index={index} units={units} />
+          <DailyListItemSummary item={item} index={index} />
         </AccordionSummary>
         <AccordionDetails>
-          <DailyListItemsDetails item={item} units={units} />
+          <DailyListItemsDetails item={item} />
         </AccordionDetails>
       </Accordion>
     </>
