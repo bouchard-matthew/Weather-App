@@ -5,17 +5,11 @@ import FirstToolbar from "./FirstToolbar";
 
 const { REACT_APP_API_KEY } = process.env;
 
-let defaultVal: string = "";
-
-const setElementValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-  defaultVal = e.target.value;
-};
-
 const FirstToolbarContainer = () => {
   const { setLon, setLat, setUnits, units, setWeather, setLoading } = useStore();
-  const [zip, setZip] = useState<string>(defaultVal);
+  const [zip, setZip] = useState<string>("");
 
-  const fetchWeatherDataZip = useCallback(async () => {
+  const fetchWeatherDataUsingZip = useCallback(async () => {
     setLoading(true);
     let res = await axios.get(`https://api.openweathermap.org/data/2.5/weather?zip=${zip},us&appid=${REACT_APP_API_KEY}`);
 
@@ -30,14 +24,13 @@ const FirstToolbarContainer = () => {
     setLoading(false);
   }, [setLat, setLoading, setLon, setWeather, zip]);
 
-  const setValue = useCallback(() => {
-    setZip(defaultVal);
+  const callFetchWeather = useCallback(() => {
     if (zip !== "") {
-      fetchWeatherDataZip();
+      fetchWeatherDataUsingZip();
     }
-  }, [fetchWeatherDataZip, zip]);
+  }, [fetchWeatherDataUsingZip, zip]);
 
-  return <FirstToolbar handleState={setValue} handler={setElementValue} units={units} setUnits={setUnits} />;
+  return <FirstToolbar fetchWeather={callFetchWeather} units={units} setUnits={setUnits} setZip={setZip} />;
 };
 
 export default FirstToolbarContainer;
