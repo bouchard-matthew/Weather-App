@@ -5,7 +5,7 @@ import { Units } from "Types/types";
 
 import type { Props } from "./FirstToolbar.types";
 
-const FirstToolbar = ({ handleState, handler, units, setUnits }: Props) => {
+const FirstToolbar = ({ fetchWeather, units, setUnits, setZip }: Props) => {
   return (
     <Toolbar sx={{ backgroundColor: "#FF7F50" }}>
       <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}>
@@ -13,7 +13,7 @@ const FirstToolbar = ({ handleState, handler, units, setUnits }: Props) => {
       </Typography>
 
       <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-        <InputLabel id="demo-select-small">Units</InputLabel>
+        <InputLabel>Units</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
@@ -23,9 +23,17 @@ const FirstToolbar = ({ handleState, handler, units, setUnits }: Props) => {
             setUnits(e.target.value);
           }}
         >
-          <MenuItem value={Units.imperial}>{`US | °F`}</MenuItem>
-          <MenuItem value={Units.metric}>{`UK | °C`}</MenuItem>
-          <MenuItem value={Units.standard}>{`STND | °K`}</MenuItem>
+          {Object.values(Units).map((unit) => {
+            let unitDisplayValue;
+            if (Units.imperial === unit) {
+              unitDisplayValue = "US | °F";
+            } else if (Units.metric === unit) {
+              unitDisplayValue = "UK | °C";
+            } else if (Units.standard === unit) {
+              unitDisplayValue = "STND | °K";
+            }
+            return <MenuItem value={Units[unit]}>{unitDisplayValue}</MenuItem>;
+          })}
         </Select>
       </FormControl>
 
@@ -34,10 +42,10 @@ const FirstToolbar = ({ handleState, handler, units, setUnits }: Props) => {
           <SearchIcon />
         </SearchIconWrapper>
 
-        <StyledInputBase placeholder="Search… zip" inputProps={{ "aria-label": "search" }} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handler(e)} />
+        <StyledInputBase placeholder="Search" inputProps={{ "aria-label": "search" }} onChange={(e) => setZip(e.target.value)} />
       </Search>
 
-      <Button variant="outlined" onClick={() => handleState()}>
+      <Button variant="outlined" onClick={() => fetchWeather()}>
         GO
       </Button>
     </Toolbar>

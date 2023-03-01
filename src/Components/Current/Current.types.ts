@@ -1,15 +1,14 @@
-import { Current, Units } from "Types/types";
+import { Current } from "Types/types";
 
-export interface Props extends SharedProps {}
-
-interface SharedProps {
+export interface Props extends SharedProps {
+  loading: Boolean;
   current: Current | undefined;
   name: string | undefined;
-  units: Units;
-  today?: RootObject;
   toggle: boolean;
   setToggle: (toggle: boolean) => void;
 }
+
+interface SharedProps {}
 
 export interface Temp {
   day: number;
