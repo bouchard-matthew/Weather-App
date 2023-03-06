@@ -23,7 +23,7 @@ const FirstToolbar = ({ fetchWeather, units, setUnits, setZip }: Props) => {
             setUnits(e.target.value);
           }}
         >
-          {Object.values(Units).map((unit) => {
+          {Object.values(Units).map((unit, idx) => {
             let unitDisplayValue;
             if (Units.imperial === unit) {
               unitDisplayValue = "US | °F";
@@ -32,7 +32,11 @@ const FirstToolbar = ({ fetchWeather, units, setUnits, setZip }: Props) => {
             } else if (Units.standard === unit) {
               unitDisplayValue = "STND | °K";
             }
-            return <MenuItem value={Units[unit]}>{unitDisplayValue}</MenuItem>;
+            return (
+              <MenuItem key={idx} value={Units[unit]}>
+                {unitDisplayValue}
+              </MenuItem>
+            );
           })}
         </Select>
       </FormControl>

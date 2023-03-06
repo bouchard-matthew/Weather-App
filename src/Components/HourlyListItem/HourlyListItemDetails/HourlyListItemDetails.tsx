@@ -15,13 +15,13 @@ import { useUnitSpeed } from "Hooks/useUnitSpeed";
 import { useUnitTemperature } from "Hooks/useUnitTemperature";
 
 const HourlyListItemDetails = ({ item }: Props) => {
-  const cardinalityDisplayValue = useCardinality(item);
-  const windSpeedDisplayValue = useUnitSpeed(item);
+  const cardinalityDisplayValue = useCardinality(item.wind_deg);
+  const windSpeedDisplayValue = useUnitSpeed(item.wind_speed);
   const temperatureDisplayValue = useUnitTemperature(item.feels_like);
 
   return (
     <>
-      <Flex sx={{ marginBottom: "15px" }}>
+      <Flex sx={{ marginBottom: "15px", flexDirection: { xs: "column", sm: "row" } }}>
         <ListItem>
           <DeviceThermostatIcon />
           <Paragraph>
@@ -46,7 +46,7 @@ const HourlyListItemDetails = ({ item }: Props) => {
 
       <hr />
 
-      <Flex sx={{ marginBottom: "15px", marginTop: "15px" }}>
+      <Flex sx={{ marginBottom: "15px", marginTop: "15px", flexDirection: { xs: "column", sm: "row" } }}>
         <ListItem>
           <WbSunnyIcon />
           <Paragraph>

@@ -13,7 +13,7 @@ const DailyListItemDetails = ({ item }: Props) => {
 
   return (
     <>
-      <Flex>
+      <Flex flexDirection={{ xs: "column", sm: "column", md: "row" }}>
         <Box textAlign="center">
           <img alt={item.weather[0].description} src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} />
           <Paragraph>{dayjs(item.dt * 1000).format("ddd D")} | Day</Paragraph>
