@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useStore } from "Context/useAppStore";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header } from "Components/Header";
@@ -18,14 +18,15 @@ const { REACT_APP_API_KEY } = process.env;
 const AppContainer = () => {
   const { lat, lon, setLat, setLon, weather, setWeather } = useStore();
 
-  const fetchWeather = async () => {
+  const fetchWeather = useCallback(async () => {
     let res = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${REACT_APP_API_KEY}`);
     let data = Object.assign({}, res.data, { name: "Home" });
     setWeather(data);
-  };
+  }, [lat, lon, setWeather]);
 
   useEffect(() => {
-    // Refactored Code =>
+    // To-Do: Check expiresAt for the specific weather object AND if current time exceeds, then filter out expired weather objects. Re-fetch?
+
     if (!lat && !lon) {
       setLatAndLong(setLat, setLon);
     }
@@ -33,7 +34,7 @@ const AppContainer = () => {
     if (weather.length === 0) {
       fetchWeather();
     }
-  }, [lat, lon]);
+  }, [fetchWeather, lat, lon, setLat, setLon, weather.length]);
 
   return (
     <>

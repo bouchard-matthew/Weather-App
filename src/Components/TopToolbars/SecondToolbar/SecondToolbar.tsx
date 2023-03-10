@@ -7,7 +7,7 @@ import type { Props } from "./SecondToolbar.types";
 const SecondToolbar = ({ weatherArray, handleClick, deleteAtIndex }: Props) => {
   return (
     <Toolbar sx={{ backgroundColor: "#6495ED" }}>
-      <Flex flexDirection={{ xs: "column", sm: "column", md: "row" }} sx={{ "& > div:nth-child(1) > svg": { opacity: "0 !important" } }}>
+      <Flex flexDirection={{ xs: "column", sm: "row" }} sx={{ "& > div:nth-child(1) > svg": { opacity: "0 !important" } }}>
         {weatherArray.map((item, idx) => {
           return (
             <Flex

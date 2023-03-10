@@ -1,11 +1,10 @@
 import { AlertInterface } from "Types/types";
 
-export interface ChildProps {
-  alert: AlertInterface;
-  index: number;
+export interface Props extends SharedProps {
+  formatAlert: (str: string) => string;
 }
 
-export interface Props {
+export interface SharedProps {
   alert: AlertInterface;
   index: number;
 }

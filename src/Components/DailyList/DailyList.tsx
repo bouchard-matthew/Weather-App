@@ -1,7 +1,7 @@
-import { Box } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import { DailyListItem } from "Components/DailyListItem";
 import { Loading } from "Design";
+import { Container } from "Design";
 
 import type { Props } from "./DailyList.types";
 
@@ -15,9 +15,9 @@ const DailyList = ({ daily, loading }: Props) => {
       ) : (
         daily.map((item, idx) => {
           return (
-            <Box sx={{ margin: "20px 0px" }} key={idx}>
+            <Container elevation={6} key={idx}>
               <DailyListItem item={item} index={idx} />
-            </Box>
+            </Container>
           );
         })
       )}
