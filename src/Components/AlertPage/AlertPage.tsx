@@ -1,13 +1,16 @@
 import AlertItemContainer from "Components/AlertItem/AlertItemContainer";
-import React from "react";
-import { Flex } from "Design";
-import { Props } from "./AlertPage.types";
+import { Container, Flex } from "Design";
+import type { Props } from "./AlertPage.types";
 
 const AlertPage = ({ alerts }: Props) => {
   return (
     <Flex flexDirection="column">
       {alerts?.map((alert, idx) => {
-        return <AlertItemContainer index={idx} alert={alert} />;
+        return (
+          <Container key={idx} elevation={8}>
+            <AlertItemContainer index={idx} alert={alert} />
+          </Container>
+        );
       })}
     </Flex>
   );

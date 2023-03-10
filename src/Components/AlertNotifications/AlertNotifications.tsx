@@ -1,4 +1,3 @@
-import React from "react";
 import { useAlert } from "Hooks/useAlert";
 import { Box } from "@mui/material";
 import { AlertNotification } from "Components/AlertNotification";

@@ -1,6 +1,6 @@
 import create from "zustand";
-import { Units, Weather } from "Types/types";
 import { persist } from "zustand/middleware";
+import { Units, Weather } from "Types/types";
 import { handleWeatherAppend } from "Utils/dataFunctions";
 
 export interface StoreState {
@@ -17,6 +17,8 @@ export interface StoreState {
   loading: Boolean;
   setLoading: (loading: Boolean) => void;
 }
+
+// Make another store for the weather. (Find a way to set expiresAt for each weather object).
 
 export const useStore = create<StoreState>()(
   persist(

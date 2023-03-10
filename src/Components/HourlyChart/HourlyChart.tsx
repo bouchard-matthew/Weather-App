@@ -22,7 +22,10 @@ const HourlyChart = ({ hourly, toggle, handleClick, units, loading }: Props) => 
         </Loading>
       ) : (
         <>
-          <Flex sx={{ justifyContent: "center", "& > div > div > div": { width: "100% !important" } }}>
+          <Flex
+            justifyContent={"center"}
+            sx={{ "& > div > div > div.recharts-tooltip-wrapper": { width: "fit-content !important" }, "& > div > div > div": { width: "100% !important" } }}
+          >
             <ResponsiveContainer width="80%" height={400}>
               <LineChart data={returnHourlyChartData(hourly, units)} margin={{ top: 35, right: 60, left: 0, bottom: 35 }}>
                 <XAxis dataKey={(dt) => dayjs(dt.dt * 1000).format("h:mm A")} />
