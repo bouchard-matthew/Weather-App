@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { Props } from "./AlertNotification.types";
-import AlertNotification from "./AlertNotification";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AlertNotification from "./AlertNotification";
+import type { Props } from "./AlertNotification.types";
 
 const AlertNotificationContainer = ({ alert }: Props) => {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {

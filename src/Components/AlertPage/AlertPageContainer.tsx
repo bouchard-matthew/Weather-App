@@ -1,5 +1,4 @@
 import { useAlert } from "Hooks/useAlert";
-import React from "react";
 import AlertPage from "./AlertPage";
 
 const AlertPageContainer = () => {
