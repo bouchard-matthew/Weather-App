@@ -1,9 +1,9 @@
 import { useMemo } from "react";
-import { useStore } from "Context/useAppStore";
+import { useAdditionalWeatherProperties } from "Context/useAdditionalWeatherProperties";
 import { Units } from "Types/types";
 
 const useUnitTemperature = (temperature: number) => {
-  const { units } = useStore();
+  const { units } = useAdditionalWeatherProperties();
 
   return useMemo(() => {
     if (units === Units.imperial) return `${Math.round(((temperature - 273.15) * 9) / 5 + 32)}° F`;

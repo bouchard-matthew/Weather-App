@@ -79,7 +79,8 @@ export interface Weather {
   lon: number;
   timezone: string;
   timezone_offset: number;
-  name?: string;
+  name: string;
+  expiresAt: number;
 }
 
 export interface NestedWeatherObject {

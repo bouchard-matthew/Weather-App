@@ -1,9 +1,9 @@
-import { useStore } from "Context/useAppStore";
+import { useAdditionalWeatherProperties } from "Context/useAdditionalWeatherProperties";
 import { useDailyWeather } from "Hooks/useDailyWeather";
 import DailyList from "./DailyList";
 
 const DailyListContainer = () => {
-  const { loading } = useStore();
+  const { loading } = useAdditionalWeatherProperties();
 
   return <DailyList daily={useDailyWeather()} loading={loading} />;
 };

@@ -1,8 +1,10 @@
-import { useStore } from "Context/useAppStore";
+import { useAdditionalWeatherProperties } from "Context/useAdditionalWeatherProperties";
+import { useWeather } from "Context/useWeather";
 import SecondToolbar from "./SecondToolbar";
 
 const SecondToolbarContainer = () => {
-  const { weather, deleteAtIndex, setLat, setLon } = useStore();
+  const { setLat, setLon } = useAdditionalWeatherProperties();
+  const { deleteAtIndex, weather } = useWeather();
 
   const handleDelete = (index: number) => {
     setLat(weather[index - 1].lat);

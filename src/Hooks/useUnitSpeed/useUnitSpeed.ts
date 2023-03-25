@@ -1,9 +1,9 @@
 import { useMemo } from "react";
-import { useStore } from "Context/useAppStore";
+import { useAdditionalWeatherProperties } from "Context/useAdditionalWeatherProperties";
 import { Units } from "Types/types";
 
 const useUnitSpeed = (wind_speed: number) => {
-  const { units } = useStore();
+  const { units } = useAdditionalWeatherProperties();
   const speed = wind_speed;
 
   return useMemo(() => {

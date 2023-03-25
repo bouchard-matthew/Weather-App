@@ -6,7 +6,7 @@ const AlertNotifications = () => {
   const alerts = useAlert();
   return (
     <>
-      {alerts?.map((alert, idx) => {
+      {alerts?.map((alert, idx: number) => {
         return (
           <Box sx={{ "& p:hover": { cursor: "pointer" } }} key={idx}>
             <AlertNotification alert={alert} />

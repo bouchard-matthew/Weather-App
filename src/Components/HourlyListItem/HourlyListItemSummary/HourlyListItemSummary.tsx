@@ -31,7 +31,7 @@ const HourlyListItemSummary = ({ item }: Props) => {
           <img alt={item.weather[0].description} src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`} />
         </ListItem>
 
-        <ListItem sx={{ display: { xs: "none", sm: "flex", md: "flex" } }}>
+        <ListItem sx={{ display: { xs: "none", sm: "flex" } }}>
           <OpacityIcon />
           <Paragraph>{Math.round(item.pop * 100)}%</Paragraph>
         </ListItem>
