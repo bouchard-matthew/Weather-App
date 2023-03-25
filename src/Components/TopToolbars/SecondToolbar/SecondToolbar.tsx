@@ -1,57 +1,44 @@
-import { Toolbar, Typography, Grid } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
-import { Container } from "@mui/system";
-import { Weather } from "Types/types";
+import { Toolbar, Typography } from "@mui/material";
+import { Flex } from "Design";
 
-type Props = {
-  weatherArray: Weather[];
-  handleClick: (latitude: number, longitude: number) => void;
-  deleteAtIndex: (index: number) => void;
-};
+import type { Props } from "./SecondToolbar.types";
 
 const SecondToolbar = ({ weatherArray, handleClick, deleteAtIndex }: Props) => {
   return (
     <Toolbar sx={{ backgroundColor: "#6495ED" }}>
-      <Container maxWidth="md">
-        <Grid container sx={{ textAlign: "center" }}>
-          {weatherArray.map((item, idx) => {
-            return (
-              <Grid
-                sx={{
-                  "&:hover": {
-                    cursor: "pointer",
-                  },
-                  "& svg": {
-                    display: "none",
-                    transform: "scale(0.7)",
-                  },
-                  "&:hover svg": {
-                    display: "inline",
-                    verticalAlign: "middle",
-                  },
-                  "&:hover svg:hover": {
-                    color: "red",
-                  },
-                }}
-                key={idx}
-                item
-                xs={4}
-              >
-                <img
-                  style={{ verticalAlign: "middle" }}
-                  alt="img1"
-                  src={`http://openweathermap.org/img/wn/${item.current.weather[0].icon}.png`}
-                  onClick={() => handleClick(item.lat, item.lon)}
-                />
-                <Typography noWrap component="span" sx={{ display: { xs: "none", md: "inline" } }} onClick={() => handleClick(item.lat, item.lon)}>
-                  {item.name}
-                </Typography>
-                {idx !== 0 && <ClearIcon onClick={() => deleteAtIndex(idx)} />}
-              </Grid>
-            );
-          })}
-        </Grid>
-      </Container>
+      <Flex flexDirection={{ xs: "column", sm: "row" }} sx={{ "& > div:nth-child(1) > svg": { opacity: "0 !important" } }}>
+        {weatherArray.map((item, idx) => {
+          return (
+            <Flex
+              sx={{
+                alignItems: "center",
+                justifyContent: "center",
+                "&:hover": {
+                  cursor: "pointer",
+                },
+                "& svg": {
+                  opacity: "0",
+                },
+                "&:hover svg": {
+                  opacity: "100",
+                },
+              }}
+              key={idx}
+            >
+              <img
+                alt={`${item.current.weather[0].description}`}
+                src={`http://openweathermap.org/img/wn/${item.current.weather[0].icon}.png`}
+                onClick={() => handleClick(item.lat, item.lon)}
+              />
+              <Typography noWrap component="span" onClick={() => handleClick(item.lat, item.lon)}>
+                {item.name}
+              </Typography>
+              {<ClearIcon sx={{ "&:hover": { color: "red" } }} onClick={() => deleteAtIndex(idx)} />}
+            </Flex>
+          );
+        })}
+      </Flex>
     </Toolbar>
   );
 };

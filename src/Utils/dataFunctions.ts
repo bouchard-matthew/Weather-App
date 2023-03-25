@@ -14,28 +14,29 @@ const convertTemperature = (temp: number, units: Units) => {
 export const returnHourlyChartData = (hourlyData: Current[], units: Units): NewHourlyObject[] => {
   let array: NewHourlyObject[] = [];
 
-  hourlyData.map((item) => {
-    let obj: NewHourlyObject = Object.assign({}, item, {
-      Humidity: Math.round(item.humidity),
-      "Feels Like": convertTemperature(item.feels_like, units),
-      Clouds: Math.round(item.clouds),
-      Temperature: convertTemperature(item.temp, units),
-      Precipitation: Math.round(item.pop * 100),
-    });
-    array.push(obj);
-  });
+  hourlyData.map((item) =>
+    array.push(
+      Object.assign({}, item, {
+        Humidity: Math.round(item.humidity),
+        "Feels Like": convertTemperature(item.feels_like, units),
+        Clouds: Math.round(item.clouds),
+        Temperature: convertTemperature(item.temp, units),
+        Precipitation: Math.round(item.pop * 100),
+      })
+    )
+  );
 
   return array;
 };
 
 export const handleWeatherAppend = (list: Weather[], data: Weather) => {
   let temp = [...list];
-  let match = list.findIndex((item) => item.lat == data.lat && item.lon == item.lon);
+  let match = list.findIndex((item) => item.lat === data.lat && item.lon === data.lon);
 
   if (match > -1) {
     temp[match] = data;
     return temp;
-  } else if (list.length == 3) {
+  } else if (list.length === 3) {
     temp[2] = data;
     return temp;
   }
@@ -61,24 +62,4 @@ export const setLatAndLong = (setLat: (latitude: number) => void, setLong: (long
     }
   );
   return;
-};
-
-export const returnUnitSpeed = (speed: number, unit: Units): string => {
-  switch (unit) {
-    case Units.imperial:
-      return `${Math.round(speed * 2.2369)} mph`;
-    default:
-      return `${Math.round((speed * 18) / 5)} kph`;
-  }
-};
-
-export const returnUnitTemperature = (temp: number, units: Units): string => {
-  switch (units) {
-    case Units.imperial:
-      return `${Math.round(((temp - 273.15) * 9) / 5 + 32)}° F`;
-    case Units.metric:
-      return `${Math.round(temp - 273.15)}° C`;
-    default:
-      return `${Math.round(temp)}° K`;
-  }
 };

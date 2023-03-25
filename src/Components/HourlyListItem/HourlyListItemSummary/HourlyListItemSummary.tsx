@@ -11,9 +11,9 @@ import { useCardinality } from "Hooks/useCardinality";
 import { useUnitSpeed } from "Hooks/useUnitSpeed";
 
 const HourlyListItemSummary = ({ item }: Props) => {
-  const cardinalityDisplayValue = useCardinality(item);
+  const cardinalityDisplayValue = useCardinality(item.wind_deg);
   const temperatureDisplayValue = useUnitTemperature(item.feels_like);
-  const windSpeedDisplayValue = useUnitSpeed(item);
+  const windSpeedDisplayValue = useUnitSpeed(item.wind_speed);
 
   return (
     <>
@@ -22,7 +22,7 @@ const HourlyListItemSummary = ({ item }: Props) => {
           <Paragraph>{dayjs(item.dt * 1000).format("h:MM A")}</Paragraph>
         </ListItem>
 
-        <ListItem>
+        <ListItem sx={{ display: { xs: "none", sm: "none", md: "flex" } }}>
           <Paragraph>{temperatureDisplayValue}</Paragraph>
         </ListItem>
 
@@ -31,12 +31,12 @@ const HourlyListItemSummary = ({ item }: Props) => {
           <img alt={item.weather[0].description} src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`} />
         </ListItem>
 
-        <ListItem>
+        <ListItem sx={{ display: { xs: "none", sm: "flex" } }}>
           <OpacityIcon />
           <Paragraph>{Math.round(item.pop * 100)}%</Paragraph>
         </ListItem>
 
-        <ListItem>
+        <ListItem sx={{ display: { xs: "none", sm: "none", md: "flex" } }}>
           <AirIcon />
           <Paragraph>
             {cardinalityDisplayValue} {windSpeedDisplayValue}

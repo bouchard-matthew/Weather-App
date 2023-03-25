@@ -1,14 +1,10 @@
 import { useMemo } from "react";
-import { useStore } from "Context/useAppStore";
+import { useAdditionalWeatherProperties } from "Context/useAdditionalWeatherProperties";
 import { Units } from "Types/types";
 
-interface Item {
-  wind_speed: number;
-}
-
-const useUnitSpeed = (item: Item) => {
-  const { units } = useStore();
-  const speed = item.wind_speed;
+const useUnitSpeed = (wind_speed: number) => {
+  const { units } = useAdditionalWeatherProperties();
+  const speed = wind_speed;
 
   return useMemo(() => {
     if (units === Units.imperial) return `${Math.round(speed * 2.2369)} mph`;
