@@ -1,5 +1,5 @@
-import { Container } from "@mui/material";
 import { HourlyListItem } from "Components/HourlyListItem";
+import { Container } from "Design";
 import { Props } from "./HourlyList.types";
 
 const HourlyList = ({ hourly, loading }: Props) => {
@@ -8,7 +8,7 @@ const HourlyList = ({ hourly, loading }: Props) => {
       {!loading &&
         hourly.map((item, index) => {
           return (
-            <Container sx={{ marginBottom: "20px" }} key={index}>
+            <Container elevation={6} key={index}>
               <HourlyListItem item={item} />
             </Container>
           );

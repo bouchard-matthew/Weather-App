@@ -8,3 +8,4 @@ export { Notification } from "./Notification";
 export { Loading } from "./Loading";
 export { HeaderSection } from "./HeaderSection";
 export { Toggle } from "./Toggle";
+export { Container } from "./Container";

@@ -1,11 +1,7 @@
 import { useMemo } from "react";
 
-interface Item {
-  wind_deg: number;
-}
-
-const useCardinality = (item: Item) => {
-  const deg = item.wind_deg;
+const useCardinality = (wind_deg: number) => {
+  const deg = wind_deg;
   return useMemo(() => {
     if (deg > 11.25 && deg <= 33.75) return "NNE";
     else if (deg > 33.75 && deg <= 56.25) return "ENE";

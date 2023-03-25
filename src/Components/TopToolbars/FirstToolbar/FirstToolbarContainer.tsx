@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useState, useCallback } from "react";
-import { useStore } from "Context/useAppStore";
+import { useAdditionalWeatherProperties } from "Context/useAdditionalWeatherProperties";
 import FirstToolbar from "./FirstToolbar";
+import { useWeather } from "Context/useWeather";
+import dayjs from "dayjs";
 
 const { REACT_APP_API_KEY } = process.env;
 
 const FirstToolbarContainer = () => {
-  const { setLon, setLat, setUnits, units, setWeather, setLoading } = useStore();
+  const { setLon, setLat, setUnits, units, setLoading } = useAdditionalWeatherProperties();
+  const { setWeather } = useWeather();
   const [zip, setZip] = useState<string>("");
 
   const fetchWeatherDataUsingZip = useCallback(async () => {
@@ -20,7 +23,7 @@ const FirstToolbarContainer = () => {
       `https://api.openweathermap.org/data/2.5/onecall?lat=${res.data.coord.lat}&lon=${res.data.coord.lon}&exclude=minutely&appid=${REACT_APP_API_KEY}`
     );
 
-    setWeather(Object.assign({}, res2.data, { name: res.data.name }));
+    setWeather(Object.assign({}, res2.data, { name: res.data.name, expiresAt: dayjs().add(1, "minute").unix() }));
     setLoading(false);
   }, [setLat, setLoading, setLon, setWeather, zip]);
 

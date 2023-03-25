@@ -10,10 +10,10 @@ import { capitalizeFirstLetter } from "Utils/stringFunctions";
 import type { Props } from "./DailyListItemSummary.types";
 
 const DailyListItemSummary = ({ item, index }: Props) => {
-  const cardinalityDisplayValue = useCardinality(item);
+  const cardinalityDisplayValue = useCardinality(item.wind_deg);
   const daytimeTemperatureDisplayValue = useUnitTemperature(item.temp.day);
   const nightTemperatureDisplayValue = useUnitTemperature(item.temp.night);
-  const windSpeedDisplayValue = useUnitSpeed(item);
+  const windSpeedDisplayValue = useUnitSpeed(item.wind_speed);
 
   return (
     <>
@@ -22,7 +22,7 @@ const DailyListItemSummary = ({ item, index }: Props) => {
           <Paragraph>{index === 0 ? "Today" : dayjs(item.dt * 1000).format("ddd D")}</Paragraph>
         </ListItem>
 
-        <ListItem>
+        <ListItem sx={{ display: { xs: "none", sm: "none", md: "flex" } }}>
           <Paragraph>
             {daytimeTemperatureDisplayValue}° / {nightTemperatureDisplayValue}
           </Paragraph>
@@ -33,12 +33,12 @@ const DailyListItemSummary = ({ item, index }: Props) => {
           <Paragraph>{capitalizeFirstLetter(item.weather[0].description)}</Paragraph>
         </ListItem>
 
-        <ListItem>
+        <ListItem sx={{ display: { xs: "none", sm: "flex", md: "flex" } }}>
           <OpacityIcon style={{ color: "blue" }} />
-          <Paragraph>{item.pop * 100}%</Paragraph>
+          <Paragraph>{Math.round(item.pop * 100)}%</Paragraph>
         </ListItem>
 
-        <ListItem>
+        <ListItem sx={{ display: { xs: "none", sm: "none", md: "flex" } }}>
           <AirIcon style={{ color: "blue" }} />
           <Paragraph>
             {cardinalityDisplayValue} {windSpeedDisplayValue}
