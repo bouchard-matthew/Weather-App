@@ -1,10 +1,9 @@
-import React from "react";
 import dayjs from "dayjs";
 
 import { Flex, ListItem, Paragraph } from "Design";
 import { capitalizeFirstLetter } from "Utils/stringFunctions";
 import AirIcon from "@mui/icons-material/Air";
-import OpacityIcon from "@mui/icons-material/Opacity";
+import ShowerIcon from "@mui/icons-material/Shower";
 import { Props } from "./HourlyListItemSummary.types";
 import { useUnitTemperature } from "Hooks/useUnitTemperature";
 import { useCardinality } from "Hooks/useCardinality";
@@ -19,7 +18,7 @@ const HourlyListItemSummary = ({ item }: Props) => {
     <>
       <Flex>
         <ListItem>
-          <Paragraph>{dayjs(item.dt * 1000).format("h:MM A")}</Paragraph>
+          <Paragraph>{dayjs(item.dt * 1000).format("h:mm A")}</Paragraph>
         </ListItem>
 
         <ListItem sx={{ display: { xs: "none", sm: "none", md: "flex" } }}>
@@ -32,7 +31,7 @@ const HourlyListItemSummary = ({ item }: Props) => {
         </ListItem>
 
         <ListItem sx={{ display: { xs: "none", sm: "flex" } }}>
-          <OpacityIcon />
+          <ShowerIcon />
           <Paragraph>{Math.round(item.pop * 100)}%</Paragraph>
         </ListItem>
 

@@ -1,7 +1,7 @@
-import { Current, Units } from "Types/types";
+import { Hourly, Units } from "Types/types";
 
 export interface Props extends SharedProps {
-  hourly: Current[];
+  hourly: Hourly[];
   toggle: Boolean;
   units: Units;
   handleClick: (value: Boolean) => void;

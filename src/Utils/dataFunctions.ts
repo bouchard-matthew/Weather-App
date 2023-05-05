@@ -1,4 +1,4 @@
-import { Current, NewHourlyObject, Units, Weather } from "Types/types";
+import { Hourly, NewHourlyObject, Units, Weather } from "Types/types";
 
 const convertTemperature = (temp: number, units: Units) => {
   switch (units) {
@@ -11,7 +11,7 @@ const convertTemperature = (temp: number, units: Units) => {
   }
 };
 
-export const returnHourlyChartData = (hourlyData: Current[], units: Units): NewHourlyObject[] => {
+export const returnHourlyChartData = (hourlyData: Hourly[], units: Units): NewHourlyObject[] => {
   let array: NewHourlyObject[] = [];
 
   hourlyData.map((item) =>

@@ -1,14 +1,25 @@
 import { useAdditionalWeatherProperties } from "Context/useAdditionalWeatherProperties";
-import { useCurrentWeather } from "Hooks/useCurrentWeather";
+import { useHourlyWeather } from "Hooks/useHourlyWeather";
 import { useLocationName } from "Hooks/useLocationName";
+import { useTimeZoneString } from "Hooks/useTimeZoneString";
 import { useState } from "react";
 import Current from "./Current";
 
 const CurrentContainer = () => {
   const [toggle, setToggle] = useState(false);
-  const { loading } = useAdditionalWeatherProperties();
+  const { loading, currentTime } = useAdditionalWeatherProperties();
 
-  return <Current loading={loading} toggle={toggle} setToggle={setToggle} current={useCurrentWeather()} name={useLocationName()} />;
+  return (
+    <Current
+      timeZone={useTimeZoneString()}
+      currentTime={currentTime}
+      loading={loading}
+      toggle={toggle}
+      setToggle={setToggle}
+      current={useHourlyWeather()[0]}
+      name={useLocationName()}
+    />
+  );
 };
 
 export default CurrentContainer;

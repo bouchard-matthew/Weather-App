@@ -9,7 +9,6 @@ export interface StoreState {
   deleteAtIndex: (index: number) => void;
 }
 
-// Make another store for the weather. (Find a way to set expiresAt for each weather object)
 export const useWeather = create<StoreState>()(
   persist(
     (set) => ({

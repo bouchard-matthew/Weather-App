@@ -1,9 +1,11 @@
-import { Current } from "Types/types";
+import { Hourly } from "Types/types";
 
 export interface Props extends SharedProps {
   loading: Boolean;
-  current: Current | undefined;
+  current: Hourly | undefined;
+  currentTime: number;
   name: string | undefined;
+  timeZone: string;
   toggle: boolean;
   setToggle: (toggle: boolean) => void;
 }

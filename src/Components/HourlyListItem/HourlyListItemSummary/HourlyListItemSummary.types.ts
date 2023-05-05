@@ -1,7 +1,7 @@
-import { Current } from "Types/types";
+import { Hourly } from "Types/types";
 
 export interface Props extends SharedProps {}
 
 interface SharedProps {
-  item: Current;
+  item: Hourly;
 }

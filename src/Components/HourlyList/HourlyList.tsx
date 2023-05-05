@@ -8,7 +8,7 @@ const HourlyList = ({ hourly, loading }: Props) => {
       {!loading &&
         hourly.map((item, index) => {
           return (
-            <Container elevation={6} key={index}>
+            <Container key={index}>
               <HourlyListItem item={item} />
             </Container>
           );
