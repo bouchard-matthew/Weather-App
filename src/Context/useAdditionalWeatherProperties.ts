@@ -1,16 +1,19 @@
 import create from "zustand";
 import { persist } from "zustand/middleware";
 import { Units } from "Types/types";
+import dayjs from "dayjs";
 
 export interface StoreState {
   lat: number | undefined;
   lon: number | undefined;
+  currentTime: number;
   setLat: (latitude: number | undefined) => void;
   setLon: (longitude: number | undefined) => void;
   units: Units;
   setUnits: (unit: Units) => void;
   loading: Boolean;
   setLoading: (loading: Boolean) => void;
+  setCurrentTime: (time: number) => void;
 }
 
 // Make another store for the weather. (Find a way to set expiresAt for each weather object)
@@ -23,7 +26,7 @@ export const useAdditionalWeatherProperties = create<StoreState>()(
       lon: undefined,
       loading: false,
       units: Units.imperial,
-      weather: [],
+      currentTime: dayjs().unix(),
       // methods for manipulating state
       setLat: (latitude: number | undefined) => {
         set(() => ({ lat: latitude }));
@@ -37,10 +40,14 @@ export const useAdditionalWeatherProperties = create<StoreState>()(
       setLoading: (loading: Boolean) => {
         set(() => ({ loading }));
       },
+      setCurrentTime: (time: number) => {
+        set(() => ({ currentTime: time }));
+      },
     }),
     {
       name: "WeatherAppProps",
       getStorage: () => localStorage,
+      partialize: (state) => Object.fromEntries(Object.entries(state).filter(([key]) => !["currentTime"].includes(key))),
     }
   )
 );

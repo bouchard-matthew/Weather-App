@@ -1,4 +1,3 @@
-import React from "react";
 import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import OpacityIcon from "@mui/icons-material/Opacity";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
@@ -46,7 +45,7 @@ const HourlyListItemDetails = ({ item }: Props) => {
 
       <hr />
 
-      <Flex sx={{ marginBottom: "15px", marginTop: "15px", flexDirection: { xs: "column", sm: "row" } }}>
+      <Flex sx={{ my: "15px", flexDirection: { xs: "column", sm: "row" } }}>
         <ListItem>
           <WbSunnyIcon />
           <Paragraph>
@@ -64,7 +63,7 @@ const HourlyListItemDetails = ({ item }: Props) => {
         <ListItem>
           <ShowerIcon />
           <Paragraph>
-            Precip Amount <br /> {Math.round(item.pop)}%
+            Precip Amount <br /> {Math.round(item.pop * 100)}%
           </Paragraph>
         </ListItem>
       </Flex>

@@ -23,7 +23,7 @@ const FirstToolbarContainer = () => {
       `https://api.openweathermap.org/data/2.5/onecall?lat=${res.data.coord.lat}&lon=${res.data.coord.lon}&exclude=minutely&appid=${REACT_APP_API_KEY}`
     );
 
-    setWeather(Object.assign({}, res2.data, { name: res.data.name, expiresAt: dayjs().add(1, "minute").unix() }));
+    setWeather(Object.assign({}, res2.data, { name: res.data.name, expiresAt: dayjs().add(1, "day").unix() }));
     setLoading(false);
   }, [setLat, setLoading, setLon, setWeather, zip]);
 

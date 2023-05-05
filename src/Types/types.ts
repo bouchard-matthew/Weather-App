@@ -4,7 +4,7 @@ export enum Units {
   standard = "standard",
 }
 
-export interface Current {
+export interface Hourly {
   dt: number;
   sunrise?: number;
   sunset?: number;
@@ -72,9 +72,8 @@ export interface AlertInterface {
 
 export interface Weather {
   alerts?: AlertInterface[];
-  current: Current;
   daily: Daily[];
-  hourly: Current[];
+  hourly: Hourly[];
   lat: number;
   lon: number;
   timezone: string;
@@ -90,7 +89,7 @@ export interface NestedWeatherObject {
   icon: string;
 }
 
-export interface NewHourlyObject extends Omit<Current, "feels_like" | "humidity" | "clouds" | "temp" | "pop"> {
+export interface NewHourlyObject extends Omit<Hourly, "feels_like" | "humidity" | "clouds" | "temp" | "pop"> {
   "Feels Like": number;
   Temperature: number;
   Humidity: number;

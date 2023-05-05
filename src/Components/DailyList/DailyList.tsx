@@ -15,7 +15,7 @@ const DailyList = ({ daily, loading }: Props) => {
       ) : (
         daily.map((item, idx) => {
           return (
-            <Container elevation={6} key={idx}>
+            <Container key={idx}>
               <DailyListItem item={item} index={idx} />
             </Container>
           );

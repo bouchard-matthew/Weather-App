@@ -1,7 +1,7 @@
-import { Current, Units } from "Types/types";
+import { Hourly, Units } from "Types/types";
 
 export interface Props {
-  hourly: Current[];
+  hourly: Hourly[];
   units: Units;
   loading: Boolean;
 }
