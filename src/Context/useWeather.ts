@@ -1,7 +1,7 @@
-import create from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 import { Weather } from "Types/types";
-import { handleWeatherAppend } from "Utils/dataFunctions";
+import { useAddWeather } from "Hooks/useAddWeather";
 
 export interface StoreState {
   weather: Weather[];
@@ -17,7 +17,7 @@ export const useWeather = create<StoreState>()(
       // methods for manipulating state
       setWeather: (data: Weather) => {
         set((state) => ({
-          weather: handleWeatherAppend(state.weather, data),
+          weather: useAddWeather(state.weather, data),
         }));
       },
       deleteAtIndex: (index: number) => {
@@ -26,7 +26,7 @@ export const useWeather = create<StoreState>()(
     }),
     {
       name: "Weather",
-      getStorage: () => localStorage,
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );

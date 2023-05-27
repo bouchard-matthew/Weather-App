@@ -1,26 +1,19 @@
-import CircularProgress from "@mui/material/CircularProgress";
 import { DailyListItem } from "Components/DailyListItem";
-import { Loading } from "Design";
 import { Container } from "Design";
 
 import type { Props } from "./DailyList.types";
 
-const DailyList = ({ daily, loading }: Props) => {
+const DailyList = ({ daily }: Props) => {
   return (
     <>
-      {loading ? (
-        <Loading>
-          <CircularProgress />
-        </Loading>
-      ) : (
+      {daily &&
         daily.map((item, idx) => {
           return (
             <Container key={idx}>
               <DailyListItem item={item} index={idx} />
             </Container>
           );
-        })
-      )}
+        })}
     </>
   );
 };

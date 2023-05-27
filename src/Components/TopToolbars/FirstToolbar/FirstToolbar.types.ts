@@ -1,4 +1,5 @@
 import { Units } from "Types/types";
+import { SWRResponse } from "swr";
 
 export interface Props extends SharedProps {
   fetchWeather: () => void;

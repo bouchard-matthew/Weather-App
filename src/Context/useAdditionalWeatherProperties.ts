@@ -1,5 +1,5 @@
-import create from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 import { Units } from "Types/types";
 import dayjs from "dayjs";
 
@@ -46,7 +46,7 @@ export const useAdditionalWeatherProperties = create<StoreState>()(
     }),
     {
       name: "WeatherAppProps",
-      getStorage: () => localStorage,
+      storage: createJSONStorage(() => localStorage),
       partialize: (state) => Object.fromEntries(Object.entries(state).filter(([key]) => !["currentTime"].includes(key))),
     }
   )
