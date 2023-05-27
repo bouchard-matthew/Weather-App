@@ -1,7 +1,7 @@
 import { AlertInterface } from "Types/types";
 
 export interface Props extends SharedProps {
-  formatAlert: (alert: string) => string;
+  formatAlert: (str: string) => string;
 }
 
 export interface SharedProps {

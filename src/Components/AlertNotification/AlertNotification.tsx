@@ -4,7 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { RenderComponentProps } from "./AlertNotification.types";
 
-const AlertNotification = ({ alert, open, setOpen, router }: RenderComponentProps) => {
+const AlertNotification = ({ alert, open, setOpen, navigate }: RenderComponentProps) => {
   return (
     <>
       {open && (
@@ -22,7 +22,7 @@ const AlertNotification = ({ alert, open, setOpen, router }: RenderComponentProp
             </IconButton>
           }
         >
-          <Paragraph onClick={() => router.push("/alerts")} textAlign="center" width="100%">
+          <Paragraph onClick={() => navigate("/alerts")} fontWeight="bold" textAlign="center" width="100%">
             {alert.sender_name} | {alert.event}
           </Paragraph>
         </Notification>

@@ -1,9 +1,9 @@
-import { usePathname } from "next/navigation";
-import ThirdToolbar from "./ThirdToolbar";
+import ThirdToolbar from "./ThirdToolbar"
 
 const ThirdToolbarContainer = () => {
-  let location = usePathname();
-  return <ThirdToolbar path={location} />;
-};
+    return (
+        <ThirdToolbar />
+    )
+}
 
-export default ThirdToolbarContainer;
+export default ThirdToolbarContainer

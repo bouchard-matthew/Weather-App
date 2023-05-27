@@ -6,7 +6,7 @@ const AlertItem = ({ alert, index, formatAlert }: Props) => {
   return (
     <Accordion defaultExpanded={index === 0}>
       <AccordionSummary>
-        <Paragraph>
+        <Paragraph fontWeight="bold">
           {alert.sender_name} | {alert.event}
         </Paragraph>
       </AccordionSummary>

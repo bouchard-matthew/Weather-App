@@ -1,12 +1,13 @@
+import { useAdditionalWeatherProperties } from "Context/useAdditionalWeatherProperties";
+import { useHourlyWeather } from "Hooks/useHourlyWeather";
 import { useState } from "react";
 import HourlyChart from "./HourlyChart";
-import { useHourlyChartData } from "Hooks/useHourlyChartData";
-import { useHourlyWeather } from "Hooks/useHourlyWeather";
 
 const HourlyChartContainer = () => {
+  const { units, loading } = useAdditionalWeatherProperties();
   const [toggle, setToggle] = useState<Boolean>(false);
 
-  return <HourlyChart hourly={useHourlyChartData(useHourlyWeather())} toggle={toggle} handleClick={setToggle} />;
+  return <HourlyChart hourly={useHourlyWeather()} toggle={toggle} handleClick={setToggle} units={units} loading={loading} />;
 };
 
 export default HourlyChartContainer;

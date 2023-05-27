@@ -1,6 +1,7 @@
 import { Hourly } from "Types/types";
 
 export interface Props extends SharedProps {
+  loading: Boolean;
   current: Hourly | undefined;
   currentTime: number;
   name: string | undefined;

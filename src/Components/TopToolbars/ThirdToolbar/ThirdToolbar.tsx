@@ -1,29 +1,28 @@
-import Link from "next/link";
+import { NavLink } from "react-router-dom";
 import { Toolbar, Button, Grid } from "@mui/material";
 import { Container } from "@mui/system";
+import { useCurrentPath } from "Hooks/useCurrentPath";
 
-import type { Props } from "./ThirdToolbar.types";
+const ThirdToolbar = () => {
+  const pageNames = ["Today", "Daily", "Hourly"];
+  const pageLinks = ["/", "/daily", "/hourly"];
+  const path = useCurrentPath();
 
-const pageNamesLinks = {
-  Today: "/",
-  Daily: "/daily",
-  Hourly: "/hourly",
-} as const;
-
-const ThirdToolbar = ({ path }: Props) => {
   return (
     <Toolbar disableGutters={true} variant="dense" sx={{ bgcolor: "#B0C4DE" }}>
       <Container maxWidth="md">
         <Grid container sx={{ textAlign: "center", "& div a": { textDecoration: "none" } }}>
-          {Object.entries(pageNamesLinks).map((item, index) => (
-            <Grid item xs={4} key={index}>
-              <Link href={`${item[1]}`}>
-                <Button variant="text" sx={{ color: "white", background: `${path == item[1] ? "blue" : ""}` }}>
-                  {item[0]}
-                </Button>
-              </Link>
-            </Grid>
-          ))}
+          {pageNames.map((item, index) => {
+            return (
+              <Grid item xs={4} key={index}>
+                <NavLink to={`${pageLinks[index]}`}>
+                  <Button variant="text" sx={{ color: "white", background: `${path === pageLinks[index] ? "blue" : ""}` }}>
+                    {item}
+                  </Button>
+                </NavLink>
+              </Grid>
+            );
+          })}
         </Grid>
       </Container>
     </Toolbar>

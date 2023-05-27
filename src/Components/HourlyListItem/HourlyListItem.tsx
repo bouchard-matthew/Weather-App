@@ -1,11 +1,12 @@
+import dayjs from "dayjs";
 import { AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import dayjs from "dayjs";
-import { HeaderSection, Toggle } from "Design";
-import { HourlyListItemDetails } from "./HourlyListItemDetails";
-import { HourlyListItemSummary } from "./HourlyListItemSummary";
 
-import type { Props } from "./HourlyListItem.types";
+// Importing Components
+import { Props } from "./HourlyListItem.types";
+import { HourlyListItemSummary } from "./HourlyListItemSummary";
+import { HourlyListItemDetails } from "./HourlyListItemDetails";
+import { HeaderSection, Toggle } from "Design";
 
 const HourlyListItem = ({ item }: Props) => {
   return (

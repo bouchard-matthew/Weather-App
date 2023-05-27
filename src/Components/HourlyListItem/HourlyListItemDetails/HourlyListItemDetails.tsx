@@ -1,15 +1,17 @@
-import AirIcon from "@mui/icons-material/Air";
-import CloudIcon from "@mui/icons-material/Cloud";
 import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import OpacityIcon from "@mui/icons-material/Opacity";
-import ShowerIcon from "@mui/icons-material/Shower";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import { Paragraph, ResponsiveFlex, ListItem } from "Design";
+import ShowerIcon from "@mui/icons-material/Shower";
+import CloudIcon from "@mui/icons-material/Cloud";
+import AirIcon from "@mui/icons-material/Air";
+
+import { Paragraph, Flex, ListItem } from "Design";
+
+import { Props } from "./HourlyListItemDetails.types";
+
 import { useCardinality } from "Hooks/useCardinality";
 import { useUnitSpeed } from "Hooks/useUnitSpeed";
 import { useUnitTemperature } from "Hooks/useUnitTemperature";
-
-import type { Props } from "./HourlyListItemDetails.types";
 
 const HourlyListItemDetails = ({ item }: Props) => {
   const cardinalityDisplayValue = useCardinality(item.wind_deg);
@@ -18,7 +20,7 @@ const HourlyListItemDetails = ({ item }: Props) => {
 
   return (
     <>
-      <ResponsiveFlex>
+      <Flex sx={{ marginBottom: "15px", flexDirection: { xs: "column", sm: "row" } }}>
         <ListItem>
           <DeviceThermostatIcon />
           <Paragraph>
@@ -39,11 +41,11 @@ const HourlyListItemDetails = ({ item }: Props) => {
             Humidity <br /> {Math.round(item.humidity)}%
           </Paragraph>
         </ListItem>
-      </ResponsiveFlex>
+      </Flex>
 
       <hr />
 
-      <ResponsiveFlex>
+      <Flex sx={{ my: "15px", flexDirection: { xs: "column", sm: "row" } }}>
         <ListItem>
           <WbSunnyIcon />
           <Paragraph>
@@ -64,7 +66,7 @@ const HourlyListItemDetails = ({ item }: Props) => {
             Precip Amount <br /> {Math.round(item.pop * 100)}%
           </Paragraph>
         </ListItem>
-      </ResponsiveFlex>
+      </Flex>
     </>
   );
 };

@@ -7,12 +7,13 @@ import Current from "./Current";
 
 const CurrentContainer = () => {
   const [toggle, setToggle] = useState(false);
-  const { currentTime } = useAdditionalWeatherProperties();
+  const { loading, currentTime } = useAdditionalWeatherProperties();
 
   return (
     <Current
       timeZone={useTimeZoneString()}
       currentTime={currentTime}
+      loading={loading}
       toggle={toggle}
       setToggle={setToggle}
       current={useHourlyWeather()[0]}
