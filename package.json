@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "NODE_ENV=production node_modules/react-scripts/bin/react-scripts.js start",
     "lint": "next lint"
   },
   "dependencies": {
