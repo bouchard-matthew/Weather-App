@@ -7,9 +7,7 @@ const useTimeZoneString = () => {
   const { lat, lon } = useAdditionalWeatherProperties();
   const { weather } = useWeather();
 
-  return useMemo(() => {
-    return weather.find((item: Weather) => item.lat === lat && item.lon === lon)?.timezone || "";
-  }, [lat, lon, weather]);
+  return useMemo(() => weather.find((item: Weather) => item.lat === lat && item.lon === lon)?.timezone || "", [lat, lon, weather]);
 };
 
 export default useTimeZoneString;

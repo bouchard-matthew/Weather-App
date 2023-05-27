@@ -7,8 +7,12 @@ const useUnitSpeed = (wind_speed: number) => {
   const speed = wind_speed;
 
   return useMemo(() => {
-    if (units === Units.imperial) return `${Math.round(speed * 2.2369)} mph`;
-    else return `${Math.round((speed * 18) / 5)} kph`;
+    const map = {
+      [Units.imperial]: `${Math.round(speed * 2.2369)} mph`,
+      [Units.metric]: `${Math.round((speed * 18) / 5)} kph`,
+      [Units.standard]: `${Math.round((speed * 18) / 5)} kph`,
+    } as const;
+    return map[units];
   }, [speed, units]);
 };
 

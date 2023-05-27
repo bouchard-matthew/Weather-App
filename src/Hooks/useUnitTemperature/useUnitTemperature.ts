@@ -4,12 +4,15 @@ import { Units } from "Types/types";
 
 const useUnitTemperature = (temperature: number) => {
   const { units } = useAdditionalWeatherProperties();
-
+  const deg = temperature;
   return useMemo(() => {
-    if (units === Units.imperial) return `${Math.round(((temperature - 273.15) * 9) / 5 + 32)}° F`;
-    else if (units === Units.metric) return `${Math.round(temperature - 273.15)}° C`;
-    else return `${Math.round(temperature)}° K`;
-  }, [temperature, units]);
+    const map = {
+      [Units.imperial]: `${Math.round(((deg - 273.15) * 9) / 5 + 32)}° F`,
+      [Units.metric]: `${Math.round(deg - 273.15)}° C`,
+      [Units.standard]: `${Math.round(deg)}° K`,
+    };
+    return map[units];
+  }, [deg, units]);
 };
 
 export default useUnitTemperature;

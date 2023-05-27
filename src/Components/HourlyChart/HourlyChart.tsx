@@ -1,33 +1,23 @@
 import { LineChart, XAxis, Line, Tooltip, YAxis, Legend, ResponsiveContainer } from "recharts";
-import { returnHourlyChartData } from "Utils/dataFunctions";
 import { Box, Button } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
-import { Flex, Loading } from "Design";
 import dayjs from "dayjs";
+import { Flex } from "Design";
+import { useBaseUnit } from "Hooks/useBaseUnit";
 
 import type { Props } from "./HourlyChart.types";
-import { Units } from "Types/types";
 
-const HourlyChart = ({ hourly, toggle, handleClick, units, loading }: Props) => {
-  const returnBaseUnit = (units: Units) => {
-    if (units === Units.imperial) return "° F";
-    else if (units === Units.metric) return "° C";
-    else return "° K";
-  };
+const HourlyChart = ({ hourly, toggle, handleClick }: Props) => {
+  const baseUnitDisplayValue = useBaseUnit();
   return (
     <>
-      {loading ? (
-        <Loading>
-          <CircularProgress />
-        </Loading>
-      ) : (
+      {hourly.length > 0 && (
         <>
           <Flex
             justifyContent={"center"}
             sx={{ "& > div > div > div.recharts-tooltip-wrapper": { width: "fit-content !important" }, "& > div > div > div": { width: "100% !important" } }}
           >
             <ResponsiveContainer width="80%" height={400}>
-              <LineChart data={returnHourlyChartData(hourly, units)} margin={{ top: 35, right: 60, left: 0, bottom: 35 }}>
+              <LineChart data={hourly} margin={{ top: 35, right: 60, left: 0, bottom: 35 }}>
                 <XAxis dataKey={(dt) => dayjs(dt.dt * 1000).format("h:mm A")} />
                 <Tooltip />
                 <YAxis
@@ -42,8 +32,8 @@ const HourlyChart = ({ hourly, toggle, handleClick, units, loading }: Props) => 
                   </>
                 ) : (
                   <>
-                    <Line unit={returnBaseUnit(units)} type="monotone" dataKey="Temperature" stroke="red" yAxisId={0} dot={false} />
-                    <Line unit={returnBaseUnit(units)} type="monotone" dataKey="Feels Like" stroke="#ff7313" yAxisId={0} dot={false} />
+                    <Line unit={baseUnitDisplayValue} type="monotone" dataKey="Temperature" stroke="red" yAxisId={0} dot={false} />
+                    <Line unit={baseUnitDisplayValue} type="monotone" dataKey="Feels Like" stroke="#ff7313" yAxisId={0} dot={false} />
                   </>
                 )}
                 <Legend align={"center"} />

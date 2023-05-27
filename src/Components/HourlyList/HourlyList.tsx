@@ -2,17 +2,16 @@ import { HourlyListItem } from "Components/HourlyListItem";
 import { Container } from "Design";
 import { Props } from "./HourlyList.types";
 
-const HourlyList = ({ hourly, loading }: Props) => {
+const HourlyList = ({ hourly }: Props) => {
   return (
     <>
-      {!loading &&
-        hourly.map((item, index) => {
-          return (
-            <Container key={index}>
-              <HourlyListItem item={item} />
-            </Container>
-          );
-        })}
+      {hourly.map((item, index) => {
+        return (
+          <Container key={index}>
+            <HourlyListItem item={item} />
+          </Container>
+        );
+      })}
     </>
   );
 };

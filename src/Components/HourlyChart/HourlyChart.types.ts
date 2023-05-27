@@ -1,11 +1,9 @@
-import { Hourly, Units } from "Types/types";
+import { NewHourlyObject } from "Types/types";
 
 export interface Props extends SharedProps {
-  hourly: Hourly[];
+  hourly: NewHourlyObject[];
   toggle: Boolean;
-  units: Units;
   handleClick: (value: Boolean) => void;
-  loading: Boolean;
 }
 
 interface SharedProps {}

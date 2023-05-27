@@ -1,17 +1,10 @@
+import { usePathname } from "next/navigation";
 import { useMemo } from "react";
-import { matchRoutes, useLocation } from "react-router-dom";
-
-const routes = [{ path: "/" }, { path: "/daily" }, { path: "/hourly" }];
 
 const useCurrentPath = () => {
-  const location = useLocation();
+  const location = usePathname();
 
-  return useMemo(() => {
-    const path = matchRoutes(routes, location);
-    if (path) {
-      return path[0].route.path;
-    }
-  }, [location]);
+  return useMemo(() => location, [location]);
 };
 
 export default useCurrentPath;

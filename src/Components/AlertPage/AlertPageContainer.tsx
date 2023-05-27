@@ -1,14 +1,12 @@
 import { useEffect } from "react";
 import { useAlert } from "Hooks/useAlert";
 import AlertPage from "./AlertPage";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 const AlertPageContainer = () => {
   const alerts = useAlert();
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!alerts) navigate("/");
-  }, [alerts, navigate]);
+  const router = useRouter();
+  useEffect(() => (!alerts ? router.push("/") : undefined), [alerts, router]);
   return <AlertPage alerts={alerts} />;
 };
 
