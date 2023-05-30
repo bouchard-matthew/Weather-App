@@ -23,7 +23,7 @@ const SecondToolbar = ({ weatherArray, setLat, setLon, deleteAtIndex }: Props) =
             );
             return (
               <Button
-                key={idx}
+                key={currentItem?.weather[0].description}
                 color="inherit"
                 sx={{
                   "&:hover": {
