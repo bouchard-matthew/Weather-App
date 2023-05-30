@@ -1,5 +1,3 @@
-export interface Props extends SharedProps {
-  path: string;
-}
+export interface Props extends SharedProps {}
 
 interface SharedProps {}

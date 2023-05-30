@@ -5,9 +5,9 @@ import { Props } from "./HourlyList.types";
 const HourlyList = ({ hourly }: Props) => {
   return (
     <>
-      {hourly.map((item, index) => {
+      {hourly.map((item) => {
         return (
-          <Container key={index}>
+          <Container key={item.dt}>
             <HourlyListItem item={item} />
           </Container>
         );

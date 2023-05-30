@@ -30,8 +30,8 @@ const FirstToolbar = ({ fetchWeather, units, setUnits, setZip }: Props) => {
             setUnits(e.target.value as Units);
           }}
         >
-          {Object.values(Units).map((unit, idx) => (
-            <MenuItem key={idx} value={Units[unit]}>
+          {Object.values(Units).map((unit) => (
+            <MenuItem key={unit} value={Units[unit]}>
               {unitDisplayValues[unit]}
             </MenuItem>
           ))}

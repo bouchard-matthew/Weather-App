@@ -9,7 +9,7 @@ const DailyList = ({ daily }: Props) => {
       {daily &&
         daily.map((item, idx) => {
           return (
-            <Container key={idx}>
+            <Container key={item.dt}>
               <DailyListItem item={item} index={idx} />
             </Container>
           );

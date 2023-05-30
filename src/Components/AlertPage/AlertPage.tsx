@@ -7,7 +7,7 @@ const AlertPage = ({ alerts }: Props) => {
     <Flex flexDirection="column">
       {alerts?.map((alert, idx) => {
         return (
-          <Container key={idx} elevation={8}>
+          <Container key={alert.event} elevation={8}>
             <AlertItemContainer index={idx} alert={alert} />
           </Container>
         );
