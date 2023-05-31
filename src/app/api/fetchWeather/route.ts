@@ -3,8 +3,8 @@ import type { NextRequest } from "next/server";
 import { z } from "zod";
 
 const schema = z.object({
-  lat: z.number(),
-  lon: z.number(),
+  lat: z.preprocess((a) => parseFloat(a as string), z.number()),
+  lon: z.preprocess((a) => parseFloat(a as string), z.number()),
   name: z.string(),
 });
 
