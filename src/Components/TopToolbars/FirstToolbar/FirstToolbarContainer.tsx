@@ -3,17 +3,26 @@ import { useState, useCallback } from "react";
 import { useAdditionalWeatherProperties } from "Context/useAdditionalWeatherProperties";
 import FirstToolbar from "./FirstToolbar";
 import { useWeather } from "Context/useWeather";
+import { Weather } from "Types/types";
 
 const FirstToolbarContainer = () => {
-  const { setUnits, units } = useAdditionalWeatherProperties();
+  const { setUnits, units, setLat, setLon } = useAdditionalWeatherProperties();
   const { setWeather } = useWeather();
   const [zip, setZip] = useState<string>("");
 
-  const fetchWeatherDataUsingZip = useCallback(async () => setWeather((await axios.get(`/api/fetchWeatherUsingZip?zip=${zip}`)).data), [setWeather, zip]);
+  const fetchWeatherDataUsingZip = useCallback(async () => {
+    if (zip.length === 0) {
+      return;
+    }
 
-  const callFetchWeather = useCallback(() => zip !== "" && fetchWeatherDataUsingZip(), [fetchWeatherDataUsingZip, zip]);
+    const { data } = await axios.get<Weather>(`/api/fetchWeatherUsingZip?zip=${zip}`);
 
-  return <FirstToolbar fetchWeather={callFetchWeather} units={units} setUnits={setUnits} setZip={setZip} />;
+    setWeather(data);
+    setLat(data.lat);
+    setLon(data.lon);
+  }, [setLat, setLon, setWeather, zip]);
+
+  return <FirstToolbar fetchWeather={fetchWeatherDataUsingZip} units={units} setUnits={setUnits} setZip={setZip} />;
 };
 
 export default FirstToolbarContainer;
