@@ -4,13 +4,14 @@ import axios from "axios";
 import dayjs from "dayjs";
 
 import { useAdditionalWeatherProperties } from "Context/useAdditionalWeatherProperties";
+import { Weather } from "Types/types";
 
 const useFetchWeather = () => {
   const { weather, setWeather } = useWeather();
   const { lat, lon, setLat, setLon, setCurrentTime } = useAdditionalWeatherProperties();
 
   const fetchWeather = useCallback(
-    async (name: string, lat: number, lon: number) => setWeather((await axios.get(`/api/fetchWeather?lat=${lat}&lon=${lon}&name=${name}`)).data),
+    async (name: string, lat: number, lon: number) => setWeather((await axios.get<Weather>(`/api/fetchWeather?lat=${lat}&lon=${lon}&name=${name}`)).data),
     [setWeather]
   );
 

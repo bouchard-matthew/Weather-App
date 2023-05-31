@@ -1,17 +1,24 @@
-import axios from "axios";
-import dayjs from "dayjs";
+import { openWeatherMapClient } from "Server/Client/openWeatherMapClient";
 import type { NextRequest } from "next/server";
+import { z } from "zod";
 
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+const schema = z.object({
+  lat: z.string().regex(/^\d+$/).transform(Number),
+  lon: z.string().regex(/^\d+$/).transform(Number),
+  name: z.string(),
+});
 
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
-    const lat = searchParams.get("lat");
-    const lon = searchParams.get("lon");
-    const name = searchParams.get("name");
-    let res = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${API_KEY}`);
-    let data = Object.assign({}, res.data, { name, expiresAt: dayjs().add(1, "day").unix() });
+
+    const { lat, lon, name } = schema.parse({
+      lat: searchParams.get("lat"),
+      lon: searchParams.get("lon"),
+      name: searchParams.get("name"),
+    });
+
+    const data = await openWeatherMapClient.getWeather({ lat, lon, name });
 
     return new Response(JSON.stringify(data), {
       status: 200,
