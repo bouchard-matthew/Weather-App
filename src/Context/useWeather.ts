@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { Weather } from "Types/types";
-import { useAddWeather } from "Hooks/useAddWeather";
+import useAddWeather from "Utils/addWeatherToArray";
 
 export interface StoreState {
   weather: Weather[];
