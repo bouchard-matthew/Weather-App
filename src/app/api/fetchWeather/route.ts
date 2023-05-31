@@ -3,15 +3,14 @@ import type { NextRequest } from "next/server";
 import { z } from "zod";
 
 const schema = z.object({
-  lat: z.string().regex(/^\d+$/).transform(Number),
-  lon: z.string().regex(/^\d+$/).transform(Number),
+  lat: z.number(),
+  lon: z.number(),
   name: z.string(),
 });
 
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
-
     const { lat, lon, name } = schema.parse({
       lat: searchParams.get("lat"),
       lon: searchParams.get("lon"),
