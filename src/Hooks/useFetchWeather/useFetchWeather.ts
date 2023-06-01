@@ -11,8 +11,12 @@ const useFetchWeather = () => {
   const { lat, lon, setLat, setLon, setCurrentTime } = useAdditionalWeatherProperties();
 
   const fetchWeather = useCallback(
-    async (name: string, lat: number, lon: number) => setWeather((await axios.get<Weather>(`/api/fetchWeather?lat=${lat}&lon=${lon}&name=${name}`)).data),
-    [setWeather]
+    async (name: string, lat: number, lon: number) => {
+      setWeather((await axios.get<Weather>(`/api/fetchWeather?lat=${lat}&lon=${lon}&name=${name}`)).data);
+      setLat(lat);
+      setLon(lon);
+    },
+    [setLat, setLon, setWeather]
   );
 
   useEffect(() => {
