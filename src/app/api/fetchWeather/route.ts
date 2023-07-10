@@ -1,4 +1,5 @@
 import { openWeatherMapClient } from "Server/Client/openWeatherMapClient";
+import apiResponse from "Server/Utils/apiResponse";
 import type { NextRequest } from "next/server";
 import { z } from "zod";
 
@@ -19,18 +20,8 @@ export async function GET(req: NextRequest) {
 
     const data = await openWeatherMapClient.getWeather({ lat, lon, name });
 
-    return new Response(JSON.stringify(data), {
-      status: 200,
-      headers: {
-        "content-type": "application/json",
-      },
-    });
+    return apiResponse({ json: data, status: 200 });
   } catch (error) {
-    return new Response(JSON.stringify(error), {
-      status: 500,
-      headers: {
-        "content-type": "application/json",
-      },
-    });
+    return apiResponse({ json: error, status: 500 });
   }
 }

@@ -1,5 +1,5 @@
 import ClearIcon from "@mui/icons-material/Clear";
-import { Toolbar, Button } from "@mui/material";
+import { Toolbar, Box } from "@mui/material";
 import { useAdditionalWeatherProperties } from "Context/useAdditionalWeatherProperties";
 import dayjs from "dayjs";
 import { Flex } from "Design";
@@ -22,7 +22,7 @@ const SecondToolbar = ({ weatherArray, setLat, setLon, deleteAtIndex }: Props) =
                   .unix()
             );
             return (
-              <Button
+              <Box
                 key={currentItem?.weather[0].description}
                 color="inherit"
                 sx={{
@@ -61,7 +61,7 @@ const SecondToolbar = ({ weatherArray, setLat, setLon, deleteAtIndex }: Props) =
                     />
                   }
                 </Flex>
-              </Button>
+              </Box>
             );
           })}
       </Flex>
