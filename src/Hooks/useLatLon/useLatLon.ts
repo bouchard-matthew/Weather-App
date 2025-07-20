@@ -10,16 +10,16 @@ export const useLatLon = () => {
     if (attemptedRef.current || (lat && lon)) return;
     attemptedRef.current = true;
 
-    console.log("Starting geolocation attempt...");
-    
-    tryIPGeolocation();
-
-    // Optionally, you can still try browser geolocation as a backup:
     tryBrowserGeolocation();
-    
+
+    console.log("Starting geolocation attempt...");
+
+    tryIPGeolocation();    
   }, [lat, lon, setLat, setLon]);
 
   const tryBrowserGeolocation = () => {
+    console.log(navigator);
+
     if (!("geolocation" in navigator)) {
       console.warn("Geolocation not supported");
       tryIPGeolocation();
@@ -36,7 +36,6 @@ export const useLatLon = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         clearTimeout(timeoutId);
-        console.log("Browser geolocation success:", position.coords);
         setLat(position.coords.latitude);
         setLon(position.coords.longitude);
       },
@@ -53,29 +52,29 @@ export const useLatLon = () => {
     );
   };
 
-  const tryIPGeolocation = async () => {
-    console.log("Trying IP-based geolocation...");
-    
+  const tryIPGeolocation = async () => {    
     // Multiple services with different approaches
     const services = [
-      // Service 1: ip-api.com (no rate limits, reliable)
+      // Service 1: ip-api.com
       async () => {
         const response = await fetch('http://ip-api.com/json/?fields=status,lat,lon', {
           signal: AbortSignal.timeout(5000)
         });
         const data = await response.json();
+        console.log("ip-api test: ", data);
         if (data.status === 'success') {
           return { lat: data.lat, lon: data.lon, service: 'ip-api.com' };
         }
         throw new Error('Invalid response');
       },
       
-      // Service 2: ipapi.co (HTTPS, good fallback)
+      // Service 2: ipapi.co
       async () => {
         const response = await fetch('https://ipapi.co/json/', {
           signal: AbortSignal.timeout(5000)
         });
         const data = await response.json();
+        console.log("ipapi.co test: ", data);
         if (data.latitude && data.longitude) {
           return { lat: data.latitude, lon: data.longitude, service: 'ipapi.co' };
         }
@@ -92,17 +91,14 @@ export const useLatLon = () => {
 
     for (let i = 0; i < services.length; i++) {
       try {
-        console.log(`Trying IP service ${i + 1}...`);
         const result = await services[i]();
         
         if (result && result.lat && result.lon) {
-          console.log(`IP geolocation success via ${result.service}:`, { lat: result.lat, lon: result.lon });
           setLat(result.lat);
           setLon(result.lon);
           return;
         }
       } catch (error) {
-        console.warn(`IP service ${i + 1} failed:`, error);
         if (i === services.length - 1) {
           console.error("All geolocation methods failed");
         }
