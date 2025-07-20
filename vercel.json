@@ -1,0 +1,17 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Permissions-Policy",
+          "value": "geolocation=*"
+        },
+        {
+          "key": "Feature-Policy",
+          "value": "geolocation *"
+        }
+      ]
+    }
+  ]
+}
