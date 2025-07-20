@@ -2,10 +2,10 @@ import { AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import dayjs from "dayjs";
 import { HeaderSection, Toggle } from "Design";
-import { HourlyListItemDetails } from "./HourlyListItemDetails";
 import { HourlyListItemSummary } from "./HourlyListItemSummary";
 
 import type { Props } from "./HourlyListItem.types";
+import { ConditionsListItem } from "Components/ConditionsListItem";
 
 const HourlyListItem = ({ item }: Props) => {
   return (
@@ -16,7 +16,7 @@ const HourlyListItem = ({ item }: Props) => {
           <HourlyListItemSummary item={item} />
         </AccordionSummary>
         <AccordionDetails>
-          <HourlyListItemDetails item={item} />
+          <ConditionsListItem conditions={item} />
         </AccordionDetails>
       </Toggle>
     </>

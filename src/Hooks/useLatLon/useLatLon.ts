@@ -7,12 +7,15 @@ export const useLatLon = () => {
   useEffect(() => {
     if ("geolocation" in navigator && !lat && !lon) {
       navigator.geolocation.getCurrentPosition(
-        function (position) {
+        (position) => {
           setLat(position.coords.latitude);
           setLon(position.coords.longitude);
         },
-        function (error) {
-          console.log(error);
+        (error) => {
+          console.warn(`Geolocation failed (${error.code}): ${error.message}`);
+          
+          // Try IP-based fallback for any error
+          tryIPGeolocation();
         },
         {
           maximumAge: 60000,
@@ -22,7 +25,22 @@ export const useLatLon = () => {
       );
     }
   }, [lat, lon, setLat, setLon]);
-  return;
+
+  const tryIPGeolocation = async () => {
+    try {
+      const response = await fetch('https://ipapi.co/json/');
+      const data = await response.json();
+      
+      if (data.latitude && data.longitude) {
+        setLat(data.latitude);
+        setLon(data.longitude);
+      }
+    } catch (error) {
+      console.warn("IP geolocation failed:", error);
+    }
+  };
+
+  return { lat, lon };
 };
 
 export default useLatLon;

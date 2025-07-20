@@ -8,11 +8,14 @@ import { Weather } from "Types/types";
 
 const useFetchWeather = () => {
   const { weather, setWeather } = useWeather();
-  const { lat, lon, setLat, setLon, setCurrentTime } = useAdditionalWeatherProperties();
+  const { lat, lon, setLat, setLon } = useAdditionalWeatherProperties();
 
   const fetchWeather = useCallback(
     async (name: string, lat: number, lon: number) => {
-      setWeather((await axios.get<Weather>(`/api/fetchWeather?lat=${lat}&lon=${lon}&name=${name}`)).data);
+      const url = `/api/fetchWeather?lat=${lat}&lon=${lon}&name=${name}`;
+      const response = await axios.get<Weather>(url);
+
+      setWeather(response.data);
       setLat(lat);
       setLon(lon);
     },
@@ -20,10 +23,19 @@ const useFetchWeather = () => {
   );
 
   useEffect(() => {
-    let currentTime = dayjs().unix();
-    if (weather.length === 0 && lat && lon) fetchWeather("Home", lat, lon);
-    else weather.forEach((item) => item.expiresAt < currentTime && fetchWeather(item.name, item.lat, item.lon));
-  }, [fetchWeather, lat, lon, setCurrentTime, setLat, setLon, weather]);
+    const currentTime = dayjs().unix();
+    if (weather.length === 0 && lat && lon) {
+      fetchWeather("Home", lat, lon);
+    } else {
+      weather.forEach((item) => {
+        if (item.expiresAt < currentTime) {
+          fetchWeather(item.name, item.lat, item.lon);
+        }
+      });
+    }
+  }, [fetchWeather, lat, lon, weather]);
+
+  return { fetchWeather };
 };
 
 export default useFetchWeather;

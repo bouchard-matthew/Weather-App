@@ -16,7 +16,7 @@ const DailyListItemDetails = ({ item }: Props) => {
 
   return (
     <>
-      <Flex flexDirection={{ xs: "column", md: "row" }}>
+      <Flex flexDirection={{ xs: "column", sm: "row" }}>
         <Box>
           <Image width={50} height={50} alt={descriptionDisplayValue} src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} />
           <Paragraph>{dayjs(item.dt * 1000).format("ddd D")} | Day</Paragraph>
@@ -25,7 +25,7 @@ const DailyListItemDetails = ({ item }: Props) => {
           <Paragraph>Sunrise at {dayjs(item.sunrise * 1000).format("h:mm A")}</Paragraph>
           <Paragraph>Sunset at {dayjs(item.sunset * 1000).format("h:mm A")}</Paragraph>
           <Paragraph>
-            UV Index | <sup>{Math.round(item.uvi)}</sup>&frasl;<sub>10</sub>
+            UV Index | {Math.round(item.uvi)}
           </Paragraph>
         </Box>
         <hr />

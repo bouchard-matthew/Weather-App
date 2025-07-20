@@ -8,6 +8,28 @@ import type { Props } from "./HourlyChart.types";
 
 const HourlyChart = ({ hourly, toggle, handleClick }: Props) => {
   const baseUnitDisplayValue = useBaseUnit();
+
+  const CustomTick = (props: { x: any; y: any; payload: any; }) => {
+    const { x, y, payload } = props;
+    const dataPoint = hourly[payload.index];
+    if (!dataPoint) return null;
+
+    const displayText = dayjs(dataPoint.dt * 1000).format("h:mm A");
+
+    return <g transform={`translate(${x},${y})`}>
+      <text
+        x={0}
+        y={0}
+        dy={16}
+        textAnchor="middle"
+        fill="#666"
+        fontSize="12"
+      >
+        {displayText}
+      </text>
+    </g>
+  };
+
   return (
     <>
       {hourly.length > 0 && (
@@ -18,7 +40,10 @@ const HourlyChart = ({ hourly, toggle, handleClick }: Props) => {
           >
             <ResponsiveContainer width="80%" height={400}>
               <LineChart data={hourly} margin={{ top: 35, right: 60, left: 0, bottom: 35 }}>
-                <XAxis dataKey={(dt) => dayjs(dt.dt * 1000).format("h:mm A")} />
+                <XAxis
+                  dataKey={(dt) => dayjs(dt.dt * 1000).format("dddd h:mm A")}
+                  tick={(props) => <CustomTick {...props} />}
+                />
                 <Tooltip />
                 <YAxis
                   label={{ value: `${toggle ? "Percentage Chance" : "Degrees"}`, position: "insideBottom", angle: -90, dy: -130, dx: -10 }}

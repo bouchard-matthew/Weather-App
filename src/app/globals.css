@@ -43,6 +43,11 @@ a {
   text-decoration: none;
 }
 
+.reset-padding {
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

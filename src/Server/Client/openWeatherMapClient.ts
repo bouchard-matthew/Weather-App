@@ -20,7 +20,8 @@ interface GetCoordinatesFromZipOptions {
 }
 
 const getWeather = async ({ lat, lon, name }: GetWeatherOptions): Promise<Weather> => {
-  const res = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${API_KEY}`);
+  const url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${API_KEY}`;
+  const res = await axios.get(url);
 
   return {
     ...res.data,
@@ -30,11 +31,12 @@ const getWeather = async ({ lat, lon, name }: GetWeatherOptions): Promise<Weathe
 };
 
 const getCoordinatesFromZip = async ({ zip }: GetCoordinatesFromZipOptions): Promise<GetCoordinatesFromZip> => {
-  let res = await axios.get(`https://api.openweathermap.org/data/2.5/weather?zip=${zip},us&appid=${API_KEY}`);
+  const url = `http://api.openweathermap.org/geo/1.0/zip?zip=${zip},US&appid=${API_KEY}`;
+  let res = await axios.get(url);
 
   return {
-    lat: res.data.coord.lat,
-    lon: res.data.coord.lon,
+    lat: res.data.lat,
+    lon: res.data.lon,
     name: res.data.name,
   };
 };

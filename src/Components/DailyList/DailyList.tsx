@@ -2,10 +2,11 @@ import { DailyListItem } from "Components/DailyListItem";
 import { Container } from "Design";
 
 import type { Props } from "./DailyList.types";
+import { ClientGate } from "Components/ClientGate";
 
 const DailyList = ({ daily }: Props) => {
   return (
-    <>
+    <ClientGate>
       {daily &&
         daily.map((item, idx) => {
           return (
@@ -14,7 +15,7 @@ const DailyList = ({ daily }: Props) => {
             </Container>
           );
         })}
-    </>
+    </ClientGate>
   );
 };
 

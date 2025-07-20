@@ -1,6 +1,6 @@
 import { useAdditionalWeatherProperties } from "Context/useAdditionalWeatherProperties";
 import { Hourly, NewHourlyObject, Units } from "Types/types";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
 export const useHourlyChartData = (hourly: Hourly[]): NewHourlyObject[] => {
   const { units } = useAdditionalWeatherProperties();
@@ -17,15 +17,17 @@ export const useHourlyChartData = (hourly: Hourly[]): NewHourlyObject[] => {
     [units]
   );
 
-  return hourly.map((item) =>
-    Object.assign({}, item, {
-      Humidity: Math.round(item.humidity),
-      "Feels Like": convertTemperature(item.feels_like),
-      Clouds: Math.round(item.clouds),
-      Temperature: convertTemperature(item.temp),
-      Precipitation: Math.round(item.pop * 100),
-    })
-  );
+  return useMemo(() => {
+    return hourly.map((item) =>
+      Object.assign({}, item, {
+        Humidity: Math.round(item.humidity),
+        "Feels Like": convertTemperature(item.feels_like),
+        Clouds: Math.round(item.clouds),
+        Temperature: convertTemperature(item.temp),
+        Precipitation: Math.round(item.pop * 100)
+      })
+    );
+  }, [hourly])
 };
 
 export default useHourlyChartData;
